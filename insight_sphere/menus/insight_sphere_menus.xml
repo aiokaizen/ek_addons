@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!-- Menu Items -->
+    <menuitem id="insight_sphere_menu_root" name="Insight Sphere" />
+
+    <menuitem id="insight_sphere_menu_settings" parent="insight_sphere_menu_root" name="Settings" />
+
+    <!-- <menuitem id="insight_sphere_menu_config" name="Configuration"
+            parent="insight_sphere_menu_settings" sequence="100"
+            action="insight_sphere_configuration_action" /> -->
+            <!-- groups="group_purchase_manager" /> -->
+
+</odoo>

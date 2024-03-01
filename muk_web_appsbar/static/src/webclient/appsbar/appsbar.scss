@@ -40,7 +40,7 @@
 		    > li > a {
 		        cursor: pointer;
 	            font-size: 13px;
-	            font-weight: 300;
+	            font-weight: 400;
 	            overflow: hidden;
 	            padding: 8px 11px;
 	            text-decoration: none;
@@ -53,10 +53,17 @@
 				}
 		    }
 	        > li.active > a {
-			    background: $mk-appbar-active;
+			    // background: $mk-appbar-active;
+			    background: #222252;
+				// color: #11123a;
+				color: #ffffff;
+				font-weight: bold;
 	        }
 	        > li:hover > a {
-			    background: $mk-appbar-active;
+			    // background: $mk-appbar-active;
+			    background: #222252;
+				// color: #11123a;
+				color: #ffffff;
 	        }
 	    }
 	}

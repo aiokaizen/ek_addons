@@ -1,9 +1,11 @@
 // Colors
 
-$mk_color_brand: #243742;
-$mk_color_primary: #5D8DA8;
+$mk_color_brand: #1cab98;
+$mk_color_primary: #1cab98;
+$mk-color-dark: #222252;
 
-$mk_color_success: #28A745;
+$mk_color_success: #1cab98;
+
 $mk_color_info: #17A2B8;
 $mk_color_warning: #FFAC00;
 $mk_color_danger: #DC3545;
@@ -14,7 +16,7 @@ $o-community-color: $mk-color-brand;
 $o-enterprise-color: $mk-color-brand;
 $o-enterprise-action-color: $mk-color-primary;
 
-$o-brand-odoo: $mk-color-brand;
+$o-brand-odoo: $mk-color-dark;
 $o-brand-primary: $mk-color-primary;
 
 $o-success: $mk-color-success;
