@@ -12,10 +12,5 @@
             <field name="appbar_image" type="base64" file="muk_web_appsbar/static/src/img/logo_long_light.png"/>
         </record> -->
 
-        <!-- res_company_logo_ekblocks -->
-        <record id="base.user_demo" model="res.users">
-            <field name="sidebar_type">large</field>
-        </record>
-
     </data>
 </odoo>
