@@ -26,6 +26,7 @@
         # 'views/estate_property_offer_views.xml',
         # 'views/res_users_views.xml',
         'menus/insight_sphere_menus.xml',
+        'views/website_template.xml',
         # 'views/res_config_settings_views.xml',
     ],
     'demo': [],
