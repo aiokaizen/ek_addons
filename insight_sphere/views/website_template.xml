@@ -2,7 +2,11 @@
 <odoo>
     <template id="insight_sphere_layout" inherit_id="web.layout" name="Insight Sphere Layout">
         <xpath expr="//head/link[@rel='shortcut icon']" position="replace">
-            <link type="image/x-icon" rel="shortcut icon" t-att-href="x_icon or '/insight_sphere/static/img/icon.png'"/>
+            <link type="image/x-icon" rel="shortcut icon"
+                t-att-href="x_icon or '/insight_sphere/static/description/icon.png'"/>
+        </xpath>
+        <xpath expr="//head/title" position="replace">
+            <title t-esc="title or 'Insight Sphere'"/>
         </xpath>
     </template>
 </odoo>

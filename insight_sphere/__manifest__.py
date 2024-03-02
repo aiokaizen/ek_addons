@@ -43,6 +43,5 @@
     #     ],
     # },
     'license': 'Other proprietary',
-    'icon': 'insight_sphere/static/img/icon.png',
     'application': True,
 }

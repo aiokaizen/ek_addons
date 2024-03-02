@@ -20,7 +20,6 @@
         # 'views/res_users_views.xml',
         # 'menus/is_menus.xml',
     ],
-    'icon': 'insight_sphere/static/img/icon.png',
     'license': 'Other proprietary',
     'application': True,
 }
