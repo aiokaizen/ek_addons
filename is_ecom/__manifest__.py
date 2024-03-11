@@ -7,7 +7,7 @@
     'version': '1.0',
     'author': 'EKBlocks',
     'category': 'Website',
-    'summary': 'Insight Sphere manufacturing implementation.',
+    'summary': 'Insight Sphere e-commerce implementation.',
     'depends': [
         'insight_sphere',
         'website',

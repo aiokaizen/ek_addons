@@ -8,7 +8,7 @@ class ResConfigSettings(models.TransientModel):
     #----------------------------------------------------------
     # Fields
     #----------------------------------------------------------
-    
+
     appbar_image = fields.Binary(
         related='company_id.appbar_image',
         readonly=False

@@ -5,12 +5,10 @@
         <!-- We override data of the base company by setting that company's xml_id as the current
             company's id. -->
         <record id="base.main_company" model="res.company">
+            <field name="name">EKBlocks</field>
+            <field name="logo_web" type="base64" file="muk_web_appsbar/static/src/img/logo_long_light.png"/>
             <field name="appbar_image" type="base64" file="muk_web_appsbar/static/src/img/logo_long_light.png"/>
         </record>
-
-        <!-- <record id="appbar_image_ekblocsk_logo" model="res.config.settings">
-            <field name="appbar_image" type="base64" file="muk_web_appsbar/static/src/img/logo_long_light.png"/>
-        </record> -->
 
     </data>
 </odoo>
