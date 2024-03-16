@@ -20,8 +20,8 @@
     ],
     'data': [
         # 'security/ir.model.access.csv',
-        'menus/insight_sphere_menus.xml',
-        'views/website_template.xml',
+        # 'menus/insight_sphere_menus.xml',
+        # 'views/website_template.xml',
         'views/account_move_views.xml',
         # 'data/master.xml',
         # 'views/res_config_settings_views.xml',
