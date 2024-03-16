@@ -7,7 +7,7 @@
         <field name="binding_model_id" ref="account.model_account_move"/>
         <field name="binding_view_types">list</field>
         <field name="state">code</field>
-        invisible="not show_reset_to_draft_button"
+        <!-- invisible="not show_reset_to_draft_button" -->
         <field name="code">
             if records:
                 action = records.button_draft()
