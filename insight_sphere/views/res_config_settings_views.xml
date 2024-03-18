@@ -9,9 +9,9 @@
         <field name="arch" type="xml">
             <xpath expr="//form" position="inside">
                 <app data-string="Insight Sphere" string="Insight Sphere" name="insight_sphere" groups="insight_sphere.group_insight_sphere_manager">
-                    <field name="bool_setting1" invisible="1"/>
                     <setting id="automatic_lock_confirmed_orders" help="Automatically lock confirmed orders to prevent editing">
-                        <field name="bool_setting2"/>
+                        <!-- <field name="default_activate_invoincing_policy" /> -->
+                        <field name="activate_invoincing_policy" />
                     </setting>
                 </app>
             </xpath>

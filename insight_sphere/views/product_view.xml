@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.form.view.inherit.sale</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sale.product_template_form_view"/>
+        <field name="arch" type="xml">
+
+        <xpath expr="//field[@name='invoice_policy']" position="replace">
+            <field name="hide_invoice_policy" invisible="1" />
+            <field name="invoice_policy" required="0" invisible="hide_invoice_policy" />
+        </xpath>
+        <xpath expr="//field[@name='expense_policy']" position="replace">
+            <field name="hide_invoice_policy" invisible="1" />
+            <field name="expense_policy" required="0" invisible="hide_invoice_policy" />
+        </xpath>
+        <xpath expr="//field[@name='expense_policy']" position="replace">
+            <field name="hide_invoice_policy" invisible="1" />
+            <field name="expense_policy" required="0" invisible="hide_invoice_policy" />
+        </xpath>
+
+            <!-- <field name="detailed_type" position="after" >
+               <p>hello world</p>
+            </field> -->
+        </field>
+    </record>
+</odoo>

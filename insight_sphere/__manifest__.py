@@ -7,8 +7,9 @@
     'version': '2.0',
     'author': 'EKBlocks',
     'category': 'Sales',
-    'summary': 'Insight Sphere implementation in Odoo.',
+    'summary': 'Insight Sphere implementation with Odoo.',
     'depends': [
+        'base',
         'stock',
         'account',
         'point_of_sale',
@@ -23,8 +24,20 @@
         # 'menus/insight_sphere_menus.xml',
         # 'views/website_template.xml',
         'views/account_move_views.xml',
+        'security/ir.model.access.csv',
+        'security/insight_sphere_security.xml',
+                
+        'data/master.xml',
+        'data/res_company_data.xml',
+
+        'views/res_config_settings_views.xml',
+        'views/product_view.xml',
+        'views/website_template.xml',
+        'views/insight_sphere_views.xml',
+
+        'menus/insight_sphere_menus.xml',
+
         # 'data/master.xml',
-        # 'views/res_config_settings_views.xml',
     ],
     'demo': [],
     # 'assets': {

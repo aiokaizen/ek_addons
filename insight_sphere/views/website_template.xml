@@ -6,7 +6,7 @@
                 t-att-href="x_icon or '/insight_sphere/static/description/icon.png'"/>
         </xpath>
         <xpath expr="//head/title" position="replace">
-            <title t-esc="title or 'Insight Sphere'"/>
+            <title t-out="title or 'Insight Sphere'"/>
         </xpath>
     </template>
 </odoo>
