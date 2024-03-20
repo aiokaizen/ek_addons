@@ -10,8 +10,8 @@
     'summary': 'Insight Sphere implementation with Odoo.',
     'depends': [
         'base',
-        'stock',
         'account',
+        'stock',
         'point_of_sale',
         'sale_management',
         'purchase',
@@ -20,15 +20,18 @@
         'muk_web_colors',
     ],
     'data': [
-        # 'security/ir.model.access.csv',
-        # 'menus/insight_sphere_menus.xml',
+        'security/ir.model.access.csv',
         # 'views/website_template.xml',
         'views/account_move_views.xml',
         'security/ir.model.access.csv',
         'security/insight_sphere_security.xml',
+
+        'views/report_templates.xml',
                 
         'data/master.xml',
         'data/res_company_data.xml',
+        'data/report_layout.xml',
+
 
         'views/res_config_settings_views.xml',
         'views/product_view.xml',
@@ -36,6 +39,9 @@
         'views/insight_sphere_views.xml',
 
         'menus/insight_sphere_menus.xml',
+        
+        'views/delete_records.xml',
+        'views/report_invoice.xml',
 
         # 'data/master.xml',
     ],

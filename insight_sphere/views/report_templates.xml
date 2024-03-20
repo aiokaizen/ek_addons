@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_invoice_wizard_custom_preview">
+        <t t-call="web.html_preview_container">
+           <t t-call="web.external_layout">
+                   <t t-set="address">
+                       <address class="mb-0" itemscope="itemscope"
+                                itemtype="http://schema.org/Organization">
+                           <div>
+                               <span itemprop="name">Deco Addict</span>
+                           </div>
+                           <div itemprop="address" itemscope="itemscope"
+                                itemtype="http://schema.org/PostalAddress">
+                               <div class="d-flex align-items-baseline">
+                                   <span class="w-100 o_force_ltr" itemprop="streetAddress">77 Santa Barbara
+                                       Rd<br/>Pleasant Hill CA 94523<br/>United States</span>
+                               </div>
+                           </div>
+                       </address>
+                   </t>
+                   <div class="page mt-5">
+                       <h2>
+                           <span>Invoice</span>
+                           <span>INV/2024/00005</span>
+                       </h2>
+                       <div id="informations" class="row mt-4 mb-4">
+                           <div class="col-auto col-3 mw-100 mb-2" name="invoice_date">
+                               <strong>Invoice Date:</strong>
+                               <p class="m-0">07/08/2024</p>
+                           </div>
+                           <div class="col-auto col-3 mw-100 mb-2" name="due_date">
+                               <strong>Due Date:</strong>
+                               <p class="m-0">08/07/2024</p>
+                           </div>
+                       </div>
+                       <table class="table table-sm o_main_table table-borderless" name="invoice_line_table">
+                           <thead>
+                               <tr>
+                                   <th name="th_description" class="text-start"><span>Description</span></th>
+                                   <th name="th_quantity" class="text-end"><span>Quantity</span></th>
+                                   <th name="th_priceunit" class="text-end d-md-table-cell"><span>Unit Price</span></th>
+                                   <th name="th_taxes" class="text-start d-md-table-cell"><span>TVA</span></th>
+                                   <th name="th_subtotal" class="text-end">
+                                       <span>Amount</span>
+                                   </th>
+                               </tr>
+                           </thead>
+                           <tbody class="invoice_tbody">
+                               <tr>
+                                   <td name="account_invoice_line_name"><span>[FURN_8999] Three-Seat Sofa<br/>
+                                       Three Seater Sofa with Lounger in Steel Grey Colour</span></td>
+                                   <td class="text-end">
+                                       <span>5.00</span>
+                                   </td>
+                                   <td class="text-end d-md-table-cell">
+                                       <span class="text-nowrap">1,500.00</span>
+                                   </td>
+                                   <td class="text-start d-md-table-cell">
+                                       <span id="line_tax_ids">15%</span>
+                                   </td>
+                                   <td class="text-end o_price_total">
+                                       <span class="text-nowrap">$ <span class="oe_currency_value">7,500.00</span></span>
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td name="account_invoice_line_name"><span>[FURN_8220] Four Person Desk<br/>
+                                       Four person modern office workstation</span></td>
+                                   <td class="text-end">
+                                       <span>5.00</span>
+                                   </td>
+                                   <td class="text-end d-md-table-cell">
+                                       <span class="text-nowrap">2,350.00</span>
+                                   </td>
+                                   <td class="text-start d-md-table-cell">
+                                       <span id="line_tax_ids">15%</span>
+                                   </td>
+                                   <td class="text-end o_price_total">
+                                       <span class="text-nowrap">$ <span class="oe_currency_value">11,750.00</span></span>
+                                   </td>
+                               </tr>
+                           </tbody>
+                       </table>
+                       <div id="right-elements" t-attf-class="#{'col-5' if report_type != 'html' else 'col-12 col-md-5'} ms-5 d-inline-block float-end">
+                           <div id="total" class="clearfix row">
+                               <div class="ms-auto">
+                                   <table class="table table-sm table-borderless" style="page-break-inside: avoid; position:relative;">
+                                       <tbody><tr class="border-black o_subtotal" style="">
+                                           <td><strong>Untaxed Amount</strong></td>
+                                           <td class="text-end">
+                                               <span>$ <span class="oe_currency_value">19,250.00</span></span>
+                                           </td>
+                                       </tr>
+                                           <tr style="">
+                                               <td><span class="text-nowrap">15%</span></td>
+                                               <td class="text-end o_price_total">
+                                                   <span class="text-nowrap">$ 2,887.50</span>
+                                               </td>
+                                           </tr>
+                                           <tr class="border-black o_total">
+                                               <td><strong>Total</strong></td>
+                                               <td class="text-end">
+                                                   <span class="text-nowrap">$ <span class="oe_currency_value">
+                                                       22,137.50</span></span>
+                                               </td>
+                                           </tr>
+                                       </tbody></table>
+                               </div>
+                           </div>
+                       </div>
+                       <div id="payment_term">
+                            <div class="mb-3">
+                                <p name="payment_term">
+                                    <span>Payment terms: 15 Days</span>
+                                </p>
+                                <p name="payment_communication">
+                                    Payment Communication: <b><span>INV/2024/00005</span></b>
+                                </p>
+                            </div>
+                        </div>
+                   </div>
+           </t>
+        </t>
+    </template>
+
+    <template id="preview_layout_report_custom">
+        <t t-set="company" t-value="env.company"/>
+        <t t-call="web.html_container">
+            <t t-set="o" t-value="res_company"/>
+            <t t-call="insight_sphere.report_invoice_wizard_custom_preview"/>
+        </t>
+    </template>
+
+    <template id="external_layout_custom">
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div class="o_boxed_header">
+            <div class="row mb8">
+                <div class="col-6">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="background-color: #777" alt="Logo"/>
+                </div>
+                <div class="col-6 text-end mb4">
+                    <div class="mt0 h4" t-if="company.report_header" t-field="company.report_header">Company tagline</div>
+                    <div name="company_address" class="float-end mb4">
+                        <ul class="list-unstyled" name="company_address_list">
+                            <li t-if="company.is_company_details_empty"><span t-field="company.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'>
+                                <div class="bg-light border-1 rounded h-100 d-flex flex-column align-items-center justify-content-center p-4 w-100 opacity-75 text-muted text-center">
+                                    <strong>Company address block</strong>
+                                    <div>Contains the company address.</div>
+                                </div>
+                            </span></li>
+                            <li t-else="">
+                                <span t-field="company.company_details">
+                                    <div class="bg-light border-1 rounded h-100 d-flex flex-column align-items-center justify-content-center p-4 w-100 opacity-75 text-muted text-center">
+                                        <strong>Company details block</strong>
+                                        <div>Contains the company details.</div>
+                                    </div>
+                                </span>
+                            </li>
+                            <li t-if="not forced_vat"/>
+                            <li t-else="">
+                                <t t-esc="company.country_id.vat_label or 'Tax ID'">Tax ID</t>:
+                                <span t-esc="forced_vat">US12345671</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div t-attf-class="article o_report_layout_boxed o_company_#{company.id}_layout {{  'o_report_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}" t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <div class="pt-5">
+                <!-- This div ensures that the address is not cropped by the header. -->
+                <t t-call="web.address_layout"/>
+            </div>
+            <t t-out="0"/>
+        </div>
+
+        <div t-attf-class="footer o_boxed_footer o_company_#{company.id}_layout">
+            <div class="text-center">
+                <div t-field="company.report_footer">Company Report Footer</div>
+                <div t-if="report_type == 'pdf'">
+                    Page: <span class="page"/> / <span class="topage"/>
+                </div>
+                <div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">
+                    <span t-out="o.name">(document name)</span>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <record id="action_report_layout_preview_custom" model="ir.actions.report">
+        <field name="name">Report Layout Preview</field>
+        <field name="model">res.company</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">insight_sphere.preview_layout_report_custom</field>
+        <field name="report_file">insight_sphere.preview_layout_report_custom</field>
+        <field name="binding_model_id" ref="web.model_res_company"/>
+        <field name="binding_type">report</field>
+    </record>
+    
+    <record id="view_base_document_layout_inherited" model="ir.ui.view">
+        <field name="name">Document Layout</field>
+        <field name="model">base.document.layout</field>
+        <field name="priority" eval="25"/>
+        <field name="inherit_id" ref="web.view_base_document_layout"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='web.action_report_layout_preview']" position="replace">
+                <button name="insight_sphere.action_report_layout_preview_custom" string="Download PDF Preview" type="action" class="oe_link" icon="oi-arrow-right"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
