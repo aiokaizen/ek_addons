@@ -16,5 +16,5 @@
 
     <menuitem id="insight_sphere_menu_config" name="Configuration"
             parent="insight_sphere_menu_settings_parent" sequence="100"
-            action="insight_sphere_config_action2x" />
+            action="insight_sphere_config_action" />
 </odoo>

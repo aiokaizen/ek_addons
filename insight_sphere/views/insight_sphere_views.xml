@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <!-- Real Estate Property Action -->
-        <record id="insight_sphere_config_action2x" model="ir.actions.act_window">
+        <record id="insight_sphere_config_action" model="ir.actions.act_window">
             <field name="name">Configuration</field>
             <field name="res_model">config</field>
             <field name="view_mode">tree,form</field>
