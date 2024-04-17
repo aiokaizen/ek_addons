@@ -13,6 +13,7 @@
     ],
     'data': [
         # 'security/ir.model.access.csv',
+        'views/res_partners_views.xml'
     ],
     'license': 'Other proprietary',
     'application': True,

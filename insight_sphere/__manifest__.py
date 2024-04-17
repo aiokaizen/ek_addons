@@ -40,7 +40,6 @@
 
         'menus/insight_sphere_menus.xml',
         
-        'views/delete_records.xml',
         'views/report_invoice.xml',
 
         # 'data/master.xml',
