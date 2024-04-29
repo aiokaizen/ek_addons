@@ -1,0 +1,8 @@
+<odoo>
+    <template id="axel_unpaid_by_client_template">
+        <div>
+            <h1>Hello, <t t-esc="name"/></h1>
+            <p>Your age is: <t t-esc="age"/></p>
+        </div>
+    </template>
+</odoo>

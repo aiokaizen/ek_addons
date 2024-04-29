@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_unpaid_client" >
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o" >
+                    <!-- <t t-foreach="company_ids" t-as="company" t-translation="off">     -->
+                        <t t-call="web.external_layout">
+                            <div class="page" >
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h3>Adresse de l'entreprise :</h3>
+                                        <span t-field="o.contact_address" />
+                                    </div>
+                                    <div class="col-6">
+                                        <h3>Informations du client</h3>
+                                        <label>Nom :</label> <span t-field="o.name" />
+                                    </div>
+                                </div>
+
+                                <div class="row mt-5" >
+                                    <t t-set="primary" t-value="o.company_id.primary_color or 'black'" />
+                                    <t t-set="secondary" t-value="o.company_id.secondary_color or 'black'" />
+
+                                    <div class="col-md-12" >
+                                        <h3>LISTE DES TAXES ET FRAIX</h3>
+                                        <table class="w-100 table table-sm o_main_table table-borderless">
+                                            <thead>
+                                                <tr 
+                                                 >
+                                                    <th>Réference de dossier</th>
+                                                    <th>Montant</th>
+                                                    <th>Date</th>
+                                                    <th>Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="o.expenses" t-as="expense">
+                                                    <tr class="text-center" >
+                                                        <td><span t-esc="expense.legal_case_id.name" /></td>
+                                                        <td><span t-esc="expense.amount" /> <span t-esc="expense.currency_symbole" /> </td>
+                                                        <td><span t-esc="expense.payment_date" /></td>
+                                                        <td><span t-esc="expense.description" /></td>
+                                                        
+                                                    </tr>
+                                                </t>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    <!-- </t> -->
+                </t>
+            </t>
+          
+        </template>
+    </data>
+</odoo>
