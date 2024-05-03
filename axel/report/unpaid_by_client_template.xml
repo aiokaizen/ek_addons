@@ -23,25 +23,56 @@
                                     <t t-set="secondary" t-value="o.company_id.secondary_color or 'black'" />
 
                                     <div class="col-md-12" >
-                                        <h3>LISTE DES TAXES ET FRAIX</h3>
+                                        <h3 class="mb-2">LISTE DES TAXES ET FRAIX</h3>
                                         <table class="w-100 table table-sm o_main_table table-borderless">
                                             <thead>
-                                                <tr 
-                                                 >
-                                                    <th>Réference de dossier</th>
-                                                    <th>Montant</th>
-                                                    <th>Date</th>
-                                                    <th>Description</th>
+                                                <tr style="text-align: start !important;" >
+                                                    <th style="text-align: start !important;" >Réference de dossier</th>
+                                                    <th style="text-align: start !important;">Date</th>
+                                                    <th style="text-align: start !important;">Description</th>
+                                                    <th style="text-align: start !important;">Montant</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <t t-foreach="o.expenses" t-as="expense">
-                                                    <tr class="text-center" >
-                                                        <td><span t-esc="expense.legal_case_id.name" /></td>
-                                                        <td><span t-esc="expense.amount" /> <span t-esc="expense.currency_symbole" /> </td>
+                                                    <tr style="text-align: start !important;" >
+                                                        <td style="text-align: start !important;"><span t-esc="expense.legal_case_id.name" /></td>
                                                         <td><span t-esc="expense.payment_date" /></td>
                                                         <td><span t-esc="expense.description" /></td>
-                                                        
+                                                        <td><span t-esc="expense.amount" /> <span t-esc="expense.currency_symbole" /> </td>
+
+                                                    </tr>
+                                                </t>
+                                                
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                                 <div class="row mt-5" >
+                                    <t t-set="primary" t-value="o.company_id.primary_color or 'black'" />
+                                    <t t-set="secondary" t-value="o.company_id.secondary_color or 'black'" />
+
+                                    <div class="col-md-12" >
+                                        <h3>LISTE HONORAIRES NON RÉGLÉS</h3>
+                                        <table class="w-100 table table-sm o_main_table table-borderless">
+                                            <thead>
+                                                <tr style="text-align: start !important;"
+                                                 >
+                                                    <th style="text-align: start !important;">Référence de dossier</th>
+                                                    <th style="text-align: start !important;">Date</th>
+                                                    <th style="text-align: start !important;">Description</th>
+                                                    <th style="text-align: start !important;">Montant</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="o.charges" t-as="charge">
+                                                    <tr style="text-align: start !important;" >
+                                                        <td style="text-align: start !important;"><span t-esc="charge.legal_case_id.name" /></td>
+                                                        <td><span t-esc="charge.payment_date" /></td>
+                                                        <td><span t-esc="charge.description" /></td>
+                                                        <td><span t-esc="charge.amount" /> <span t-esc="charge.currency_symbole" /> </td>
                                                     </tr>
                                                 </t>
                                                 
@@ -49,6 +80,9 @@
                                         </table>
                                     </div>
                                 </div>
+
+                                <span class="mt-3" >Nous vous remercions de nous avoir fait confiance.</span>
+
                             </div>
                         </t>
                     <!-- </t> -->

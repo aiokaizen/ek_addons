@@ -15,13 +15,11 @@
     'data': [   
         'security/ir.model.access.csv',
         # "views/axel_unpaid_by_client_template.xml",
-
+        "views/partner_view.xml",
         "report/unpaid_by_client_report.xml",
         "report/unpaid_by_client_template.xml",
-        "views/partner_view.xml",
         "views/axel_legal_case_view.xml",
         "views/axel_settings_view.xml",
-
         "menu/axel_menu.xml"
     ],
     'demo': [

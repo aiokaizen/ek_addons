@@ -8,15 +8,25 @@
             <field name="priority" eval="12"/>
             <field name="arch" type="xml">
                 <div name="button_box" position="inside">
-                    <button type="object" class="oe_stat_button" icon="fa-exclamation-circle" name="print_unpaid_by_client"
+                    <!-- <button type="object" class="oe_stat_button" icon="fa-exclamation-circle" name="print_unpaid_by_client"
                         context="{'default_partner_id': id}">
-                        <div class="o_form_field o_stat_info">
+                        <div class="o_field_widget o_stat_info">
                             <span class="o_stat_value">
-                                <!-- <field name="currency_id" invisible="1"/> --> DH
-                                <!-- <field name="total_invoiced" widget='monetary' options="{'currency_field': 'currency_id'}"/> -->
-                                1000
+                                <field name="currency_id" invisible="1"/>
+                                <field name="total_expenses" widget='monetary' options="{'currency_field': 'currency_id'}"/> 
                             </span>
-                            <span class="o_stat_text">Imprimer les'impayés</span>
+                            <span class="o_stat_text">Impayés</span>
+                            
+                        </div>
+                    </button> -->
+                    <button class="oe_stat_button" name="print_unpaid_by_client"
+                            type="object" icon="fa-dollar" help="Sale Orders">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="currency_id" invisible="1"/>
+                                <field name="total_unpaid" widget='monetary' options="{'currency_field': 'currency_id'}"/> 
+                            </span>
+                            <span class="o_stat_text">Impayés</span>
                         </div>
                     </button>
                 </div>
@@ -24,20 +34,108 @@
         </record>
 
         <record id="action_report_axel_client" model="ir.actions.report">
-            <field name="name">Client Report</field>
+            <field name="name">Exporter la liste des impayés</field>
             <field name="model">res.partner</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">axel.report_unpaid_client</field>
             <field name="report_file">axel.report_unpaid_client</field>
-            <!-- <field name="binding_model_id" ref="axel.model_res_partner"/>
-            <field name="binding_type">report</field> -->
+           
         </record>
-        <!-- <record id="unpaid_by_client_action" model="ir.actions.report" >
-            <field name="name" >Unpaid</field>
-            <field name="model" >res.partner</field>
-            <field name="report_type" >qweb-pdf</field>
-            <field name="report_name" >unpaid_client.report_unpaid</field>
-            <field name="report_file" >unpaid_client.report_unpaid</field>
+
+        <record id="action_unpaid_legal_cases" model="ir.actions.act_window">
+            <field name="name">La liste des impayés</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">axel.expense</field> <!-- Model to open -->
+            <field name="view_mode">tree,form</field> <!-- Views to display -->
+            <!-- <field name="domain">[]</field> Domain to filter records -->
+            <field name="context">{}</field>
+        </record>
+ <!-- <notebook>
+                        <page string="Dépences">
+                            <group></group>
+                        </page>
+                    </notebook> -->
+        <!-- <record id="axel_unpaid_tree" model="ir.ui.view">
+            <field name="name">expenses</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des impayés" editable="top">
+                   
+
+                    
+                        <field
+                            string="" style="margin-top: 10px;" name="expenses_ids"
+                        >
+                            <tree string="Liste des dépences" editable="top">
+                                <field name="amount" />
+                                <field name="payment_date" />
+                                <field name="description" />
+                                <field name="legal_case_id" />
+                            </tree>
+                        </field>
+                    
+                </tree>
+                
+            </field>
         </record> -->
+        <record id="axel_unpaid_form" model="ir.ui.view">
+            <field name="name">inpaid.form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <!-- <form string="Dossier">
+                    <sheet string="Liste des impayés" >  
+                        <field
+                            string="" style="margin-top: 10px;" name="expenses_ids"
+                            readonly="1" widget="one2many_tags"
+                        >
+                            <tree string="Liste des dépences">
+                                <field name="amount" />
+                                <field name="payment_date" />
+                                <field name="description" />
+                                <field name="legal_case_id" />
+                            </tree> 
+                        </field>
+                    </sheet>
+                </form> -->
+
+                <form string="LegalCase" editable="0">
+                    <!-- Define the title for expenses -->
+                    <header>
+                        <h2>List of Expenses</h2>
+                    </header>
+                    <!-- Define the table for expenses -->
+                    <group>
+                        <field name="expense_ids">
+                            <tree string="Expenses">
+                                <!-- Define columns you want to display for expenses -->
+                                <field name="amount" />
+                                <field name="payment_date" />
+                                <field name="description" />
+                                <field name="legal_case_id" />
+                                <!-- Add more fields as needed -->
+                            </tree>
+                        </field>
+                    </group>
+                    <!-- Define the title for charges -->
+                    <header>
+                        <h2>List of Charges</h2>
+                    </header>
+                    <!-- Define the table for charges -->
+                    <group>
+                        <field name="charge_ids">
+                            <tree string="Charges">
+                                <!-- Define columns you want to display for charges -->
+                                <field name="amount" />
+                                <field name="payment_date" />
+                                <field name="description" />
+                                <field name="legal_case_id" />
+                                <!-- Add more fields as needed -->
+                            </tree>
+                        </field>
+                    </group>
+                </form>
+            </field>
+    </record>
+        
     </data>
 </odoo>

@@ -19,8 +19,19 @@ class Charge(models.Model):
     currency_id = fields.Many2one(
         "res.currency", string=_("Currency"), default=lambda self: self.env.ref('base.MAD')
     )
+    currency_symbole = fields.Char(
+        string=_("Currency Symbol"), compute="_compute_currency_symbole"
+    )
     legal_case_id = fields.Many2one("axel.legal_case", string=_("Dossier"))
+    client_id = fields.Many2one(
+        "res.partner", string=_("Client"),
+        ondelete="restrict", required=False, compute="_compute_client_legal_case", readonly=True, store=True
+    )
 
+    @api.depends("legal_case_id")
+    def _compute_client_legal_case(self):
+        for record in self:
+            record.client_id = record.legal_case_id.client_id
 
     def _compute_unpaid_legal_case(self):
         for record in self:
@@ -30,3 +41,12 @@ class Charge(models.Model):
     def _compute_name(self):
         for record in self:
             record.name = f"{record.amount} {record.legal_case_id.name}"
+
+
+    @api.depends("currency_id")
+    def _compute_currency_symbole(self):
+        for record in self:
+            if record.currency_id:
+                record.currency_symbole = record.currency_id.symbol
+            else:
+                record.currency_symbole = ""

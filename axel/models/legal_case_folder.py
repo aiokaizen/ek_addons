@@ -39,10 +39,10 @@ class LegalCase(models.Model):
     )
     client_id = fields.Many2one(
         "res.partner", string=_("Client"),
-        ondelete="restrict", readonly=True,
+        ondelete="restrict", required=True
     )
     pv_id = fields.Many2one(
-        "axel.pv", string='PV'
+        "axel.pv", string='PV', required=True
     )
     parent_case_id = fields.Many2one(
         'axel.legal_case', string=_("Dossier parent"))
