@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- <data> -->
+    <data noupdate="1">
+        <!-- data of tye legalcase -->
+        <record id="axel_property_type_data_civile" model="axel.legal_case_type">
+            <field name="name">Civile</field>
+        </record>
+        <record id="axel_legal_case_type_correctionel" model="axel.legal_case_type">
+            <field name="name">Correctionel</field>
+        </record>
+        <record id="axel_legal_case_type_data_commircial" model="axel.legal_case_type">
+            <field name="name">Commercial</field>
+        </record>
+        <record id="axel_legal_case_type_data_work_accident" model="axel.legal_case_type">
+            <field name="name">Accident de travail (AT)</field>
+        </record>
+         <record id="axel_legal_case_type_data_incentive_payment_disputes" model="axel.legal_case_type">
+            <field name="name">Contentieux prime (CP)</field>
+        </record>
+         <record id="axel_legal_case_type_data_divers" model="axel.legal_case_type">
+            <field name="name">Divers</field>
+        </record>
+
+
+        <!-- data of tye tribunal_type -->
+        <record id="axel_property_type_data_first_instance" model="axel.tribunal_type">
+            <field name="name">Première instance</field>
+        </record>
+        <record id="axel_legal_case_type_data_appeal_court" model="axel.tribunal_type">
+            <field name="name">Cours d'appel</field>
+        </record>
+        <record id="axel_legal_case_type_data_cassation_court" model="axel.tribunal_type">
+            <field name="name">Cour de cassation</field>
+        </record>
+
+        <!-- data of tye tribunal -->
+        <record id="axel_property_type_data_marrakech" model="axel.tribunal">
+            <field name="name">Marrakech</field>
+        </record>
+        <record id="axel_legal_case_type_data_kelaa" model="axel.tribunal">
+            <field name="name">Kelâa</field>
+        </record>
+        <record id="axel_legal_case_type_data_bengrir" model="axel.tribunal">
+            <field name="name">Benguerir</field>
+        </record>
+        <record id="axel_legal_case_type_data_imintanoute" model="axel.tribunal">
+            <field name="name">Imintanoute</field>
+        </record>
+    </data>
+</odoo>

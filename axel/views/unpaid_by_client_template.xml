@@ -24,7 +24,7 @@
 
                                     <div class="col-md-12" >
                                         <h3 class="mb-2">LISTE DES TAXES ET FRAIX</h3>
-                                        <table class="w-100 table table-sm o_main_table table-borderless">
+                                        <table class="w-100 table table-sm o_main_table table-bordered">
                                             <thead>
                                                 <tr style="text-align: start !important;" >
                                                     <th style="text-align: start !important;" >Réference de dossier</th>
@@ -39,7 +39,7 @@
                                                         <td style="text-align: start !important;"><span t-esc="expense.legal_case_id.name" /></td>
                                                         <td><span t-esc="expense.payment_date" /></td>
                                                         <td><span t-esc="expense.description" /></td>
-                                                        <td><span t-esc="expense.amount" /> <span t-esc="expense.currency_id.symbole" /> </td>
+                                                        <td><span t-esc="expense.amount" /> <span t-esc="expense.currency_id.symbol" /> </td>
 
                                                     </tr>
                                                 </t>
@@ -56,7 +56,7 @@
 
                                     <div class="col-md-12" >
                                         <h3>LISTE HONORAIRES NON RÉGLÉS</h3>
-                                        <table class="w-100 table table-sm o_main_table table-borderless">
+                                        <table class="w-100 table table-sm o_main_table table-bordered">
                                             <thead>
                                                 <tr style="text-align: start !important;"
                                                  >
@@ -72,7 +72,7 @@
                                                         <td style="text-align: start !important;"><span t-esc="charge.legal_case_id.name" /></td>
                                                         <td><span t-esc="charge.payment_date" /></td>
                                                         <td><span t-esc="charge.description" /></td>
-                                                        <td><span t-esc="charge.amount" /> <span t-esc="charge.currency_id.id" /> </td>
+                                                        <td><span t-esc="charge.amount" /> <span t-esc="charge.currency_id.symbol" /> </td>
                                                     </tr>
                                                 </t>
                                                 

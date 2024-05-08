@@ -26,33 +26,35 @@
     </record>
 
     
-
-    <!-- <record id="axel_unpaid_tree" model="ir.ui.view">
-        <field name="name">expenses</field>
-        <field name="model">axel.expense</field>
-        <field name="arch" type="xml">
-            <tree string="Charges">
-                <field name="amount" />
-                <field name="payment_date" />
-                <field name="description" />
-                <field name="legal_case_id" />
-            </tree>
-        </field>
-    </record> -->
-    
-
-   
-
     <record id="axel_expense_view_form" model="ir.ui.view">
-        <field name="name">axel.expense</field>
-        <field name="model">axel.expense</field>
+        <field name="name">axel.expense_charge</field>
+        <field name="model">axel.expense_charge</field>
         <field name="arch" type="xml">
-            <form string="Charges">
+            <form string="Dépense">
                 <group>
                     <field name="amount" />
                     <field name="payment_date" />
                     <field name="description" />
                     <field name="legal_case_id" />
+                    <field name="type" default="expense" invisible="1" />
+                    <!-- <field name="is_paid" /> -->
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="axel_charge_view_form" model="ir.ui.view">
+        <field name="name">axel.expense_charge</field>
+        <field name="model">axel.expense_charge</field>
+        <field name="arch" type="xml">
+            <form string="Honoraire">
+                <group>
+                    <field name="amount" />
+                    <field name="payment_date" />
+                    <field name="description" />
+                    <field name="legal_case_id" />
+                    <field name="type" default="charge" invisible="1" />
+
                     <!-- <field name="is_paid" /> -->
                 </group>
             </form>
@@ -98,7 +100,8 @@
                 <field name="client_ref" />
                 <field name="open_date" />
                 <field name="status" />
-                <field name="unpaid" />
+                <field name="total_unpaied" />
+                <field name="currency_id" optional="hide" />
             </tree>
         </field>
     </record>
@@ -152,6 +155,9 @@
         <field name="arch" type="xml">
             <form string="Dossier">
                 <header>
+                    <!-- <button string="Send Password Reset Instructions"
+                                type="object" name="action_reset_password"
+                    invisible="state != 'active'"/> -->
                     <field name="status" widget="statusbar" statusbar_visible="pending,paied,archived"/>
                 </header>
                 <sheet>
@@ -191,17 +197,15 @@
                                     <div class="card-header">Total des dépences</div>
                                     <div class="card-body">
                                         <h5 class="card-title"><field name="total_expenses" /> </h5>
-                                        <!-- <p class="card-text">Il s'agit du total des frais en <field name="currency_symbole" /> (<field name="currency_id" readonly="1" />).</p> -->
                                     </div>
                                 </div>
                             
                             </div>
                             <div class="col-md-3">
                                 <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                                    <div class="card-header">Total des Honoraires</div>
+                                    <div class="card-header">Total des honoraires</div>
                                     <div class="card-body">
                                         <h5 class="card-title"><field name="total_charges" /> </h5>
-                                        <!-- <p class="card-text">Il s'agit du total des frais en <field name="currency_symbole" /> (<field name="currency_id" readonly="1" />).</p> -->
                                     </div>
                                 </div>
                             </div>
@@ -210,7 +214,6 @@
                                     <div class="card-header">Total des paiements</div>
                                     <div class="card-body">
                                         <h5 class="card-title"><field name="total_payments" /> </h5>
-                                        <!-- <p class="card-text">Il s'agit du total des frais en <field name="currency_symbole" /> (<field name="currency_id" readonly="1" />).</p> -->
                                     </div>
                                 </div>
                             </div>
@@ -219,7 +222,6 @@
                                     <div class="card-header">Total des impayés</div>
                                     <div class="card-body">
                                         <h5 class="card-title"><field name="total_unpaied" /></h5>
-                                        <!-- <p class="card-text">Il s'agit du total des frais en <field name="currency_symbole" /> (<field name="currency_name" readonly="1" />).</p> -->
                                     </div>
                                 </div>
                             </div>
@@ -230,7 +232,8 @@
                             <group>
                                 <field
                                     string="" style="margin-top: 10px;" name="expense_ids"
-                                    readonly="status in ['paied', 'archived']"
+                                    readonly="status in ['paied', 'archived']" 
+                                    context="{'default_type': 'expense'}"
                                 >
                                     <tree string="Liste des dépences" editable="top">
                                         <field name="amount"/> 
@@ -238,71 +241,32 @@
                                         <field name="description" />  
                                         <field name="receipt_scanned"/>   
                                         <field name="is_paid"/> 
+                                        <field name="type" column_invisible="True" />
+                                        <field name="currency_id" optional="hide"  />
+
                                     </tree>
-                                    <!-- <form string="Modifer dépence">
-                                        <div>
-                                            <group>
-                                                <group>
-                                                    <field name="amount"/> 
-                                                </group>
-                                                <group>
-                                                    <field name="payment_date"/> 
-                                                </group>
-                                            </group>
-                                            
-                                            <group>
-                                                <group>
-                                                    <field name="receipt_scanned"/> 
-                                                </group>
-                                                <group>
-                                                    <field name="is_paid"/> 
-                                                </group>
-                                            </group>
-                                        </div>
-                                        <div>
-                                            <group>
-                                                <field name="description" />    
-                                            </group>
-                                        </div>
-                                    </form> -->
+                                   
                                 </field>
                             </group>
                         </page>
                         <page string="Honoraires">
                             <group>
                                 <field
-                                    string="" style="margin-top: 10px;" name="charge_ids"
-                                    readonly="status in ['paid', 'archived']" 
+                                    string="" 
+                                    style="margin-top: 10px;"
+                                    name="charge_ids"
+                                    readonly="status in ['paid', 'archived']"
+                                    context="{'default_type': 'charge'}"
                                 >
                                     <tree string="Liste des honoraires" editable="top" >
                                         <field name="amount"/> 
                                         <field name="payment_date"/> 
                                         <field name="description" /> 
                                         <field name="is_paid"/> 
+                                        <field name="type" column_invisible="True" />
+                                        <field name="currency_id" optional="hide"  />
                                     </tree>
-                                    <!-- <form string="Modifer honoraires">
-                                        <div>
-                                            <group>
-                                                <group>
-                                                    <field name="amount"/> 
-                                                </group>
-                                                <group>
-                                                    <field name="payment_date"/> 
-                                                </group>
-                                            </group>
-                                            
-                                            <group>
-                                                <group>
-                                                    <field name="is_paid"/> 
-                                                </group>
-                                            </group>
-                                        </div>
-                                        <div>
-                                            <group>
-                                                <field name="description" />    
-                                            </group>
-                                        </div>
-                                    </form> -->
+                                   
                                 </field>
                             </group>
                         </page>
@@ -412,45 +376,6 @@
                                 </field>
                             </group>
                         </page>
-                        <!-- <page string="Other info" >
-                            <div class="o_kanban_content">
-                                <div class="row" >
-                                    <div class="col-md-3">
-                                        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                                            <div class="card-header">Total des dépences</div>
-                                            <div class="card-body">
-                                                <h5 class="card-title"><field name="total_expenses" /> </h5>
-                                            </div>
-                                        </div>
-                                    
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                                            <div class="card-header">Total des Honoraires</div>
-                                            <div class="card-body">
-                                                <h5 class="card-title"><field name="total_charges" /> </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                                            <div class="card-header">Total des paiements</div>
-                                            <div class="card-body">
-                                                <h5 class="card-title"><field name="total_payments" /> </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                                            <div class="card-header">Total des impayés</div>
-                                            <div class="card-body">
-                                                <h5 class="card-title"><field name="total_unpaied" /></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </page> -->
                     </notebook>
                 </sheet>
             </form>
@@ -467,29 +392,29 @@
                 <field name="name" />
                 <field name="client_ref" />
                 <field name="open_date" />
-                <field
-                    name="unpaid"
-                    string="Impayé"
-                    filter_domain="[('unpaid', '&gt;=', 0)]"
-                />
-                <field
-                    name="unpaid"
-                    string="payé"
-                    filter_domain="[('unpaid', '=', 0)]"
-                />
-                <separator/>
+                <field name="total_unpaied" string="Impayé" filter_domain="[('unpaid', '&gt;=', 0)]" />
+                <field name="total_unpaied" string="Payé" filter_domain="[('unpaid', '=', 0)]" />
+                <separator />
                 <filter
                     name="available_status_legal_case"
-                    string="Available dossiers"
-                    domain="['|', ('status', '=', 'pending'), ('status', '=', 'paied'), ('status', '=', 'archived')]"
-                    help="Afficher uniquement les propriétés avec un statut En attente et Payé ou Offre Archivée."
-                 />
+                    string="Actif"
+                    domain="[('status', '=', 'archived')]"
+                    help="Afficher uniquement les dossiers active."
+                />
+                <filter
+                    name="unpaid_legal_case"
+                    string="Dossiers impayés"
+                    domain="[('total_unpaied', '>', 0)]"
+                    help="Afficher uniquement les dossiers non payés."
+                />
+                <filter
+                    name="paid_available_status_legal_case"
+                    string="Dossiers payés"
+                    domain="[('total_unpaied', '=', 0)]"
+                    help="Afficher uniquement les payés."
+                />
             </search>
         </field>
     </record>
-    
-
-    <!-- tribunal action -->
-         <!-- Axel CLient Action -->
 
 </odoo>

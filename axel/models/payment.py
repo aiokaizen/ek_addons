@@ -3,7 +3,7 @@ from odoo import (
 )
 from odoo.addons.axel import settings
 
-class Charge(models.Model):
+class Payment(models.Model):
 
     _name = "axel.payment"
     _description = _("Honoraire")

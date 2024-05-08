@@ -6,7 +6,7 @@
     'name': 'Axel',
     'version': '1.0',
     'author': 'EKBlocks',
-    'category': 'Estate',
+    'category': 'Ekblocks',
     # 'sequence': 15,
     'summary': 'Axel App.',
     'depends': [
@@ -14,12 +14,12 @@
     ],
     'data': [   
         'security/ir.model.access.csv',
-        # "views/axel_unpaid_by_client_template.xml",
-        "views/partner_view.xml",
-        "report/unpaid_by_client_report.xml",
-        "report/unpaid_by_client_template.xml",
+        'data/master_data.xml',
         "views/axel_legal_case_view.xml",
         "views/axel_settings_view.xml",
+        "views/unpaid_by_client_template.xml",
+        # "report/unpaid_by_client_report.xml",
+        "views/partner_view.xml",
         "menu/axel_menu.xml"
     ],
     'demo': [
