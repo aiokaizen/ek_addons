@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<odoo>    
+
+
+    <!-- Axel Pv Action -->
+    <record id="axel_pv_action" model="ir.actions.act_window">
+        <field name="name">Pv</field>
+        <field name="res_model">axel.pv</field>
+        <field name="view_mode">tree,form</field>
+        
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Définir un nouveau pv</p>
+        </field>
+        
+    </record>
+    <!-- Axel PV TREE RECORD -->
+    <record id="axel_pv_view_tree" model="ir.ui.view">
+        <field name="name">axel.pv.tree</field>
+        <field name="model">axel.pv</field>
+        <field name="arch" type="xml">
+            <tree string="Pv">
+                <field name="civilly_responsible" />
+                <field name="pv_date" />
+                <field name="scanned_pv" />
+                <field name="license_plate_number" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Customize the search pv view -->
+    <record id="pv_view_search" model="ir.ui.view">
+        <field name="name">axel.pv.view.search</field>
+        <field name="model">axel.pv</field>
+        <field name="arch" type="xml">
+            <search string="Pv">
+                <field name="civilly_responsible" />
+                <field name="pv_date" />
+                <field name="license_plate_number" />
+            </search>
+        </field>
+    </record>
+</odoo>

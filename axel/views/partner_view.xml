@@ -1,65 +1,70 @@
 <?xml version="1.0"?>
 <odoo> 
-        <record model="ir.ui.view" id="partner_view_buttons">
-            <field name="name">partner.view.buttons</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form" />
-            <field name="priority" eval="12"/>
-            <field name="arch" type="xml">
-                <div name="button_box" position="inside">
-                    <button class="oe_stat_button" name="print_unpaid_by_client"
-                            type="object" icon="fa-dollar" help="Liste des impayés">
-                        <div class="o_field_widget o_stat_info">
-                            <span class="o_stat_value">
-                                <field name="currency_id" invisible="1"/>
-                                <field name="total_unpaid" widget='monetary' options="{'currency_field': 'currency_id'}"/> 
-                            </span>
-                            <span class="o_stat_text">Impayés</span>
-                        </div>
-                    </button>
-                </div>
+    <!-- Axel CLient Action -->
+    
+        <record id="axel_client_action" model="ir.actions.act_window">
+            <field name="name">Clients</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Définir un nouveau client</p>
             </field>
-        </record>
+        </record> 
+   
 
-        <record id="action_report_axel_client" model="ir.actions.report">
-            <field name="name">Exporter la liste des impayés</field>
-            <field name="model">res.partner</field>
-            <field name="report_type">qweb-pdf</field>
-            <field name="report_name">axel.report_unpaid_client</field>
-            <field name="report_file">axel.report_unpaid_client</field>
-            <field name="binding_model_id" ref="model_res_partner"/>
-            <field name="binding_type">report</field>
-        </record>
+    <record model="ir.ui.view" id="partner_view_buttons">
+        <field name="name">partner.view.buttons</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="priority" eval="12"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" name="print_unpaid_by_client"
+                        type="object" icon="fa-dollar" help="Liste des impayés">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="total_unpaid" widget='monetary' options="{'currency_field': 'currency_id'}"/> 
+                        </span>
+                        <span class="o_stat_text">Impayés</span>
+                    </div>
+                </button>
+            </div>
+        </field>
+    </record>
 
-        <record id="action_unpaid_legal_cases" model="ir.actions.act_window">
-            <field name="name">La liste des impayés</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">axel.expense_charge</field> <!-- Model to open -->
-            <field name="view_mode">tree,form</field> <!-- Views to display -->
-            <field name="context">{}</field>
-        </record>
- 
+    <record id="action_report_axel_client" model="ir.actions.report">
+        <field name="name">Exporter la liste des impayés</field>
+        <field name="model">res.partner</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">axel.report_unpaid_client</field>
+        <field name="report_file">axel.report_unpaid_client</field>
+        <field name="binding_model_id" ref="model_res_partner"/>
+        <field name="binding_type">report</field>
+    </record>
 
-        <record id="axel_unpaid_tree" model="ir.ui.view">
-            <field name="name">axel.expense_charge.tree</field>
-            <field name="model">axel.expense_charge</field>
-            <field name="arch" type="xml">
-                <tree string="Expenses">
-                    <field name="amount" />
-                    <field name="payment_date" />
-                    <field name="description" />
-                    <field name="legal_case_id" />
-                    <field name="type" />
-                    <field name="currency_id" optional="hide"  />
-                </tree>
-            </field>
-        </record>
+    <record id="action_unpaid_legal_cases" model="ir.actions.act_window">
+        <field name="name">La liste des impayés</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">axel.unpaid</field> <!-- Model to open -->
+        <field name="view_mode">tree,form</field> <!-- Views to display -->
+        <field name="context">{}</field>
+    </record>
 
-        <!-- <record id="unpaid_by_client_action" model="ir.actions.report" >
-            <field name="name" >Unpaid</field>
-            <field name="model" >res.partner</field>
-            <field name="report_type" >qweb-pdf</field>
-            <field name="report_name" >unpaid_client.report_unpaid</field>
-            <field name="report_file" >unpaid_client.report_unpaid</field>
-        </record> -->
+
+    <record id="axel_unpaid_tree" model="ir.ui.view">
+        <field name="name">axel.unpaid.tree</field>
+        <field name="model">axel.unpaid</field>
+        <field name="arch" type="xml">
+            <tree string="Expenses">
+                <field name="amount" />
+                <field name="payment_date" />
+                <field name="description" />
+                <field name="legal_case_id" />
+                <field name="type" />
+                <field name="currency_id" optional="hide"  />
+            </tree>
+        </field>
+    </record>
+
 </odoo>

@@ -19,7 +19,7 @@ class ResPartner(models.Model):
     def _compute_expense_ids(self):
         # self.ensure_one()
         # for record in self:
-        expenses = self.env["axel.expense_charge"].search([
+        expenses = self.env["axel.unpaid"].search([
         ("legal_case_id", "in", self.legal_case_ids._ids), 
         ("is_paid", "=", False), 
         ('type', '=', "expense")
@@ -31,7 +31,7 @@ class ResPartner(models.Model):
     def _compute_charge_ids(self):
         self.ensure_one()
         # for record in self:
-        charges = self.env["axel.expense_charge"].search([
+        charges = self.env["axel.unpaid"].search([
         ("legal_case_id", "in", self.legal_case_ids._ids), 
         ("is_paid", "=", False), 
         ('type', '=', "charge")
@@ -51,7 +51,7 @@ class ResPartner(models.Model):
     # Define property expenses of a client without save them in db
     @property
     def expenses(self):
-        expenses = self.env["axel.expense_charge"].search([
+        expenses = self.env["axel.unpaid"].search([
             ("legal_case_id", "in", self.legal_case_ids._ids), 
             ("is_paid", "=", False), 
             ('type', '=', "expense")
@@ -61,7 +61,7 @@ class ResPartner(models.Model):
     # Honoraires
     @property
     def charges(self):
-        charges = self.env["axel.expense_charge"].search([
+        charges = self.env["axel.unpaid"].search([
             ("legal_case_id", "in", self.legal_case_ids._ids),
             ("is_paid", "=", False), 
             ('type', '=', "charge")
@@ -78,7 +78,7 @@ class ResPartner(models.Model):
         return {
             'type': 'ir.actions.act_window',
             'name': _("La liste des impayés"),
-            'res_model': 'axel.expense_charge',
+            'res_model': 'axel.unpaid',
             'view_mode': 'tree',
             'domain': [('legal_case_id.client_id', '=', self.id)],
             # 'context': {'partner_id': self.id},

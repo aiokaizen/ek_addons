@@ -9,83 +9,8 @@
             <p class="o_view_nocontent_smiling_face">Define a new legal case</p>
             <!-- <p>Use Properties to represent all the real estate properties you own.</p> -->
         </field>
-        <!-- <field name="context">{
-            'search_default_available_properties': True,
-            'group_by': 'property_type_id',
-        }</field> -->
+        <field name="context">{'search_default_available_status_legal_case': True}</field>
     </record>
-
-     <!-- Axel CLient Action -->
-    <record id="axel_client_action" model="ir.actions.act_window">
-        <field name="name">Clients</field>
-        <field name="res_model">res.partner</field>
-        <field name="view_mode">kanban,tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">Définir un nouveau client</p>
-        </field>
-    </record>
-
-    
-    <record id="axel_expense_view_form" model="ir.ui.view">
-        <field name="name">axel.expense_charge</field>
-        <field name="model">axel.expense_charge</field>
-        <field name="arch" type="xml">
-            <form string="Dépense">
-                <group>
-                    <field name="amount" />
-                    <field name="payment_date" />
-                    <field name="description" />
-                    <field name="legal_case_id" />
-                    <field name="type" default="expense" invisible="1" />
-                    <!-- <field name="is_paid" /> -->
-                </group>
-            </form>
-        </field>
-    </record>
-
-    <record id="axel_charge_view_form" model="ir.ui.view">
-        <field name="name">axel.expense_charge</field>
-        <field name="model">axel.expense_charge</field>
-        <field name="arch" type="xml">
-            <form string="Honoraire">
-                <group>
-                    <field name="amount" />
-                    <field name="payment_date" />
-                    <field name="description" />
-                    <field name="legal_case_id" />
-                    <field name="type" default="charge" invisible="1" />
-
-                    <!-- <field name="is_paid" /> -->
-                </group>
-            </form>
-        </field>
-    </record>
-
-    <!-- Axel Pv Action -->
-    <record id="axel_pv_action" model="ir.actions.act_window">
-        <field name="name">Pv</field>
-        <field name="res_model">axel.pv</field>
-        <field name="view_mode">tree,form</field>
-        
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">Définir un nouveau pv</p>
-        </field>
-        
-    </record>
-        <!-- TREE RECORD -->
-    <record id="axel_pv_view_tree" model="ir.ui.view">
-        <field name="name">axel.pv.tree</field>
-        <field name="model">axel.pv</field>
-        <field name="arch" type="xml">
-            <tree string="Pv">
-                <field name="civilly_responsible" />
-                <field name="pv_date" />
-                <field name="scanned_pv" />
-                <field name="license_plate_number" />
-            </tree>
-        </field>
-    </record>
-
     <!-- TREE RECORD legal case -->
     <record id="axel_legal_case_view_tree" model="ir.ui.view">
         <field name="name">axel.legal_case.tree</field>
@@ -98,66 +23,40 @@
             >
                 <field name="name" />
                 <field name="client_ref" />
+                <field name="client_id" />
                 <field name="open_date" />
                 <field name="status" />
                 <field name="total_unpaied" />
                 <field name="currency_id" optional="hide" />
             </tree>
         </field>
+
     </record>
 
-    <!-- KANBAN RECORD -->
-    
-    <!-- Customize the kanban view -->
-    <!-- <record id="axel_legal_case_view_kanban" model="ir.ui.view">
-        <field name="name">axel.legal_case.kanban</field>
-        <field name="model">axel.legal_case</field>
-        <field name="arch" type="xml">
-            <kanban create="0" edit="0" records_draggable="0">
-                <field name="status" />
-                <field name="currency_id" />
-                <templates>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click" style="margin-bottom: 10px; border-radius: 5px;">
-                            <div>
-                                <field
-                                    decoration-success="status == 'paied'"
-                                    decoration-info="status == 'pending'"
-                                    decoration-muted="status == 'archived'"
-                                    widget="tag"
-                                    style="text-align: right;"
-                                    name="status" />
-                            </div>
-                            <div>
-                                <strong>Ref :</strong>
-                                <field name="ref" />
-
-                            </div>
-                            <div>
-                                <strong>Client:</strong> <field name="client_ref" />
-                            </div>
-                            <div decoration-muted="1">
-                                <strong>Impayés :</strong> <field name="unpaid" />
-                            </div>
-                            
-                        </div>
-                    </t>
-                </templates>
-            </kanban>
-        </field>
-    </record> -->
-
-    <!-- FORM RECORD -->
-        <!-- Customize the form view -->
+    <!-- Customize the form view -->
     <record id="legal_case_view_form" model="ir.ui.view">
         <field name="name">axel.legal_case.form</field>
         <field name="model">axel.legal_case</field>
         <field name="arch" type="xml">
             <form string="Dossier">
                 <header>
-                    <!-- <button string="Send Password Reset Instructions"
-                                type="object" name="action_reset_password"
-                    invisible="state != 'active'"/> -->
+                    <button 
+                        class="oe_highlight"
+                        string="Payé"
+                        type="object" name="mark_as_paid"
+                        invisible="status != 'pending'" 
+                    />
+                    <button 
+                        class="oe_highlight"
+                        string="Revenir à non payé"
+                        type="object" name="mark_as_pending"
+                        invisible="status != 'paied'" 
+                    />
+                    <button 
+                        string="Archivé"
+                        type="object" name="mark_as_archived"
+                        invisible="status == 'paied' or status == 'archived'" 
+                    />
                     <field name="status" widget="statusbar" statusbar_visible="pending,paied,archived"/>
                 </header>
                 <sheet>
@@ -175,18 +74,18 @@
                             <field name="open_date"/>
                             <field name="type"/>
                             <field name="court_type"/>
-                            <field name="status"/> 
                         </group>
                         <group>
                             <field name="currency_id" invisible="1" />
                             <field name="court"/>
                             <field name="tribunal"/>
-                            <field name="total_unpaied"/>
+                            <!-- <field name="total_unpaied"/> -->
                         </group>
                         <group>
                             <field name="client_id" ></field>
                             <field name="pv_id" ></field>
                             <field name="parent_case_id" ></field>
+                            <field name="status" />
                         </group>
 
                     </group>
@@ -243,7 +142,6 @@
                                         <field name="is_paid"/> 
                                         <field name="type" column_invisible="True" />
                                         <field name="currency_id" optional="hide"  />
-
                                     </tree>
                                    
                                 </field>
@@ -383,7 +281,10 @@
     </record>
 
 
-    <!-- Customize the search view -->
+
+    
+
+    <!-- Customize the search legalcase view -->
     <record id="legal_case_view_search" model="ir.ui.view">
         <field name="name">axel.legal_case.view.search</field>
         <field name="model">axel.legal_case</field>
@@ -394,12 +295,18 @@
                 <field name="open_date" />
                 <field name="total_unpaied" string="Impayé" filter_domain="[('unpaid', '&gt;=', 0)]" />
                 <field name="total_unpaied" string="Payé" filter_domain="[('unpaid', '=', 0)]" />
-                <separator />
+                <separator /> 
                 <filter
                     name="available_status_legal_case"
                     string="Actif"
+                    domain="[('status', '!=', 'archived')]"
+                    help="Afficher uniquement les dossiers actif."
+                />
+                <filter
+                    name="archived_status_legal_case"
+                    string="Archivé"
                     domain="[('status', '=', 'archived')]"
-                    help="Afficher uniquement les dossiers active."
+                    help="Afficher uniquement les dossiers actif."
                 />
                 <filter
                     name="unpaid_legal_case"
@@ -417,4 +324,16 @@
         </field>
     </record>
 
+
+    <record id="action_report_axel_legal_case_detail" model="ir.actions.report">
+        <field name="name">Imprimer dossier</field>
+        <field name="model">axel.legal_case</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">axel.report_detail_client</field>
+        <field name="report_file">axel.report_detail_client</field>
+        <field name="print_report_name">(object._get_report_from_name())</field>
+
+        <field name="binding_model_id" ref="model_axel_legal_case"/>
+        <field name="binding_type">report</field>
+    </record>
 </odoo>

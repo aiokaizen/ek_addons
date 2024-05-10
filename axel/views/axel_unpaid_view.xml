@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<odoo>   
+    <record id="axel_expense_view_form" model="ir.ui.view">
+        <field name="name">axel.unpaid</field>
+        <field name="model">axel.unpaid</field>
+        <field name="arch" type="xml">
+            <form string="Dépense">
+                <group>
+                    <field name="amount" />
+                    <field name="payment_date" />
+                    <field name="description" />
+                    <field name="legal_case_id" />
+                    <field name="type" default="expense" invisible="1" />
+                    <!-- <field name="is_paid" /> -->
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="axel_charge_view_form" model="ir.ui.view">
+        <field name="name">axel.unpaid</field>
+        <field name="model">axel.unpaid</field>
+        <field name="arch" type="xml">
+            <form string="Honoraire">
+                <group>
+                    <field name="amount" />
+                    <field name="payment_date" />
+                    <field name="description" />
+                    <field name="legal_case_id" />
+                    <field name="type" default="charge" invisible="1" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+</odoo>

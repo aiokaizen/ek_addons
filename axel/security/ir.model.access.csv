@@ -2,7 +2,7 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 axel.access_axel_client,access_axel_client,base.model_res_partner,base.group_user,1,1,1,1
 axel.access_axel_legal_case,access_axel_legal_case,axel.model_axel_legal_case,base.group_user,1,1,1,1
 axel.access_axel_pv,access_axel_pv,axel.model_axel_pv,base.group_user,1,1,1,1
-axel.access_axel_expense_charge,access_axel_expense_charge,axel.model_axel_expense_charge,base.group_user,1,1,1,1
+axel.access_axel_unpaid,access_axel_unpaid,axel.model_axel_unpaid,base.group_user,1,1,1,1
 axel.access_axel_payment,access_axel_payment,axel.model_axel_payment,base.group_user,1,1,1,1
 axel.access_axel_trial,access_axel_trial,axel.model_axel_trial,base.group_user,1,1,1,1
 axel.access_axel_document,access_axel_document,axel.model_axel_document,base.group_user,1,1,1,1

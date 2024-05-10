@@ -7,9 +7,9 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-class ExpenseCharge(models.Model):
+class Unpaid(models.Model):
 
-    _name = "axel.expense_charge"
+    _name = "axel.unpaid"
     _description = _("Impayés")
     _order = "payment_date desc"
 

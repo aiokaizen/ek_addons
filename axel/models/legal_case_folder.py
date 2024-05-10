@@ -1,5 +1,5 @@
 from odoo import (
-    _, api, fields, models
+    _, api, fields, models, exceptions
 )
 from odoo.addons.axel import settings
 import logging
@@ -8,7 +8,6 @@ import logging
 _logger = logging.getLogger(__name__)
 
 class LegalCase(models.Model):
-
 
     _name = "axel.legal_case"
     _description = _("Axel LegalCase")
@@ -19,26 +18,16 @@ class LegalCase(models.Model):
     open_date = fields.Date(
         _("Date d'ouverture"), default=fields.Date.today()
     )
-    # type = fields.Selection(
-    #     settings.LEGAL_CASE_TYPE_CHOICES,
-    #     string=_("Type de dossier"),
-    #     default="civile"
-    # )
+    
     type = fields.Many2one("axel.legal_case_type", string=_("Type de dossier"), ondelete="restrict")
-    # court_type = fields.Selection(
-    #     settings.LEGAL_CASE_COURT_TYPE_CHOICES, default="first_instance",
-    #     string=_("Type de tribunal"),
-    # )
+  
     court_type = fields.Many2one("axel.tribunal_type", string=_("Type de tribunal"), ondelete="restrict")
     status = fields.Selection(
         settings.LEGAL_CASE_STATUS_CHOICES, default="pending",
         string=_("État du dossier"),
     )
     court = fields.Char(_("Cour"))
-    # tribunal = fields.Selection(
-    #     settings.TRIBUNAL_CHOICES,
-    #     string=_("Tribunal"),
-    # )
+   
     tribunal = fields.Many2one("axel.tribunal", string=_("Tribunal"), ondelete="restrict")
     client_id = fields.Many2one(
         "res.partner", string=_("Client"),
@@ -51,30 +40,25 @@ class LegalCase(models.Model):
         'axel.legal_case', string=_("Dossier parent")
     )
     
-    # unpaid = fields.Monetary(
-    #     string=_("Total Impayés"), default=0, compute="_compute_unpaid_legal_case", store=True
-    # )
+   
     currency_id = fields.Many2one(
         "res.currency", string=_("Currency"), default=lambda self: self.env.ref('base.MAD')
     )
 
     expense_ids = fields.One2many(
-        "axel.expense_charge", 
+        "axel.unpaid", 
         "legal_case_id", 
         string="Depenses", 
         domain=[("type", "=", "expense")],
-        store=True
     )
     charge_ids = fields.One2many(
-        "axel.expense_charge", 
+        "axel.unpaid", 
         "legal_case_id", 
         string="Honoraires", 
         domain=[("type", "=", "charge")],
-        store=True
     )
 
     payment_ids = fields.One2many("axel.payment", "legal_case_id", string="Recettes")
-    # charge_ids = fields.One2many("axel.charge", "legal_case_id", string="Honoraires")
     document_ids = fields.One2many("axel.document", "legal_case_id", string="Documents")
     trial_ids = fields.One2many("axel.trial", "legal_case_id", string="Audiences")
 
@@ -85,6 +69,7 @@ class LegalCase(models.Model):
     total_payments = fields.Monetary(
         string="Recettes totales",
         compute="_compute_payment_ids",
+
     )
 
     total_charges = fields.Monetary(
@@ -136,3 +121,43 @@ class LegalCase(models.Model):
                 record.total_unpaied = total
             else:
                 record.total_unpaied = 0
+
+    @api.depends("total_unpaied")
+    def mark_as_paid(self):
+        self.ensure_one()
+        if self.total_unpaied > 0:
+            raise exceptions.UserError(_("Impossible de marquer ce dossier comme payé. Veuillez régler tout paiement impayé avant de le marquer comme payé."))
+        else:
+            self.status = "paied"
+
+    
+    @api.depends("total_unpaied")
+    def mark_as_pending(self):
+        self.ensure_one()
+        self.status = "pending"
+
+    
+    @api.depends("total_unpaied")
+    def mark_as_archived(self):
+        self.ensure_one()
+        self.status = "archived"
+
+
+    
+    def get_report_values(self, docids, data=None):
+        docs = self.env['axel.legal_case'].browse(docids)
+        # Retrieve the current company's information
+        current_company = self.env.company
+        # Add company information to the context
+        report_context = {
+            'docs': docs,
+            'current_company': current_company,
+        }
+        return report_context
+
+    def get_current_company(self):
+        return [self.env.company.primary_color, self.env.company.secondary_color]
+    
+    def _get_report_from_name(self):
+        self.ensure_one()
+        return "dossier_" + self.name

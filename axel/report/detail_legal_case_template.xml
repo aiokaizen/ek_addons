@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_detail_client" >
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o" >
+                    <!-- <t t-foreach="company_ids" t-as="company" t-translation="off">     -->
+                        <t t-call="web.external_layout">
+                            <t t-set="primary" t-value="o.get_current_company()[0]"/>
+                            <t t-set="secondary" t-value="o.get_current_company()[1]"/>
+                            <h1 class="py-3 text-center" >Dossier <t t-esc="o.name" /></h1>
+                            <div class="row" >
+                                <div class="col-6 test">Client</div>
+                                <div class="col-6">: <span t-esc="o.client_id.name" /></div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-6">Référence client</div>
+                                <div class="col-6">: <span t-esc="o.client_ref" /></div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-6">Total Impayés</div>
+                                <div class="col-6">: <span t-esc="o.total_unpaied" /></div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-6">Type de dossier</div>
+                                <div class="col-6">: <span t-esc="o.type.name" /></div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-6">Type de tribunal</div>
+                                <div class="col-6">: <span t-esc="o.court_type.name" /></div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-6">État du dossier</div>
+                                <div class="col-6">: <span t-esc="o.status" /></div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-6">Procès verbal </div>
+                                <div class="col-6">: <span t-esc="o.pv_id.civilly_responsible" /></div>
+                            </div>
+                            <!-- <table class="w-100 table table-sm o_main_table text-left" style="border: 0px !important;" >
+                                <tr>
+                                    <th>Client</th>
+                                    <td>:</td>
+                                    <td><span t-esc="o.client_id.name" /></td>
+                                </tr>
+                                <tr>
+                                    <th>Référence client</th>
+                                    <td>:</td>
+                                    <td><span t-esc="o.client_ref" /></td>
+                                </tr>
+                                <tr>
+                                    <th>Total Impayés</th>
+                                    <td>:</td>
+                                    <td><span t-esc="o.total_unpaied" /></td>
+                                </tr>
+                                <tr>
+                                    <th>Type de dossier</th>
+                                    <td>:</td>
+                                    <td><span t-esc="o.type.name" /></td>
+                                </tr>
+                                <tr>
+                                    <th>Type de tribunal</th>
+                                    <td>:</td>
+                                    <td><span t-esc="o.court_type.name" /></td>
+                                </tr>
+                                <tr>
+                                    <th>État du dossier</th>
+                                    <td>:</td>
+                                    <td><span t-esc="o.status" /></td>
+                                </tr>
+                                <tr>
+                                    <th>Tribunal</th>
+                                    <td>:</td>
+                                    <td><span t-esc="o.tribunal.name" /></td>
+                                </tr>
+                                <tr>
+                                    <th>Procès verbal</th>
+                                    <td>:</td>
+                                    <td><span t-esc="o.pv_id.civilly_responsible" /></td>
+                                </tr>
+                            </table> -->
+                            <h2 class="mt-5 mb-0" t-att-style="'color:' + (secondary or '#000000') + ' ;'">Dépenses</h2>
+                            <table class="w-100 mt-1 text-center border-1" style="background-color: #f5f5f5;" >
+                                <thead>
+                                    <tr class="py-5 header-table" t-att-style="'background-color:' + (primary or '#000000') + ' ;'" >
+                                        <th>Montant</th>
+                                        <th>Date de déclaration</th>
+                                        <th>Description</th>
+                                        <th>Payé</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.expense_ids" t-as="expense" >
+                                        <tr>    
+                                            <td>
+                                                <span t-esc="expense.amount" />
+                                            </td>
+                                            <td>
+                                                <span t-esc="expense.payment_date" />
+                                            </td>
+                                            <td>
+                                                <span t-esc="expense.description" />
+                                            </td>
+                                            <td>
+                                                <t t-if="expense.is_paid == True">
+                                                    <input type="checkbox" checked="true" />
+                                                </t>
+                                                <t t-else="">
+                                                    <input type="checkbox" />
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>           
+                            </table>
+                            <h2 class="mt-5 mb-0" t-att-style="'color:' + (secondary or '#000000') + ' ;'">Honoraires</h2>
+                            <table class="w-100 mt-1 text-center border-1" style="background-color: #f5f5f5;">
+                                <tr t-att-style="'background-color:' + (primary or '#000000') + ' ;'" >
+                                    <th>Montant</th>
+                                    <th>Date de demande</th>
+                                    <th>Description</th>
+                                    <th>Payé</th>
+                                </tr>
+                                <t t-foreach="o.charge_ids" t-as="charge" >
+                                    <tr>    
+                                        <td>
+                                            <span t-esc="charge.amount" /> DH
+                                        </td>
+                                        <td>
+                                            <span t-esc="charge.payment_date" />
+                                        </td>
+                                        <td>
+                                            <span t-esc="charge.description" />
+                                        </td>
+                                        <td>
+                                            <t t-if="charge.is_paid == True">
+                                                <input type="checkbox" checked="true" />
+                                            </t>
+                                            <t t-else="">
+                                                <input type="checkbox" />
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                            <h2 class="mt-5 mb-0" t-att-style="'color:' + (secondary or '#000000') + ' ;'">Recettes</h2>
+                            <table class="w-100 mt-1 text-center border-1" style="background-color: #f5f5f5;" >
+                                <tr  t-att-style="'background-color:' + (primary or '#000000') + ' ;'">
+                                    <th>Montant</th>
+                                    <th>Date de paiement</th>
+                                </tr>
+
+                                <t t-foreach="o.payment_ids" t-as="payment" >
+                                    <tr>    
+                                        <td>
+                                            <span t-esc="payment.amount" /> DH
+                                        </td>
+                                        <td>
+                                            <span t-esc="payment.payment_date" />
+                                        </td>
+                                    </tr>          
+                                </t>
+                            </table>
+
+                            <h2 class="mt-5 mb-0" t-att-style="'color:' + (secondary or '#000000') + ' ;'">Documents</h2>
+                            <table class="w-100 mt-1 text-center border-1" style="background-color: #f5f5f5;" >
+                                <tr t-att-style="'background-color:' + (primary or '#000000') + ' ;'" >    
+                                    <th class="text-start p-1">Nom</th>
+                                </tr>
+                                <t t-foreach="o.document_ids" t-as="doc" >
+                                    <tr>    
+                                        <td class="text-start">
+                                            <span class="text-start p-1" t-esc="doc.name" />
+                                        </td>
+                                    </tr>    
+                                </t>
+                                    
+                            </table>
+
+
+                            <h2 class="mt-5 mb-0" t-att-style="'color:' + (secondary or '#000000') + ' ;'">Audiences</h2>
+                            <table class="w-100 mt-1 text-center border-1" style="background-color: #f5f5f5;" >
+                                <tr  t-att-style="'background-color:' + (primary or '#000000') + ' ;'" >
+                                    <th>Numéro de dossier</th>  
+                                    <th>Date audience</th>
+                                    <th>Type de dossier</th>   
+                                    <th>Type de tribunal</th>   
+                                </tr>
+                                <t t-foreach="o.trial_ids" t-as="trial" >
+                                    <tr>    
+                                        <td>
+                                            <span t-esc="trial.case_number" />
+                                        </td>
+                                        <td>
+                                            <span t-esc="trial.trial_date" />
+                                        </td>
+                                        <td>
+                                            <span t-esc="trial.type" />
+                                        </td>
+                                        <td>
+                                            <span t-esc="trial.court_type" />
+                                        </td>
+                                    </tr>   
+                                </t>
+                                        
+                            </table>
+                        </t>
+                    <!-- </t> -->
+                </t>
+            </t>
+          
+        </template>
+    </data>
+</odoo>
