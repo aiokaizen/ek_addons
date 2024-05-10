@@ -13,3 +13,5 @@ class Receiver(models.Model):
     api_url = fields.Char(string="API URL")
     api_data = fields.Json(string="API Data", readonly=True)
     api_data2 = fields.Text(string="API Data")
+    api_get_params = fields.Text(string="API HTTP Params")
+    api_headers = fields.Text(string="API Request Headers")

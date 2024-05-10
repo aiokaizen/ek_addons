@@ -13,6 +13,8 @@ class CronoDialiAPI(Controller):
             "api_url": "/api/chronodiali/delivered",
             "api_data": request.get_json_data(),
             "api_data2": json.dumps(request.get_json_data(), indent=4),
+            "api_get_params": json.dumps(request.get_http_params(), indent=4),
+            "api_headers": json.dumps(dict(request.httprequest.headers), indent=4),
         }])
         return request.make_json_response({
             "status": "success",
@@ -26,6 +28,8 @@ class CronoDialiAPI(Controller):
             "api_url": "/api/chronodiali/picked_up",
             "api_data": request.get_json_data(),
             "api_data2": json.dumps(request.get_json_data(), indent=4),
+            "api_get_params": json.dumps(request.get_http_params(), indent=4),
+            "api_headers": json.dumps(dict(request.httprequest.headers), indent=4),
         }])
         return request.make_json_response({
             "status": "success",
@@ -39,6 +43,8 @@ class CronoDialiAPI(Controller):
             "api_url": "/api/chronodiali/test",
             "api_data": request.get_json_data(),
             "api_data2": json.dumps(request.get_json_data(), indent=4),
+            "api_get_params": json.dumps(request.get_http_params(), indent=4),
+            "api_headers": json.dumps(dict(request.httprequest.headers), indent=4),
         }])
         return request.make_json_response({
             "status": "success",
@@ -52,6 +58,8 @@ class CronoDialiAPI(Controller):
             "api_url": "/api/chronodiali/returned",
             "api_data": request.get_json_data(),
             "api_data2": json.dumps(request.get_json_data(), indent=4),
+            "api_get_params": json.dumps(request.get_http_params(), indent=4),
+            "api_headers": json.dumps(dict(request.httprequest.headers), indent=4),
         }])
         return request.make_json_response({
             "status": "success",
@@ -65,6 +73,8 @@ class CronoDialiAPI(Controller):
             "api_url": "/api/chronodiali/canceled",
             "api_data": request.get_json_data(),
             "api_data2": json.dumps(request.get_json_data(), indent=4),
+            "api_get_params": json.dumps(request.get_http_params(), indent=4),
+            "api_headers": json.dumps(dict(request.httprequest.headers), indent=4),
         }])
         return request.make_json_response({
             "status": "success",
@@ -78,6 +88,8 @@ class CronoDialiAPI(Controller):
             "api_url": "/api/chronodiali/delivery_success",
             "api_data": request.get_json_data(),
             "api_data2": json.dumps(request.get_json_data(), indent=4),
+            "api_get_params": json.dumps(request.get_http_params(), indent=4),
+            "api_headers": json.dumps(dict(request.httprequest.headers), indent=4),
         }])
         return request.make_json_response({
             "status": "success",
