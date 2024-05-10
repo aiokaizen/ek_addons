@@ -54,6 +54,7 @@
                             <field name="api_data2" />
                             <field name="api_get_params" />
                             <field name="api_headers" />
+                            <field name="api_extra_info" />
                         </group>
                     </group>
                 </sheet>
