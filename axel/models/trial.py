@@ -13,7 +13,7 @@ class Trial(models.Model):
     amount = fields.Monetary(_("Montant"), required=True)
     trial_date = fields.Date(
         _("Date de demande"), 
-        detault=fields.Date.today()
+        default=(lambda self : fields.Datetime.now())
     )
     type = fields.Selection(
         settings.LEGAL_CASE_TYPE_CHOICES, 
@@ -29,7 +29,7 @@ class Trial(models.Model):
 
     scanned_document = fields.Binary(_("Document Scanné"))
     currency_id = fields.Many2one(
-        "res.currency", string=_("Currency"), default=lambda self: self.env.ref('base.MAD')
+        "res.currency", string=_("Devise"), default=lambda self: self.env.ref('base.MAD')
     )
     legal_case_id = fields.Many2one("axel.legal_case", string=_("Dossier"))
 

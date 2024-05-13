@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <odoo>   
-    <record id="axel_expense_view_form" model="ir.ui.view">
+    <record id="axel_unpaid_view_form" model="ir.ui.view">
         <field name="name">axel.unpaid</field>
         <field name="model">axel.unpaid</field>
         <field name="arch" type="xml">

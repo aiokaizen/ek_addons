@@ -16,6 +16,7 @@
         'security/ir.model.access.csv',
         'data/master_data.xml',
         "views/axel_pv_view.xml",
+        "views/axel_expense_view.xml",
         "views/axel_unpaid_view.xml",
         "report/detail_legal_case_template.xml",
         "views/axel_legal_case_view.xml",

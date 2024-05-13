@@ -50,3 +50,16 @@ PAYMENT_TYPE_CHOICES = [
     ("Indemnité", _("Indemnité")),
     ("Dépense", _("Dépense")),
 ]
+
+
+
+EXPENSES_TYPE = [
+    ("personal_expenses", _("Frais personnel")),
+    ("tax", _("Impôts, Droit et taxes déductibles")),
+    ("Loyers", _("Rents")),
+    ("costs_management", _("Frais divers de gestion")),
+    ("travelling", _("Frais de déplacement")),
+    ("car_costs", _("Frais de voiture")),
+    ("proffessional_fees", _("Frais professionnels")),
+    ("taxes_provisions", _("Taxes provisions"))
+]

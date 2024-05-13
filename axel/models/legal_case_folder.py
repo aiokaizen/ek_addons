@@ -16,7 +16,7 @@ class LegalCase(models.Model):
     name = fields.Char(_("Référence"), required=True)
     client_ref = fields.Char(_("Référence client"))
     open_date = fields.Date(
-        _("Date d'ouverture"), default=fields.Date.today()
+        _("Date d'ouverture"), default=(lambda self : fields.Datetime.now())
     )
     
     type = fields.Many2one("axel.legal_case_type", string=_("Type de dossier"), ondelete="restrict")
@@ -42,7 +42,7 @@ class LegalCase(models.Model):
     
    
     currency_id = fields.Many2one(
-        "res.currency", string=_("Currency"), default=lambda self: self.env.ref('base.MAD')
+        "res.currency", string=_("Devise"), default=lambda self: self.env.ref('base.MAD')
     )
 
     expense_ids = fields.One2many(

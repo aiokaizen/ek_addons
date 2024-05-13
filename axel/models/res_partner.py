@@ -12,7 +12,7 @@ class ResPartner(models.Model):
         required=False
     )
     currency_id = fields.Many2one(
-        "res.currency", string=_("Currency"), default=lambda self: self.env.ref('base.MAD')
+        "res.currency", string=_("Devise"), default=lambda self: self.env.ref('base.MAD')
     )
 
     @api.depends("legal_case_ids", "legal_case_ids.charge_ids")

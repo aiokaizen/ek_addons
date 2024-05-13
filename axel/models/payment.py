@@ -14,10 +14,10 @@ class Payment(models.Model):
     description = fields.Text(
         _("Description")
     )
-    payment_date = fields.Date(_("Date de demande"), detault=fields.Date.today())
+    payment_date = fields.Date(_("Date de demande"), default=(lambda self : fields.Datetime.now()))
     receipt_scanned = fields.Binary(_("Reçu. Scanné"))
     currency_id = fields.Many2one(
-        "res.currency", string=_("Currency"), default=lambda self: self.env.ref('base.MAD')
+        "res.currency", string=_("Devise"), default=lambda self: self.env.ref('base.MAD')
     )
     legal_case_id = fields.Many2one("axel.legal_case", string=_("Dossier"))
 

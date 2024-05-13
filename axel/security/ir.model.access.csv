@@ -9,3 +9,4 @@ axel.access_axel_document,access_axel_document,axel.model_axel_document,base.gro
 axel.access_axel_tribunal,access_axel_tribunal,axel.model_axel_tribunal,base.group_user,1,1,1,1
 axel.access_axel_tribunal_type,access_axel_tribunal_type,axel.model_axel_tribunal_type,base.group_user,1,1,1,1
 axel.access_axel_legal_case_type,access_axel_legal_case_type,axel.model_axel_legal_case_type,base.group_user,1,1,1,1
+axel.access_axel_expense,access_axel_expense,axel.model_axel_expense,base.group_user,1,1,1,1

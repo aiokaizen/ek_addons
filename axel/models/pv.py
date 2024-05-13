@@ -11,7 +11,7 @@ class Pv(models.Model):
     _order = "pv_date desc"
 
     scanned_pv = fields.Binary(string="P.V Scanné")
-    pv_date = fields.Date(_("Date de PV / sinistre"), default=fields.Date.today())
+    pv_date = fields.Date(_("Date de PV / sinistre"), default=(lambda self : fields.Datetime.now()))
     civilly_responsible = fields.Char(
         _("Civilement responsable")
     )
