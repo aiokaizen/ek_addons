@@ -35,8 +35,8 @@
   "data"                 :  ['views/res_config.xml'],
   "assets"               :  {
                               'point_of_sale._assets_pos': [
-                                'odoo_pos_network_printer/static/src/app/**/*',
-                              ], 
+                                'is_pos_network_printer/static/src/app/**/*',
+                              ],
                             },
   "images"               :  ['static/description/Banner.png'],
   "application"          :  True,

@@ -3,7 +3,7 @@
 <!-- See LICENSE file for full copyright and licensing details. -->
 <!-- License URL : <https://store.webkul.com/license.html/> -->
 <templates id="template" xml:space="preserve">
-    <t t-name="odoo_pos_network_printer.XmlReceiptWrappedProductNameLines">
+    <t t-name="is_pos_network_printer.XmlReceiptWrappedProductNameLines">
         <t t-foreach="line.productName" t-as="wrapped_line" t-key="wrapped_line">
             <line>
                 <left><t t-esc="wrapped_line"/></left>
@@ -55,11 +55,11 @@
                             <left><t t-esc='line.productName' /></left>
                             <right><value><t t-esc='line.price_display' /></value></right>
                         </line>
-                        <t t-call="odoo_pos_network_printer.XmlReceiptWrappedProductNameLines"/>
+                        <t t-call="is_pos_network_printer.XmlReceiptWrappedProductNameLines"/>
                     </t>
                     <t t-if='!simple'>
                         <line><left><t t-esc='line.productName' /></left></line>
-                        <t t-call="odoo_pos_network_printer.XmlReceiptWrappedProductNameLines"/>
+                        <t t-call="is_pos_network_printer.XmlReceiptWrappedProductNameLines"/>
                         <t t-if='line.discount !== 0'>
                             <line indent='1'><left>Discount: <t t-esc='line.discount' />%</left></line>
                         </t>
@@ -179,9 +179,11 @@
         <xpath expr="//div[hasclass('actions')]//div[hasclass('buttons')]" position="after">
             <div class="buttons my-3">
                 <button class="button nw_print btn btn-lg btn-secondary w-100 py-3" t-on-click="printNetworkPrinterReceipt">
-                    <i class='fa fa-print'></i> Print via n/w Printer
+                    <i class='fa fa-print'></i> Print Receipt
                 </button>
             </div>
         </xpath>
+
+        <xpath expr="//div[hasclass('actions')]//div[hasclass('buttons')]//button" position="replace"></xpath>
     </t>
 </templates>

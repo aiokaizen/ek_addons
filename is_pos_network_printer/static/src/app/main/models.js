@@ -3,7 +3,7 @@
 /* See LICENSE file for full copyright and licensing details. */
 /* License URL : <https://store.webkul.com/license.html/> */
 import { PosStore } from "@point_of_sale/app/store/pos_store";
-import { NetworkPrinter } from "@odoo_pos_network_printer/app/main/network_printer";
+import { NetworkPrinter } from "@is_pos_network_printer/app/main/network_printer";
 import { patch } from "@web/core/utils/patch";
 
 patch(PosStore.prototype, {
