@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <odoo>   
-    <record id="axel_unpaid_view_form" model="ir.ui.view">
+    <!-- <record id="axel_unpaid_view_form" model="ir.ui.view">
         <field name="name">axel.unpaid</field>
         <field name="model">axel.unpaid</field>
         <field name="arch" type="xml">
@@ -11,7 +11,7 @@
                     <field name="description" />
                     <field name="legal_case_id" />
                     <field name="type" default="expense" invisible="1" />
-                    <!-- <field name="is_paid" /> -->
+                    <field name="is_paid" />
                 </group>
             </form>
         </field>
@@ -31,6 +31,29 @@
                 </group>
             </form>
         </field>
-    </record>
+    </record> -->
 
-</odoo>
+
+    <!-- 
+    <record id="axel_unpaid_accounting_tree" model="ir.ui.view">
+        <field name="name">Unpaid Accounting Form View</field>
+        <field name="model">axel.unpaid</field>
+        <field name="arch" type="xml">
+            <form string="Dépense">
+                <group>
+                    <field name="name" />
+                    <field name="amount" />
+                    <field name="description" />
+                    <field name="currency_id" invisible="1" />
+                    <field name="payment_date" />
+                </group>
+                <group>
+                    <field name="type" />
+                    <field name="legal_case_id" /> 
+                </group>
+            </form>
+        </field>
+    </record> 
+    -->
+
+</odoo> 

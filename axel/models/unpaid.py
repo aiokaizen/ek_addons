@@ -25,10 +25,10 @@ class Unpaid(models.Model):
     )
     
     legal_case_id = fields.Many2one("axel.legal_case", string=_("Dossier"))
-    # client_id = fields.Many2one(
-    #     "res.partner", string=_("Client"),
-    #     ondelete="restrict", required=False, compute="_compute_client_legal_case", readonly=True, store=True
-    # )   
+    client_id = fields.Many2one(
+        "res.partner", string=_("Client"),
+        ondelete="restrict", required=False, compute="_compute_client_legal_case", readonly=True, store=True
+    )   
     receipt_scanned = fields.Binary(_("Reçu. Scanné"))
     type = fields.Selection(
         
@@ -52,4 +52,4 @@ class Unpaid(models.Model):
     @api.depends("amount", "legal_case_id")
     def _compute_name(self):
         for record in self:
-            record.name = f"{record.amount} {record.legal_case_id.name}"
+            record.name = f"{record.amount}"

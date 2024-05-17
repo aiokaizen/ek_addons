@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<odoo>    
+    <!-- Axel Expense Action -->
+    <record id="axel_recipe_accounting_action" model="ir.actions.act_window">
+        <field name="name">Recettes</field>
+        <field name="res_model">axel.unpaid</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Définir un nouveau recette</p>
+        </field>
+    </record>
+
+    <!-- Axel expense TREE RECORD -->
+    <record id="view_unpaid_accounting_tree" model="ir.ui.view">
+        <field name="name">Unpaid Accounting Tree View</field>
+        <field name="model">axel.unpaid</field>
+        <field name="arch" type="xml">
+            <tree string="Dépense">
+                <field name="amount" />
+                <field name="payment_date" />
+                <field name="description" />
+                <field name="legal_case_id" />
+                <field name="type" />
+                <field name="is_paid" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_unpaid_accounting_form" model="ir.ui.view">
+        <field name="name">Unpaid Accounting Form View</field>
+        <field name="model">axel.unpaid</field>
+        <field name="arch" type="xml">
+            <form string="Dépense">
+                <div class="row" >
+                    <div class="col-md-6">
+                        <group>
+                            <field name="amount" />
+                            <field name="description" />
+                            <field name="currency_id" invisible="1" />
+                            <field name="payment_date" />
+                        </group>
+                        <group>
+                            <field name="is_paid" />
+                            <field name="type" />
+                            <field name="legal_case_id" /> 
+                        </group>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+</odoo>

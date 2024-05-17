@@ -9,3 +9,4 @@ from . import tribunal_type
 from . import legal_case_type 
 from . import res_partner 
 from . import expense 
+from . import expense_type

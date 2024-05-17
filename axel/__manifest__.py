@@ -22,6 +22,7 @@
         "views/axel_legal_case_view.xml",
         "views/axel_settings_view.xml",
         "report/unpaid_by_client_template.xml",
+        "views/axel_accounting_view.xml",
         # "report/unpaid_by_client_report.xml",
         "views/partner_view.xml",
         "menu/axel_menu.xml"

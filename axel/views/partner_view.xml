@@ -20,6 +20,7 @@
         <field name="arch" type="xml">
             <div name="button_box" position="inside">
                 <button class="oe_stat_button" name="print_unpaid_by_client"
+                        context="{'default_partner_id': id}"
                         type="object" icon="fa-dollar" help="Liste des impayés">
                     <div class="o_field_widget o_stat_info">
                         <span class="o_stat_value">
@@ -47,7 +48,7 @@
         <field name="name">La liste des impayés</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">axel.unpaid</field> <!-- Model to open -->
-        <field name="view_mode">tree,form</field> <!-- Views to display -->
+        <field name="view_mode">tree</field> <!-- Views to display -->
         <field name="context">{}</field>
     </record>
 

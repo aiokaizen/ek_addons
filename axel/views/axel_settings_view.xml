@@ -27,6 +27,16 @@
         </field>
     </record>
 
+    <!-- expense type action view -->
+    <record id="axel_expense_type_action" model="ir.actions.act_window">
+        <field name="name">Type de dépense</field>
+        <field name="res_model">axel.expense_type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Définir un nouveau type de dépense</p>
+        </field>
+    </record>
+
     <!-- tribunal tree view -->
     <record id="axel_tribunal_view_tree" model="ir.ui.view">
         <field name="name">axel.tribunal.tree</field>
@@ -63,4 +73,19 @@
         </field>
     </record>
 
+    
+    <!-- expense type tree view -->
+    <record id="axel_expense_type_view_tree" model="ir.ui.view">
+        <field name="name">axel.expense_type.tree</field>
+        <field name="model">axel.expense_type</field>
+        <field name="arch" type="xml">
+            <tree string="Pv" editable="top" >
+                <field name="sequence" widget="handle" />
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+
+    
 </odoo>

@@ -56,7 +56,7 @@ PAYMENT_TYPE_CHOICES = [
 EXPENSES_TYPE = [
     ("personal_expenses", _("Frais personnel")),
     ("tax", _("Impôts, Droit et taxes déductibles")),
-    ("Loyers", _("Rents")),
+    ("loyers", _("Loyers")),
     ("costs_management", _("Frais divers de gestion")),
     ("travelling", _("Frais de déplacement")),
     ("car_costs", _("Frais de voiture")),

@@ -30,16 +30,20 @@
         <field name="model">axel.expense</field>
         <field name="arch" type="xml">
             <form string="Dépense">
-                <group>
-                    <field name="name" />
-                    <field name="amount" />
-                    <field name="currency_id" invisible="1" />
-                    <field name="date" />
-                </group>
-                <group>
-                    <field name="type" />
-                    <field name="legal_case_id" /> 
-                </group>
+                <div class="row">
+                    <div class="col-6">
+                        <group>
+                            <field name="name" />
+                            <field name="amount" />
+                            <field name="currency_id" invisible="1" />
+                            <field name="date" />
+                        </group>
+                        <group>
+                            <field name="type" />
+                            <field name="legal_case_id" /> 
+                        </group>
+                    </div>
+                </div>
             </form>
             
         </field>

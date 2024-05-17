@@ -1,16 +1,6 @@
 <?xml version="1.0"?>
 <odoo>    
-    <!-- Axel legal case Action -->
-    <record id="axel_legal_case_action" model="ir.actions.act_window">
-        <field name="name">Dossiers</field>
-        <field name="res_model">axel.legal_case</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">Define a new legal case</p>
-            <!-- <p>Use Properties to represent all the real estate properties you own.</p> -->
-        </field>
-        <field name="context">{'search_default_available_status_legal_case': True}</field>
-    </record>
+
     <!-- TREE RECORD legal case -->
     <record id="axel_legal_case_view_tree" model="ir.ui.view">
         <field name="name">axel.legal_case.tree</field>
@@ -32,6 +22,21 @@
         </field>
 
     </record>
+
+    <!-- Axel legal case Action -->
+    <record id="axel_legal_case_action" model="ir.actions.act_window">
+        <field name="name">Dossiers</field>
+        <field name="res_model">axel.legal_case</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="axel_legal_case_view_tree"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Define a new legal case</p>
+        </field>
+        <field name="context">{'search_default_available_status_legal_case': True}</field>
+    </record>
+
+    
+
 
     <!-- Customize the form view -->
     <record id="legal_case_view_form" model="ir.ui.view">
@@ -279,10 +284,7 @@
             </form>
         </field>
     </record>
-
-
-
-    
+    <!-- Customize the form view -->
 
     <!-- Customize the search legalcase view -->
     <record id="legal_case_view_search" model="ir.ui.view">

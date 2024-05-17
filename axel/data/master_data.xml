@@ -35,7 +35,7 @@
         </record>
 
         <!-- data of tye tribunal -->
-        <record id="axel_property_type_data_marrakech" model="axel.tribunal">
+        <record id="axel_legal_case_type_data_marrakech" model="axel.tribunal">
             <field name="name">Marrakech</field>
         </record>
         <record id="axel_legal_case_type_data_kelaa" model="axel.tribunal">
@@ -46,6 +46,32 @@
         </record>
         <record id="axel_legal_case_type_data_imintanoute" model="axel.tribunal">
             <field name="name">Imintanoute</field>
+        </record>
+
+        <!-- expense type -->
+        <record id="axel_expense_type_personal_expenses" model="axel.expense_type">
+            <field name="name">Frais personnel</field>
+        </record>
+        <record id="axel_expense_type_tax" model="axel.expense_type">
+            <field name="name">Impôts, Droit et taxes déductibles</field>
+        </record>
+        <record id="axel_expense_type_Loyers" model="axel.expense_type">
+            <field name="name">Loyers</field>
+        </record>
+        <record id="axel_expense_type_costs_management" model="axel.expense_type">
+            <field name="name">Frais divers de gestion</field>
+        </record>
+         <record id="axel_expense_type_travelling" model="axel.expense_type">
+            <field name="name">Frais de déplacement</field>
+        </record>
+        <record id="axel_expense_type_car_costs" model="axel.expense_type">
+            <field name="name">Frais de voiture</field>
+        </record>
+        <record id="axel_expense_type_proffessional_fees" model="axel.expense_type">
+            <field name="name">Frais professionnels</field>
+        </record>
+        <record id="axel_expense_type_taxes_provisions" model="axel.expense_type">
+            <field name="name">Taxes provisions</field>
         </record>
     </data>
 </odoo>

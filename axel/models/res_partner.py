@@ -70,19 +70,9 @@ class ResPartner(models.Model):
 
     def print_unpaid_by_client(self):
         self.ensure_one()
-        # domain_expenses = [
-        #     ("legal_case_id", "in", self.legal_case_ids._ids),
-        #     ("is_paid", "=", False), 
-        # ]
 
-        return {
-            'type': 'ir.actions.act_window',
-            'name': _("La liste des impayés"),
-            'res_model': 'axel.unpaid',
-            'view_mode': 'tree',
-            'domain': [('legal_case_id.client_id', '=', self.id)],
-            # 'context': {'partner_id': self.id},
-            'views': [(self.env.ref('axel.axel_unpaid_tree').id, 'tree'), (False, 'form')],
-            'target': 'main'
-        }
+        action = self.env["ir.actions.actions"]._for_xml_id("axel.action_unpaid_legal_cases")
+        action['domain'] = [('legal_case_id.client_id', '=', self.id)]
+        action['context'] = {'default_client_id': self.id}
+        return action
     
