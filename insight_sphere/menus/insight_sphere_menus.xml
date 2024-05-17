@@ -2,19 +2,19 @@
 <odoo>
 
     <!-- Menu Items -->
-    <menuitem id="insight_sphere_menu_root" name="Insight Sphere" action="insight_sphere_configuration_action" />
+    <!-- <menuitem id="insight_sphere_menu_root" name="Insight Sphere" action="insight_sphere_configuration_action" /> -->
 
-    
 
-    <menuitem id="insight_sphere_menu_settings_parent" parent="insight_sphere_menu_root" name="Settings" />
+
+    <!-- <menuitem id="insight_sphere_menu_settings_parent" parent="insight_sphere_menu_root" name="Settings" /> -->
     <!-- <menuitem id="insight_sphere_menu_configuration" parent="insight_sphere_menu_root" name="Configuration" /> -->
 
-    <menuitem id="insight_sphere_menu_settings" name="Settings"
+    <!-- <menuitem id="insight_sphere_menu_settings" name="Settings"
             parent="insight_sphere_menu_settings_parent" sequence="100"
-            action="insight_sphere_configuration_action" />
+            action="insight_sphere_configuration_action" /> -->
             <!-- groups="group_purchase_manager" /> -->
 
-    <menuitem id="insight_sphere_menu_config" name="Configuration"
+    <!-- <menuitem id="insight_sphere_menu_config" name="Configuration"
             parent="insight_sphere_menu_settings_parent" sequence="100"
-            action="insight_sphere_config_action" />
+            action="insight_sphere_config_action" /> -->
 </odoo>
