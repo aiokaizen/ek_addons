@@ -34,7 +34,8 @@
   "depends"              :  ['point_of_sale'],
   "data"                 :  [
                             'views/res_config.xml',
-                            'views/pos_printer_views.xml'
+                            'views/pos_printer_views.xml',
+                            'views/pos_config_views.xml',
                           ],
   "assets"               :  {
                               'point_of_sale._assets_pos': [

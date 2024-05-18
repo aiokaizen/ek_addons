@@ -6,9 +6,15 @@ class PosPrinter(models.Model):
     _name = 'pos.printer'
     _inherit = 'pos.printer'
 
-    printer_type = fields.Selection(selection_add=[
-        ('nw_printer', 'Use a network printer')
-    ])
+    printer_type = fields.Selection(
+        string='Printer Type', default='nw_printer',
+
+        # Replace previous selection
+        selection=[('nw_printer', 'Use a network printer')]
+
+        # To extend previous selection, we use selection_add instead.
+        # selection_add=[('nw_printer', 'Use a network printer')]
+    )
 
     nw_printer_name = fields.Char(
         string='Printer name',

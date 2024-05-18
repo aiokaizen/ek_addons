@@ -10,4 +10,16 @@
             </field>
         </field>
     </record>
+
+    <record id="view_pos_printer" model="ir.ui.view">
+        <field name="name">Preparation Printers</field>
+        <field name="model">pos.printer</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_printer"/>
+        <field name="arch" type="xml">
+            <field name="proxy_ip" position="replace" >
+                <field name="nw_printer_name" />
+            </field>
+        </field>
+    </record>
+
 </odoo>
