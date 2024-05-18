@@ -32,7 +32,10 @@
                                 Print receipt without POS Box
                                 POS receipt without POS Box""",
   "depends"              :  ['point_of_sale'],
-  "data"                 :  ['views/res_config.xml'],
+  "data"                 :  [
+                            'views/res_config.xml',
+                            'views/pos_printer_views.xml'
+                          ],
   "assets"               :  {
                               'point_of_sale._assets_pos': [
                                 'is_pos_network_printer/static/src/app/**/*',
