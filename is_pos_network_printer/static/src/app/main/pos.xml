@@ -11,6 +11,102 @@
         </t>
     </t>
 
+    <t t-name="XmlOrder">
+        <div class="order-receipt" align='center' width='40' value-thousands-separator='' >
+            <h1><t t-esc='data.name' /></h1>
+            <br/>
+            <div font='b'>
+                <div class='date'>
+                    <div>Date : <t t-esc='data.time.date' /> <t t-esc='data.time.hours' />:<t t-esc='data.time.minutes' /></div>
+                </div>
+                <t t-if='data.cashier'>
+                    <div class='cashier'>
+                        <div>Serveur : <t t-esc='data.server' /></div>
+                    </div>
+                </t>
+                <div class='table'>
+                    <div>Imprimante : <t t-esc='data.printer.name' /></div>
+                </div>
+                <div class='table'>
+                    <div>Table : <t t-esc='data.table_name' /></div>
+                </div>
+            </div>
+            <br /><br />
+            <div class='orderlines' line-ratio='0.6'>
+                <t t-log="data.new"/>
+                <t t-foreach='data.new' t-as='line' t-key="line">
+                    <line>
+                        <left><t t-esc='line.name' /></left>
+                        <right><value><t t-esc='line.quantity' /></value></right>
+                    </line>
+                    <!-- <t t-call="is_pos_network_printer.XmlReceiptWrappedProductNameLines"/> -->
+                </t>
+            </div>
+            <!-- <t t-set='taxincluded' t-value='Math.abs(data.subtotal - data.total_with_tax) &lt;= 0.000001' />
+            <t t-if='!taxincluded'>
+                <line><left>Subtotal</left><right><value><t t-esc="data.subtotal" /></value></right></line>
+                <t t-foreach='data.tax_details' t-as='tax' t-key="tax">
+                    <line>
+                        <left><t t-esc='tax.name' /></left>
+                        <right><value><t t-esc='tax.amount' /></value></right>
+                    </line>
+                </t>
+            </t>
+            <line class='total' size='double-height'>
+                <left><pre>        TOTAL</pre></left>
+                <right><value><t t-esc='data.total_with_tax' /></value></right>
+            </line>
+            <br/><br/>
+            <t t-foreach='data.paymentlines' t-as='line' t-key="line">
+                <line>
+                    <left><t t-esc='line.name' /></left>
+                    <right><value><t t-esc='line.amount'/></value></right>
+                </line>
+            </t>
+            <br/>
+            <line size='double-height'>
+                <left><pre>CHANGE</pre></left>
+                <right><value><t t-esc='data.change' /></value></right>
+            </line>
+            <br/>
+            <t t-if='data.total_discount'>
+                <line>
+                    <left>Discounts</left>
+                    <right><value><t t-esc='data.total_discount'/></value></right>
+                </line>
+            </t>
+            <t t-if='taxincluded'>
+                <t t-foreach='data.tax_details' t-as='tax' t-key="tax">
+                    <line>
+                        <left><t t-esc='tax.name' /></left>
+                        <right><value><t t-esc='tax.amount' /></value></right>
+                    </line>
+                </t>
+                <line>
+                    <left>Total Taxes</left>
+                    <right><value><t t-esc='data.total_tax'/></value></right>
+                </line>
+            </t>
+            <div class='before-footer' />
+            <t t-if='data.footer_xml'>
+                <t t-raw='data.footer_xml' />
+            </t>
+            <t t-if='!data.footer_xml and data.footer'>
+                <br/>
+                <t t-esc='data.footer' />
+                <br/>
+                <br/>
+            </t>
+            <div class='after-footer' />
+            <br/>
+            <div font='b'>
+                <div><t t-esc='data.name' /></div>
+                <div><t t-esc='data.date.localestring' /></div>
+            </div> -->
+
+        </div>
+    </t>
+
     <t t-name="XmlReceipt">
         <receipt align='center' width='40' value-thousands-separator='' >
             <t t-if='data.headerData.company'>
@@ -186,4 +282,11 @@
 
         <xpath expr="//div[hasclass('actions')]//div[hasclass('buttons')]//button" position="replace"></xpath>
     </t>
+
+    <t t-name="ProductScreen" t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('product-screen')]" position="after">
+            <div id="id-order-print-container" class="d-nonex" ></div>
+        </xpath>
+    </t>
+
 </templates>

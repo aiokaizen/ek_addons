@@ -9,7 +9,10 @@
                 <setting id="iface_network_printer" string="Network Printer" help="Connect device to your PoS without an IoT Box or Epson printer">
                     <field name="iface_network_printer" />
                     <div class="content-group" invisible="not iface_network_printer">
+                        <label for="printer_name">Printer name<br/></label>
                         <field name="printer_name" placeholder="Epson Receipt Printer IP Address" />
+                        <label for="qz_server_host">QZ Server Host<br/></label>
+                        <field name="qz_server_host" placeholder="localhost" />
                         <!-- <div class="row" invisible="printer_name in [False, '']">
                             <label string="Cashdrawer" for="iface_cashdrawer" class="col-lg-3 o_light_label"/>
                             <field name="iface_cashdrawer"/>

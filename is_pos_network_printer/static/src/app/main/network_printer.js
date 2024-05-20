@@ -97,38 +97,42 @@ export class NetworkPrinter extends BasePrinter {
             this.printer_id = params.printer_id;
         }
     }
+    set_certificate() {
+
+        qz.security.setSignatureAlgorithm("SHA512");
+
+        qz.security.setSignaturePromise(function(toSign) {
+            return function(resolve, reject) {
+                try {
+                    var pk = KEYUTIL.getKey(PRIVATE_KEY);
+                    var sig = new KJUR.crypto.Signature({"alg": "SHA512withRSA"});  // Use "SHA1withRSA" for QZ Tray 2.0 and older
+                    sig.init(pk);
+                    sig.updateString(toSign);
+                    var hex = sig.sign();
+                    console.log("DEBUG: \n\n" + stob64(hextorstr(hex)));
+                    resolve(stob64(hextorstr(hex)));
+                } catch (err) {
+                    console.error(err);
+                    reject(err);
+                }
+            };
+        });
+
+        qz.security.setCertificatePromise(function(resolve, reject) {
+            resolve(CERTIFICATE);
+        });
+    }
     connect_to_printer(){
         var self = this;
         self.set_status('connecting')
 
-        // // Fix certificate problems
-        // qz.security.setSignatureAlgorithm("SHA512");
-
-        // qz.security.setSignaturePromise(function(toSign) {
-        //     return function(resolve, reject) {
-        //         try {
-        //             var pk = KEYUTIL.getKey(PRIVATE_KEY);
-        //             var sig = new KJUR.crypto.Signature({"alg": "SHA512withRSA"});  // Use "SHA1withRSA" for QZ Tray 2.0 and older
-        //             sig.init(pk);
-        //             sig.updateString(toSign);
-        //             var hex = sig.sign();
-        //             console.log("DEBUG: \n\n" + stob64(hextorstr(hex)));
-        //             resolve(stob64(hextorstr(hex)));
-        //         } catch (err) {
-        //             console.error(err);
-        //             reject(err);
-        //         }
-        //     };
-        // });
-
-        // qz.security.setCertificatePromise(function(resolve, reject) {
-        //     resolve(CERTIFICATE);
-        // });
+        // Set signing certificate
+        // this.set_certificate();
 
         // Connect to QZ-Lib
-        return qz.websocket.connect({host: "192.168.1.18"}).then(function () {
+        return qz.websocket.connect({host: self.pos.config.qz_server_host}).then(function () {
             if(self.pos){
-                var printer_name = self.pos.config.printer_name
+                var printer_name = self.printer_name | self.pos.config.printer_name
                 self.remote_status = 'connected';
                 self.set_status(self.remote_status)
                 return qz.printers.find(printer_name).then(function (found) {
@@ -148,7 +152,7 @@ export class NetworkPrinter extends BasePrinter {
     }
     connect_to_kitchen_printer(printer){
         var self = this
-        return qz.websocket.connect({host: "192.168.1.18"}).then(function(){
+        return qz.websocket.connect({host: self.pos.config.qz_server_host}).then(function(){
             var printer_name = printer.printer_name
             self.remote_status = 'connected';
             return qz.printers.find(printer_name).then(function(found){

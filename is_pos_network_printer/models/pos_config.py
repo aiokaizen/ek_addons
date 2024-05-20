@@ -17,3 +17,7 @@ class PosConfig(models.Model):
     )
     iface_network_printer = fields.Boolean(string="Network Printer")
     printer_name = fields.Char(string='Network Printer Name')
+    qz_server_host = fields.Char(
+        string='QZ Tray server host', default="localhost",
+        help="Hostname or IP address of the QZ server."
+    )

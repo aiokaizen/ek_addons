@@ -22,6 +22,7 @@
                             <div class="row mt16">
                                 <label string="Printer Name" for="pos_printer_name" class="col-md-3 o_light_label" />
                                 <field name="pos_printer_name" required="pos_iface_network_printer"/>
+                                <field name="pos_qz_server_host" required="pos_iface_network_printer" placeholder="localhost" />
                             </div>
                         </div>
                     </div>

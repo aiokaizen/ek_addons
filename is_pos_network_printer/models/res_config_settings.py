@@ -13,6 +13,9 @@ class ResConfigSettings(models.TransientModel):
     pos_printer_name = fields.Char(
         related='pos_config_id.printer_name', readonly=False
     )
+    pos_qz_server_host = fields.Char(
+        related='pos_config_id.qz_server_host'
+    )
 
     @api.depends('pos_printer_name', 'pos_other_devices')
     def _compute_pos_iface_cashdrawer(self):
