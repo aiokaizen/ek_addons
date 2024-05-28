@@ -40,6 +40,8 @@
   "assets"               :  {
                               'point_of_sale._assets_pos': [
                                 'is_pos_network_printer/static/src/app/**/*',
+                                # 'is_pos_network_printer/static/src/**/*',
+
                               ],
                             },
   "images"               :  ['static/description/Banner.png'],

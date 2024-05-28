@@ -5,8 +5,9 @@
 import { PosStore } from "@point_of_sale/app/store/pos_store";
 import { NetworkPrinter } from "@is_pos_network_printer/app/main/network_printer";
 import { renderToString } from "@web/core/utils/render";
-import { htmlToCanvas } from "@point_of_sale/app/printer/render_service";
+// import { htmlToCanvas } from "@point_of_sale/app/printer/render_service";
 import { patch } from "@web/core/utils/patch";
+import { customHtmlToCanvas as htmlToCanvas } from "@is_pos_network_printer/app/main/render_service";
 
 patch(PosStore.prototype, {
     async setup(...args) {
@@ -32,7 +33,7 @@ patch(PosStore.prototype, {
     },
     connect_to_nw_printer(resolve = null) {
         var self = this;
-        if(self.config.iface_network_printer){
+        if (self.config.iface_network_printer) {
             return self.nw_printer.disconnect_from_printer().finally(function (e) {
                 return self.nw_printer.connect_to_printer();
             })
@@ -40,7 +41,7 @@ patch(PosStore.prototype, {
     },
     connect_to_nw_preparation_printer(resolve = null, printer) {
         var self = this;
-        if(self.config.iface_network_printer){
+        if (self.config.iface_network_printer) {
             return printer.disconnect_from_printer().finally(function (e) {
                 return printer.connect_to_printer();
             })
@@ -53,7 +54,6 @@ patch(PosStore.prototype, {
         return await super.after_load_server_data(...arguments);
     },
     async sendOrderInPreparation(order, cancelled = false) {
-
         if (this.printers_category_ids_set.size) {
             try {
                 const changes = order.changesToOrder(cancelled);
@@ -66,6 +66,7 @@ patch(PosStore.prototype, {
                             body: _t("Failed in printing the changes in the order"),
                         });
                     }
+
                 }
             } catch (e) {
                 console.warn("Failed in printing the changes in the order. e:", e);
@@ -77,7 +78,6 @@ patch(PosStore.prototype, {
         // ###############################
         // This function is not yet ready!
         // ###############################
-
         const orderChange = order.changesToOrder(cancelled);
         let isPrintSuccessful = true;
         const d = new Date();
@@ -90,6 +90,7 @@ patch(PosStore.prototype, {
                 printer.config.product_categories_ids,
                 orderChange
             );
+
 
             if (changes["new"].length > 0 || changes["cancelled"].length > 0) {
                 const printingChanges = {
@@ -118,20 +119,19 @@ patch(PosStore.prototype, {
                 const receipt = renderToString('XmlOrder', {
                     data: printingChanges,
                 })
-                $("#id-order-print-container").append(`
+                $("#id-order-print-container").html(`
                     <div class="pos-order-container">
                         ${receipt}
                     </div>
                 `);
-                const receiptString = $("#id-order-print-container .order-receipt")[0];
+                const receiptString = $("#id-order-print-container")[0];
                 console.log("receipt:", receipt);
                 console.log("receipt string:", receiptString);
                 const ticketImage = printer.processCanvas(
-                    await htmlToCanvas(receiptString, { addClass: 'pos-order-print'})
+                    await htmlToCanvas(receiptString, { addClass: 'pos-order-print' })
                 );
                 const container = $("#id-order-print-container")[0];
                 console.log("container:", container);
-
                 try {
                     var printer_obj = new NetworkPrinter(
                         { pos: order.pos, printer_name: printer.config.nw_printer_name }
@@ -144,14 +144,23 @@ patch(PosStore.prototype, {
                         order.pos.connect_to_nw_preparation_printer(null, printer_obj).finally(function () {
                             if (printer_obj && printer_obj.remote_status == "success") {
                                 var config = qz.configs.create(printer_obj.printer_name);
-                                var wk_data = [{ type: 'raw', format: 'image', data: 'data:image/jpeg;base64,' + ticketImage + '', options: { language: "ESCPOS", dotDensity: 'double'} },'\x1B' + '\x69',]
+                                var wk_data = [{ type: 'raw', format: 'image', data: 'data:image/jpeg;base64,' + ticketImage + '', options: { language: "ESCPOS", dotDensity: 'double' } }, '\x1B' + '\x69',]
                                 qz.print(config, wk_data).then(function () { });
                             }
                         })
                     } else {
                         console.log("Printer name:", printer_obj.printer_name);
                         var config = qz.configs.create(printer_obj.printer_name);
-                        var wk_data = [{ type: 'raw', format: 'image', data: 'data:image/jpeg;base64,' + ticketImage + '', options: { language: "ESCPOS", dotDensity: 'double'} },'\x1B' + '\x69',]
+                        var wk_data = [
+                            {
+                                type: 'raw',
+                                format: 'image',
+                                data: 'data:image/png;base64,' + ticketImage + '',
+                                options: { language: "ESCPOS", dotDensity: 'double' }
+                            },
+                            '\x1B' + '\x64' + '\x02', // Add two line feeds
+                            '\x1D' + '\x56' + '\x42' + '\x03', // Cut paper command with partial cut
+                        ]
                         qz.print(config, wk_data).then(function () { });
                     }
                 } catch (event) {

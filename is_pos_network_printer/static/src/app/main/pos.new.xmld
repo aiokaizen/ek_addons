@@ -49,11 +49,12 @@
             </div>
         </xpath>
     </t>
-
+    
     <t t-name="XmlReceipt">
-        <receipt align='center' width='40' value-thousands-separator='' >
+        <div align='center' width='40' value-thousands-separator='' >
             <t t-if='data.headerData.company'>
-                <h1><t t-esc='data.headerData.company.name' /></h1>
+                <h1>Oxorion</h1>
+                <!-- <h1><t t-esc='data.headerData.company.name' /> </h1> -->
                 <br/>
             </t>
             <div font='b'>
@@ -184,7 +185,7 @@
                 <div><t t-esc='data.date.localestring' /></div>
             </div>
 
-        </receipt>
+        </div>
     </t>
 
     <t t-name="point_of_sale.SynchNetworkPrinterWidget" owl="1">
@@ -228,12 +229,9 @@
 
     <t t-name="ProductScreen" t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('product-screen')]" position="after">
-            <div  class="pos-receipt-container d-flex flex-grow-1 flex-lg-grow-0 user-select-none justify-content-center bg-200 text-center overflow-hidden d-none"  >
-                <div id="id-order-print-container" class="d-inline-block m-3 p-3 border rounded bg-view text-start overflow-y-auto pos-receipt-print" ></div>
-            </div>
+            <div id="id-order-print-container" class="pos-receipt-container d-flex flex-grow-1 flex-lg-grow-0 user-select-none justify-content-center bg-200 text-center overflow-hidden" style="font-size: 27px;" ></div>
         </xpath>
     </t>
-
     <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
         <xpath expr="//p[text()='Odoo Point of Sale']" position="replace">
             <div></div>
@@ -241,5 +239,9 @@
         <!-- <xpath expr="//p[text()='Odoo Restaurant']" position="replace">
             <div></div>
         </xpath> -->
+        <!-- <xpath expr="//div[contains(@class, 'd-inline-block m-3 p-3 border rounded bg-view text-start overflow-y-auto')]" position="attributes">
+            <attribute name="t-attf-class">d-inline-block m-3 p-3 border rounded bg-view text-start overflow-y-auto pos-receipt-custom</attribute>
+        </xpath> -->
     </t>
+
 </templates>
