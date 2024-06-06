@@ -11,48 +11,156 @@
         </t>
     </t>
 
-    <t t-name="XmlOrder" >
-        <xpath expr="//div[hasclass('pos-receipt')]" position="replace">
-            <div class="order-receipt" align='center' width='40' value-thousands-separator='' >
-                <h1><t t-esc='data.name' /></h1>
-                <br/>
+
+    <t t-name="XmlBill">
+        <receipt align='center' width='40' value-thousands-separator='' >
+            <div class="pos-receipt" >
+                <t t-if='data.headerData.company'>
+                    <!-- <h1><t t-esc='data.headerData.company.name' /></h1> -->
+                    <img t-attf-src="/web/image?model=res.company&amp;id={{data.headerData.company.id}}&amp;field=logo" alt="Logo" class="pos-receipt-logo"/>
+                    <br/>
+                </t>
                 <div font='b'>
-                    <div class='date'>
-                        <div>Date : <t t-esc='data.time.date' /> <t t-esc='data.time.hours' />:<t t-esc='data.time.minutes' /></div>
-                    </div>
-                    <t t-if='data.cashier'>
+                    <t t-if='data.headerData.company.contact_address'>
+                        <div><t t-esc='receipt.company.contact_address' /></div>
+                    </t>
+                    <t t-if='data.headerData.company.phone'>
+                        <div>Tel:<t t-esc='data.headerData.company.phone' /></div>
+                    </t>
+                    <t t-if='data.headerData.company.vat'>
+                        <div>VAT:<t t-esc='data.headerData.company.vat' /></div>
+                    </t>
+                    <t t-if='data.headerData.company.email'>
+                        <div><t t-esc='data.headerData.company.email' /></div>
+                    </t>
+                    <t t-if='data.headerData.company.website'>
+                        <div><t t-esc='data.headerData.company.website' /></div>
+                    </t>
+                    <t t-if='data.headerData.header_xml'>
+                        <t t-raw='data.headerData.header_xml' />
+                    </t>
+                    <t t-if='!data.headerData.header_xml and data.headerData.header'>
+                        <div><t t-esc='data.headerData.header' /></div>
+                    </t>
+                    <t t-if='data.headerData.cashier'>
                         <div class='cashier'>
-                            <div>Serveur : <t t-esc='data.server' /></div>
+                            <div>Served by <t t-esc='data.headerData.cashier' /></div>
                         </div>
                     </t>
-                    <div class='table'>
-                        <div>Imprimante : <t t-esc='data.printer.name' /></div>
-                    </div>
-                    <div class='table'>
-                        <div>Table : <t t-esc='data.table_name' /></div>
-                    </div>
                 </div>
-                
-                <div class='orderlines' line-ratio='0.6'>
-                    <t t-log="data.new"/>
-                    <t t-foreach='data.new' t-as='line' t-key="line">
-                       <div>
-                            <line>
-                                <left><t t-esc='line.name' /></left>
-                                <right><value><t t-esc='line.quantity' /></value></right>
-                            </line> 
-                       </div>
+                <br /><br />
 
-                        <!-- <t t-call="is_pos_network_printer.XmlReceiptWrappedProductNameLines"/> -->
+                <div class="order-container bg-view overflow-y-auto flex-grow-1 d-flex flex-column text-start">
+                    <t t-foreach='data.orderlines' t-as='line' t-key="line">
+                        <li class="orderline p-2 lh-sm cursor-pointer pe-none">
+                            <div class="d-flex justify-content-between">
+                                <div class="product-name d-inline-block flex-grow-1 fw-bolder pe-1 text-truncate">
+                                    <span class="text-wrap"><t t-esc="line.productName" /></span>
+                                </div>
+                                <div class="product-price d-inline-block text-end price fw-bolder">
+                                    <t t-esc="line.price" ></t>
+                                </div>
+                            </div>
+                            <ul class="info-list ms-2">
+                                <li class="price-per-unit"> 
+                                <em class="qty fst-normal fw-bolder me-1">
+                                    <t t-esc="line.qty"/>
+                                </em> 
+                                <t t-esc="line.unit"/> x <t t-esc="line.unitPrice"/> <span> / <t t-esc="line.unitPrice"/> </span></li>
+                                <li></li>
+                            </ul>
+                        </li>
                     </t>
                 </div>
+                <div class="pos-receipt-right-align">--------</div>
+                <br />
+                <div class="pos-receipt-amount"> TOTAL <span class="pos-receipt-right-align">  <t t-esc="data.amount_total" ></t> <t t-esc="data.currency" ></t></span></div>
+                <div class="after-footer"></div>
+
+                <br/>
+                <br/>
+                <div class="pos-receipt-order-data" >
+                    <div><t t-esc="data.name" ></t></div>
+                    <div><t t-esc="data.date" ></t></div>
+                </div>
             </div>
-        </xpath>
+        </receipt>
+    </t>
+
+
+    <t t-name="XmlOrder" >
+        <div class="order-receipt" align='left' width='40' value-thousands-separator='' >
+            <h1 align='center' class="fw-bolder"><t t-esc='data.name' /></h1>
+            <br/>
+            <div font='b'>
+                <div class='date row'>
+                    <div class="order-container bg-view overflow-y-auto flex-grow-1 d-flex flex-column text-start">
+                        <li class="orderline p-2 lh-sm cursor-pointer pe-none">
+                            <div class="d-flex justify-content-between">
+                                <div class="product-name d-inline-block flex-grow-1 pe-1 text-truncate"><span
+                                        class="text-wrap">
+                                        Heure : <t t-esc='data.time' />
+                                </span></div>
+                                <div class="product-price d-inline-block text-end price">
+                                    Table : <t t-esc='data.table_name' />
+                                </div>
+                            </div>
+                        </li>
+                    </div>
+                </div>
+                <t t-if='data.server'>
+                    <div class='cashier'>
+                        <div>Serveur : <t t-esc='data.server' /></div>
+                    </div>
+                </t>
+            </div>
+            
+            <div t-if="data.cancelled.length > 0">
+                <br/>
+                <h1 align='center' class='fw-bolder'>----- <t t-esc="'Annulation'" /> -----</h1>
+                <br/>
+            </div>
+            <div class='orderlines' t-if="data.cancelled.length > 0" line-ratio='0.6'>
+                <t t-foreach='data.cancelled' t-as='line' t-key="line">
+                    <div class="order-container bg-view overflow-y-auto flex-grow-1 d-flex flex-column text-start">
+                        <li class="orderline p-2 lh-sm cursor-pointer pe-none">
+                            <div class="d-flex justify-content-between">
+                                <div class="product-name d-inline-block flex-grow-1 fw-bolder pe-1 text-truncate"><span
+                                        class="text-wrap">
+                                        <t t-esc='line.name' />
+                                </span></div>
+                                <div class="product-price d-inline-block text-end price fw-bolder">
+                                    -<t t-esc='line.quantity' />
+                                </div>
+                            </div>
+                        </li>
+                    </div>
+                </t>
+            </div>
+            
+            <div class='orderlines' t-if="data.new.length > 0" line-ratio='0.6'>
+                <t t-foreach='data.new' t-as='line' t-key="line">
+                    <div class="order-container bg-view overflow-y-auto flex-grow-1 d-flex flex-column text-start">
+                        <li class="orderline p-2 lh-sm cursor-pointer pe-none">
+                            <div class="d-flex justify-content-between">
+                                <div class="product-name d-inline-block flex-grow-1 fw-bolder pe-1 text-truncate"><span
+                                        class="text-wrap">
+                                        <t t-esc='line.name' />
+                                </span></div>
+                                <div class="product-price d-inline-block text-end price fw-bolder">
+                                    <t t-esc='line.quantity' />
+                                </div>
+                            </div>
+                        </li>
+                    </div>
+                </t>
+            </div>
+        </div>
     </t>
 
     <t t-name="XmlReceipt">
         <receipt align='center' width='40' value-thousands-separator='' >
-            <t t-if='data.headerData.company'>
+            <!-- <t t-if='data.headerData.company'>
                 <h1><t t-esc='data.headerData.company.name' /></h1>
                 <br/>
             </t>
@@ -182,7 +290,7 @@
             <div font='b'>
                 <div><t t-esc='data.name' /></div>
                 <div><t t-esc='data.date.localestring' /></div>
-            </div>
+            </div> -->
 
         </receipt>
     </t>
@@ -234,12 +342,65 @@
         </xpath>
     </t>
 
+    <t t-name="ProductScreeBill" t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('product-screen')]" position="after">
+            <div  class="pos-receipt-container-bill d-flex flex-grow-1 flex-lg-grow-0 user-select-none justify-content-center bg-200 text-center overflow-hidden d-none" >
+                <div id="id-bill-print-container" class="d-inline-block m-3 p-3 border rounded bg-view text-start overflow-y-auto pos-receipt-print" ></div>
+            </div>
+        </xpath>
+    </t>
+
     <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
         <xpath expr="//p[text()='Odoo Point of Sale']" position="replace">
             <div></div>
         </xpath>
-        <!-- <xpath expr="//p[text()='Odoo Restaurant']" position="replace">
+        <xpath expr="//p[text()='Odoo Restaurant']" position="replace">
             <div></div>
-        </xpath> -->
+        </xpath>
+
+        <xpath expr="//div[hasclass('pos-receipt-taxes')]" position="replace" >
+            <br/>
+            <div t-if="props.data.tax_details.length > 0" class="custom-pos-receipt-taxes">
+                <t t-foreach="props.data.tax_details" t-as="tax" t-key="tax.tax.id">
+                    <span>TVA à <t t-esc="'('+tax.tax.amount+'%)'"/>  :  <t t-esc="props.formatCurrency(tax.amount)"></t> </span>
+                </t>
+            </div>
+            
+        </xpath>
+
+        <xpath expr="//div[hasclass('receipt-change')]" position="replace" >
+            <div class="receipt-change mt-2">
+                CHANGE
+                <span t-esc="props.formatCurrency(props.data.change)" class="pos-receipt-right-align"/>
+            </div>
+        </xpath>
+        
     </t>
+    
+    <t t-name="OrederReceiptHeader" t-inherit="point_of_sale.ReceiptHeader" t-inherit-mode="extension" >
+        <xpath expr="//div[hasclass('pos-receipt-contact')]" position="replace">
+            <div class="pos-receipt-contact">
+                
+                <div t-if="props.data.cashier" class="cashier">
+                    <div><t t-esc="props.data.cashier" /></div>
+                </div>
+                <span class="fw-bolder" t-if="props.data.trackingNumber and !props.data.bigTrackingNumber">
+                    <t t-esc="'   Nº '"></t><span class="fs-2" t-esc="props.data.trackingNumber" />
+                </span>
+            </div>  
+            
+        </xpath>
+    </t>
+
+    <t t-name="RestaurantReceiptHeader" t-inherit="point_of_sale.ReceiptHeader" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('cashier')]" position="after">
+            <t t-if="props.data.table">
+                Table <t t-esc="props.data.table" />  |  Guests: <t t-esc="props.data.customer_count" />   |
+            </t>
+            <!-- <t t-if="props.data.table and props.data.customer_count">
+                <div></div>
+            </t> -->
+        </xpath>
+    </t>
+
 </templates>

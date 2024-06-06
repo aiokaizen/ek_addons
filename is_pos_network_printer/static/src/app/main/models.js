@@ -91,7 +91,6 @@ patch(PosStore.prototype, {
                 orderChange
             );
 
-
             if (changes["new"].length > 0 || changes["cancelled"].length > 0) {
                 const printingChanges = {
                     new: changes["new"],
@@ -103,16 +102,12 @@ patch(PosStore.prototype, {
                         ? order.getTable().floor.name
                         : false,
                     name: order.name.replace("Order", "Commande") || "unknown order",
-                    printer: {
-                        obj: printer,
-                        name: printer.config.name
-                    },
-                    time: {
-                        date: new Date().toLocaleDateString('fr-FR'),
-                        hours,
-                        minutes,
-                    },
-                    server: "Mohamed",  // Get current employee
+                    // printer: {
+                    //     obj: printer,
+                    //     name: printer.config.name
+                    // },
+                    time: `${hours}:${minutes}`,
+                    server: this.cashier ? this.cashier.name : "admin",  // Get current employee
                 };
                 console.log(`Printing Changes:`, printingChanges);
 
