@@ -10,6 +10,23 @@ import { patch } from "@web/core/utils/patch";
 
 patch(PosStore.prototype, {
     async setup(...args) {
+
+        // Setting certification signing functions for QZ printing purposes.
+        qz.security.setCertificatePromise(function(resolve, reject) {
+            fetch(
+                "is_pos_network_printer/static/src/app/main/qzlib/certificate.txt",
+                {cache: 'no-store', headers: {'Content-Type': 'text/plain'}}
+            ).then(function(data) { data.ok ? resolve(data.text()) : reject(data.text()); });
+        });
+        qz.security.setSignatureAlgorithm("SHA1"); // Lower than 2.1; SHA512
+        qz.security.setSignaturePromise(function(toSign) {
+            return function(resolve, reject) {
+                fetch("/qz-sign-message?request=" + toSign, {cache: 'no-store', headers: {'Content-Type': 'text/plain'}})
+                    .then(function(data) { data.ok ? resolve(data.text()) : reject(data.text()); });
+            };
+        });
+
+        // Continue setup function
         this.nw_printer = new NetworkPrinter({ pos: this, printer_name: this.config && this.config.printer_name || false });
         return await super.setup(...args);
     },

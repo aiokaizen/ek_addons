@@ -7,6 +7,8 @@
 #
 #################################################################################
 from . import models
+from . import controllers
+
 
 def pre_init_check(cr):
     from odoo.service import common
