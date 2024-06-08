@@ -5,9 +5,9 @@
 import { PosStore } from "@point_of_sale/app/store/pos_store";
 import { NetworkPrinter } from "@is_pos_network_printer/app/main/network_printer";
 import { renderToString } from "@web/core/utils/render";
-// import { htmlToCanvas } from "@point_of_sale/app/printer/render_service";
 import { patch } from "@web/core/utils/patch";
 import { customHtmlToCanvas as htmlToCanvas } from "@is_pos_network_printer/app/main/render_service";
+
 
 patch(PosStore.prototype, {
     async setup(...args) {
@@ -15,11 +15,11 @@ patch(PosStore.prototype, {
         // Setting certification signing functions for QZ printing purposes.
         qz.security.setCertificatePromise(function(resolve, reject) {
             fetch(
-                "is_pos_network_printer/static/src/app/main/qzlib/certificate.txt",
+                "/is_pos_network_printer/static/src/app/main/qzlib/digital-certificate.txt",
                 {cache: 'no-store', headers: {'Content-Type': 'text/plain'}}
-            ).then(function(data) { data.ok ? resolve(data.text()) : reject(data.text()); });
+            ).then(function(data) { console.log(data); return data.ok ? resolve(data.text()) : reject(data.text()); });
         });
-        qz.security.setSignatureAlgorithm("SHA1"); // Lower than 2.1; SHA512
+        // qz.security.setSignatureAlgorithm("sha512"); // Lower than 2.1; SHA512
         qz.security.setSignaturePromise(function(toSign) {
             return function(resolve, reject) {
                 fetch("/qz-sign-message?request=" + toSign, {cache: 'no-store', headers: {'Content-Type': 'text/plain'}})
