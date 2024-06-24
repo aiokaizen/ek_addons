@@ -65,9 +65,9 @@
                     <page string="Papiers" name="paper">
                         <field string="Les papier" name="paper_ids" >
                             <tree editable="top" >
+                                <field name="type_id" />
                                 <field name="issue_date" />
                                 <field name="expiry_date" />
-                                <field name="type_id" />
                                 <field name="owner_id" />
                             </tree>
                         </field>
