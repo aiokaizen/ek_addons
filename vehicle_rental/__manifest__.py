@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Copyright 2022-Today TechKhedut.
-# Part of TechKhedut. See LICENSE file for full copyright and licensing details.
+# Copyright 2024-Today EKBlocks.
+# Part of EKBlocks. See LICENSE file for full copyright and licensing details.
 {
-    'name': "Vehicle Rental Management | Car Rent | Car Rental Management",
+    'name': "Car Rental Management",
     'version': "2.0",
     'description': "A car rental, hire car or car hire agency is a company that rents automobiles for short periods.",
     'summary': "Vehicle Rental Management",
-    'author': 'TechKhedut Inc.',
-    'website': "https://techkhedut.com",
+    'author': 'EKBlocks',
+    'website': "https://www.ekblocks.com",
     'depends': ['mail', 'contacts', 'product', 'fleet', 'sale_management', 'bus'],
     'data': [
         # master
@@ -50,7 +50,7 @@
             'vehicle_rental/static/src/js/dashboard/vehicle_rental_dashboard.js',
         ],
     },
-    'images': ['static/description/cover.gif'],
+    # 'images': ['static/description/cover.gif'],
     'license': 'OPL-1',
     'installable': True,
     'application': True,
