@@ -8,8 +8,10 @@
     'summary': "Vehicle Rental Management",
     'author': 'TechKhedut Inc.',
     'website': "https://techkhedut.com",
-    'depends': ['mail', 'contacts', 'product', 'fleet', 'sale_management'],
+    'depends': ['mail', 'contacts', 'product', 'fleet', 'sale_management', 'bus'],
     'data': [
+        # master
+        "data/master.xml",
         # data
         'data/vehicle_product_data_views.xml',
         'data/sequence_views.xml',
@@ -21,6 +23,7 @@
         # Wizards
         'wizards/vehicle_damage_views.xml',
         'wizards/rental_contract_booking_views.xml',
+        'wizards/return_vehicle_km_view.xml',
         # Views
         'views/assets.xml',
         'views/fleet_inherit_views.xml',
@@ -28,6 +31,10 @@
         'views/customer_document_views.xml',
         'views/cancellation_policy_views.xml',
         'views/invoice_inherit_views.xml',
+        'views/paper_type_view.xml',
+        'views/fleet_vehicle_cost_inherit_views.xml',
+        # 'views/fleet_rental_config_view.xml',
+        'views/res_config_settings_views.xml',
         # Reports
         'report/vehicle_contract_report_views.xml',
         'report/scratch_report_views.xml',

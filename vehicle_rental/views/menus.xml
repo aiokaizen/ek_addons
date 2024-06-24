@@ -37,5 +37,12 @@
                   parent="menu_configuration"
                   action="action_cancellation_policy"
                   sequence="1"/>
+        <menuitem id="menu_paper_type_policy"
+                  name="Type de papier"
+                  parent="menu_configuration"
+                  action="vehicle_rental_paper_type"
+                  sequence="1"/>
+        <!-- <menuitem id="rental_vehicle_config_menu" name="Settings"
+              parent="menu_configuration" action="rental_vehicle_config_action"/> -->
     </data>
 </odoo>

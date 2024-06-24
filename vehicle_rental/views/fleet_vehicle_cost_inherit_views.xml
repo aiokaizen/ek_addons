@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id='fleet_vehicle_log_services_inherit_view_form' model='ir.ui.view'>
+            <field name="name">fleet.vehicle.log.services.form</field>
+            <field name="model">fleet.vehicle.log.services</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_log_services_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="before">
+                    <field name="slug_service" invisible="True" />
+                    <field name="oil_change_odometer" invisible="slug_service != 'oil-change'"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id='fleet_vehicle_log_services_inherit_view_tree' model='ir.ui.view'>
+            <field name="name">fleet.vehicle.log.services.tree</field>
+            <field name="model">fleet.vehicle.log.services</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_log_services_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="before">
+                    <field name="odometer" />
+                </xpath>
+            </field>
+        </record>
+       
+    </data>
+</odoo>

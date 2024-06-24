@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- <data> -->
+    <data noupdate="1">
+        <!-- data of paper type -->
+        <record id="vehicle_rental_paper_type_assurance" model="vehicle.rental.paper.type">
+            <field name="name">Attestation d’Assurance</field>
+        </record>
+        <record id="vehicle_rental_paper_type_visite" model="vehicle.rental.paper.type">
+            <field name="name">Visite Technique</field>
+        </record>
+        <record id="vehicle_rental_paper_type_vignette" model="vehicle.rental.paper.type">
+            <field name="name">Vignette</field>
+        </record>
+        <record id="vehicle_rental_paper_type_w18" model="vehicle.rental.paper.type">
+            <field name="name">W18</field>
+            
+        </record>
+        <record id="vehicle_rental_paper_type_recepisse" model="vehicle.rental.paper.type">
+            <field name="name">Récépissé</field>
+        </record>
+        <record id="vehicle_rental_paper_type_carte_grise" model="vehicle.rental.paper.type">
+            <field name="name">Carte Grise</field>
+        </record>
+        <record id="vehicle_rental_paper_type_vidange_de_vehicle" model="vehicle.rental.paper.type">
+            <field name="name">Vidange de véhicule</field>
+        </record>
+    </data>
+</odoo>

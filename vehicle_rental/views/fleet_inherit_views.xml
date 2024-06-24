@@ -31,6 +31,15 @@
                     <widget name="web_ribbon" title="In Maintenance" bg_color="bg-danger"
                             invisible="status == 'available'"/>
                 </xpath>
+
+                <!-- <xpath expr="//group/field[@name='manager_id']" position="before" >
+                    <label for="total_km_vidange" invisible="vehicle_type != 'car'"/>
+                    <div class="o_row o_hr_narrow_field" invisible="vehicle_type != 'car'">
+                            <field name="total_km_vidange"/>
+                            <field name="odometer_unit"/>
+                    </div>
+                </xpath> -->
+
                 <xpath expr="//form/sheet/group" position="inside">
                     <group string="Rent Details">
                         <field name="rent_hour"/>
@@ -50,6 +59,25 @@
                         <field name="extra_charge_km"/>
                         <field name="extra_charge_mi"/>
                     </group>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='note']" position="before" >
+                    <page string="Papiers" name="paper">
+                        <field string="Les papier" name="paper_ids" >
+                            <tree editable="top" >
+                                <field name="issue_date" />
+                                <field name="expiry_date" />
+                                <field name="type_id" />
+                                <field name="owner_id" />
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+                <xpath expr="//form/sheet" position="before">
+                    <div invisible="has_alert_message == ''" >
+                        <field name="has_alert_message" />
+                    </div>
                 </xpath>
             </field>
         </record>
@@ -85,7 +113,10 @@
             <field name="name">Vehicle</field>
             <field name="res_model">fleet.vehicle</field>
             <field name="view_mode">kanban,tree,form,pivot,activity</field>
+            
         </record>
+       
+        
 
         <!--Fleet Vehicle Log Contract-->
         <record id="fleet_vehicle_log_contract_form_view_inherit" model="ir.ui.view">

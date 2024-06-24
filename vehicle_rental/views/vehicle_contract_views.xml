@@ -125,6 +125,13 @@
                                         <field name="odometer_unit" class="oe_inline" readonly="1"/>
                                     </strong>
                                 </div>
+                                <label for="return_odometer" class="mt-1" string="Return Odometer"/>
+                                <div name="return_odometer">
+                                    <field name="return_odometer" class="oe_inline" readonly="status != 'a_draft'"/>
+                                    <strong>&#160;/
+                                        <field name="odometer_unit" class="oe_inline" readonly="1"/>
+                                    </strong>
+                                </div>
                             </group>
                             <group>
                                 <field name="is_driver_required" readonly="installment_created != False"/>
@@ -452,6 +459,33 @@
                                                      style="max-width: 340px !important; max-height: 320px !important;">
                                                     <div class="col-12">
                                                         <img t-att-src="kanban_image('rental.vehicle.image', 'avatar', record.id.raw_value)"
+                                                             t-att-alt="name" style="margin: 0px;"
+                                                             class="img img-responsive" width="320px" height="280px"/>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </page>
+                            <page name="rental_vehicle_return_image" string="Vehicle Return Images" invisible="status != 'c_return'" >
+                                <field name="rental_vehicle_image_return_ids" nolabel="1" >
+                                    <form>
+                                        <sheet>
+                                            <group string="Vehicle Return Image">
+                                                <field name="avatar_return" widget="image" style="width: 75%;" nolabel="1"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                    <kanban string="Kanban" class="">
+                                        <field name="id"/>
+                                        <field name="avatar_return"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div class="oe_kanban_global_click"
+                                                     style="max-width: 340px !important; max-height: 320px !important;">
+                                                    <div class="col-12">
+                                                        <img t-att-src="kanban_image('rental.vehicle.return.image', 'avatar_return', record.id.raw_value)"
                                                              t-att-alt="name" style="margin: 0px;"
                                                              class="img img-responsive" width="320px" height="280px"/>
                                                     </div>

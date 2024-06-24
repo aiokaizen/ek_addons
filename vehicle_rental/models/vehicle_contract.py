@@ -15,7 +15,17 @@ class RentalVehicleImage(models.Model):
     _description = __doc__
 
     avatar = fields.Binary(string="Avatar")
+    avatar_return = fields.Binary(string="Avatar")
     vehicle_contract_id = fields.Many2one('vehicle.contract', ondelete="cascade")
+
+class RentalVehicleReturnImage(models.Model):
+    """Rental Vehicle Image"""
+    _name = "rental.vehicle.return.image"
+    _description = __doc__
+
+    avatar_return = fields.Binary(string="Avatar")
+    vehicle_contract_id = fields.Many2one('vehicle.contract', ondelete="cascade")
+
 
 
 class VehicleDamageImage(models.Model):
@@ -49,6 +59,7 @@ class VehicleContract(models.Model):
     driver_charge = fields.Monetary(string="Charge")
 
     last_odometer = fields.Float(string="Last Odometer", copy=False)
+    return_odometer = fields.Float(string="Return Odometer", copy=False)
     odometer_unit = fields.Selection([('kilometers', 'km'), ('miles', 'mi')], 'Odometer Unit',
                                      default='kilometers', copy=False)
     model_year = fields.Char(string="Model", copy=False)
@@ -122,6 +133,7 @@ class VehicleContract(models.Model):
     cancellation_invoice_state = fields.Selection(related='cancellation_invoice_id.payment_state',
                                                   string="Cancellation Invoice State")
     rental_vehicle_image_ids = fields.One2many('rental.vehicle.image', 'vehicle_contract_id')
+    rental_vehicle_image_return_ids = fields.One2many('rental.vehicle.return.image', 'vehicle_contract_id')
     vehicle_damage_image_ids = fields.One2many('vehicle.damage.image', 'vehicle_contract_id')
     insurance_policy_ids = fields.One2many('insurance.policy', 'vehicle_contract_id')
     extra_service_ids = fields.One2many('extra.service', 'vehicle_contract_id')
@@ -208,7 +220,15 @@ class VehicleContract(models.Model):
 
     def b_in_progress_to_c_return(self):
         for rec in self:
-            rec.status = 'c_return'
+            # rec.status = 'c_return'
+            return {
+                'type': 'ir.actions.act_window',
+                'name': 'Return Vehicle',
+                'res_model': 'return.vehicle.wizard',
+                'view_mode': 'form',
+                'target': 'new',
+                'context': {'default_status': 'c_return'},
+            }
 
     def c_return_to_d_cancel(self):
         for rec in self:
