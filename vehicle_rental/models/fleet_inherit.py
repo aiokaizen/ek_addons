@@ -152,7 +152,7 @@ class FleetVehicle(models.Model):
         IrConfigParam = self.env['ir.config_parameter'].sudo()
         alert_message_km = int(IrConfigParam.get_param('vehicle_rental.alert_message_km', default=1000))
         w18_duration_default = int(IrConfigParam.get_param('vehicle_rental.w18_duration_default', default=1))
-        recepisse_duration_default = int(IrConfigParam.get_param('vehicle_rental.recepisse_duration_default', default=1))
+        recepisse_duration_default = int(IrConfigParam.get_param('vehicle_rental.recepisse_duration_default', default=2))
         carte_grise_duration_default = int(IrConfigParam.get_param('vehicle_rental.carte_grise_duration_default', default=10))
 
         danger_list = []
@@ -166,7 +166,7 @@ class FleetVehicle(models.Model):
                 danger_list.append("Ce véhicule a un document manquant <strong>(W18)</strong>.")
             elif self._check_number_of_month_by_acquisition_date(recepisse_duration_default) and not has_recepisse:
                 danger_list.append("Ce véhicule a un document manquant <strong>(Carte Grise)</strong>.")
-            elif self._check_number_of_month_by_acquisition_date(carte_grise_duration_default) and not has_recepisse and not has_W18:
+            elif self._check_number_of_month_by_acquisition_date(w18_duration_default) and not has_recepisse and not has_W18:
                 danger_list.append("Ce véhicule a un document manquant <strong>(Récépissé)</strong>")
         # w18 
         if not has_recepisse and not has_carte:
