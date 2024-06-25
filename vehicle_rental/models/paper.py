@@ -13,6 +13,13 @@ class Paper(models.Model):
     expiry_date = fields.Date(string=_("Date Fin"), required=True)
     owner_id = fields.Many2one("res.partner", string=_("Propriétaire"))
     vehicle_id = fields.Many2one("fleet.vehicle", required=True, string=_("Véhicule"))
+    odometer = fields.Float(string=_("Odometer"), copy=False)
+    file = fields.Binary(
+        attachment=True,
+        string="Document",
+        copy=False,
+    )
+    filename = fields.Char('File Name', required=True)
 
     @api.model
     def create(self, vals):
