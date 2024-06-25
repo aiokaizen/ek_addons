@@ -125,13 +125,13 @@
                                         <field name="odometer_unit" class="oe_inline" readonly="1"/>
                                     </strong>
                                 </div>
-                                <label for="return_odometer" class="mt-1" string="Return Odometer"/>
-                                <div name="return_odometer">
-                                    <field name="return_odometer" class="oe_inline" readonly="status != 'a_draft'"/>
-                                    <strong>&#160;/
-                                        <field name="odometer_unit" class="oe_inline" readonly="1"/>
-                                    </strong>
-                                </div>
+                                    <label invisible="status != 'c_return'"  for="return_odometer" class="mt-1" string="Return Odometer"/>
+                                    <div invisible="status != 'c_return'"  name="return_odometer">
+                                        <field name="return_odometer" class="oe_inline" readonly="status != 'a_draft'"/>
+                                        <strong>&#160;/
+                                            <field name="odometer_unit" class="oe_inline" readonly="1"/>
+                                        </strong>
+                                    </div>                                              
                             </group>
                             <group>
                                 <field name="is_driver_required" readonly="installment_created != False"/>
