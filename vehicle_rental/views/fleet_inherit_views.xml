@@ -62,6 +62,33 @@
                 </xpath>
 
                 <xpath expr="//notebook/page[@name='note']" position="before" >
+                    <page name="rental_vehicle_image" string="Vehicle Images">
+                        <field name="vehicle_image_ids" nolabel="1">
+                            <form>
+                                <sheet>
+                                    <group string="Vehicle Image">
+                                        <field name="avatar" widget="image" style="width: 75%;" nolabel="1"/>
+                                    </group>
+                                </sheet>
+                            </form>
+                            <kanban string="Kanban" class="">
+                                <field name="id"/>
+                                <field name="avatar"/>
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div class="oe_kanban_global_click"
+                                                style="max-width: 340px !important; max-height: 320px !important;">
+                                            <div class="col-12">
+                                                <img t-att-src="kanban_image('vehicle.image', 'avatar', record.id.raw_value)"
+                                                        t-att-alt="name" style="margin: 0px;"
+                                                        class="img img-responsive" width="320px" height="280px"/>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </templates>
+                            </kanban>
+                        </field>
+                    </page>
                     <page string="Papiers" name="paper">
                         <field string="Les papier" name="paper_ids" >
                             <tree editable="top" >

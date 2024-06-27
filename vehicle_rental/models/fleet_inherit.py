@@ -11,6 +11,15 @@ from odoo.addons.vehicle_rental import settings
 
 _logger = logging.getLogger(__name__)
 
+
+class VehicleImage(models.Model):
+    """Vehicle Image"""
+    _name = "vehicle.image"
+    _description = __doc__
+
+    avatar = fields.Binary(string="Avatar")
+    vehicle_id = fields.Many2one('fleet.vehicle', ondelete="cascade")
+
 class FleetVehicle(models.Model):
     """Fleet Vehicle"""
     _inherit = 'fleet.vehicle'
@@ -43,6 +52,8 @@ class FleetVehicle(models.Model):
 
     is_old_vehicle = fields.Boolean(string='Is Old Vehicle', compute='_compute_is_old_vehicle')
 
+    vehicle_image_ids = fields.One2many('vehicle.image', 'vehicle_id')
+    
    
 
 
