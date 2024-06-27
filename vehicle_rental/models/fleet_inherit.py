@@ -41,6 +41,10 @@ class FleetVehicle(models.Model):
 
     has_alert_message = fields.Html(compute="_compute_has_alert")
 
+    is_old_vehicle = fields.Boolean(string='Is Old Vehicle', compute='_compute_is_old_vehicle')
+
+   
+
 
     def available_to_in_maintenance(self):
         self.status = 'in_maintenance'
@@ -430,6 +434,17 @@ class FleetVehicle(models.Model):
                 user_id=self.env.user.id  # Assign to the current user
             )
             return True
+            
+    @api.depends('first_contract_date')
+    def _compute_is_old_vehicle(self):
+        today = fields.Datetime.now().date()
+
+        for record in self:
+            # we should use this field 'first_contract_date' instead of 'acquisition_date'
+            if record.acquisition_date:
+                record.is_old_vehicle = (today - record.acquisition_date).days > (3 * 365)
+            else:
+                record.is_old_vehicle = False
 
 
 

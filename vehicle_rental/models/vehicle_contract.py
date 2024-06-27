@@ -851,3 +851,14 @@ class VehicleContract(models.Model):
             for rec in data.vehicle_payment_option_ids:
                 if rec.payment_date == today_date:
                     rec.action_create_payment_invoice()
+
+    @api.onchange('vehicle_id')
+    def _onchange_vehicle_id(self):
+        if self.vehicle_id and self.vehicle_id.is_old_vehicle:
+            return {
+                'warning': {
+                    'title': _("Avertissement Véhicule Ancien"),
+                    'message': _("Ce véhicule a plus de 3 ans. Êtes-vous sûr de vouloir louer ce véhicule ?"),
+                    # 'button_name': _("Compris")
+                }
+            }
