@@ -1,5 +1,6 @@
 from datetime import datetime
 from odoo import models, fields, api, _
+from odoo.addons.vehicle_rental import settings
 
 
 class Paper(models.Model):
@@ -24,17 +25,22 @@ class Paper(models.Model):
     @api.model
     def create(self, vals):
         record = super(Paper, self).create(vals)
+        auto_gen_slug = settings.VEHICLE_ACTIVITIES_AUTOMATIC_CREATION_SLUG
 
-        # if record.type_id.slug == "carte-grise":
-        #     if not vignette or ((vignette.expiry_date - now.date()).days < days_before_vignette_alert):
-        #         next_vignette_date = now.date() if not vignette else vignette.expiry_date
-        #         vehicle.activity_schedule(
-        #             'mail.mail_activity_data_todo',  # Activity type (default: To Do)
-        #             summary="Vignette introuvable.",  # Activity title
-        #             note="Vous devez ajouter la vignette pour cette véhicule.",  # Activity description
-        #             user_id=self.env.user.id,  # Assign to the current user
-        #             date_deadline=next_vignette_date,
-        #             slug=auto_gen_slug
-        #         )
+        vignette = self.vehicle_id.paper_ids.filtered(
+            lambda p: p.type_id.slug == "vignette"
+        ).search([], limit=1)
+
+        if record.type_id.slug == "carte-grise" and not vignette:
+
+            vignette_slug = f"{auto_gen_slug}_vignette_initial"
+
+            self.vehicle_id.activity_schedule(
+                'mail.mail_activity_data_todo',  # Activity type (default: To Do)
+                summary="Vignette introuvable.",  # Activity title
+                note="Vous devez ajouter la vignette pour cette véhicule.",  # Activity description
+                user_id=self.env.user.id,  # Assign to the current user
+                slug=vignette_slug
+            )
 
         return record

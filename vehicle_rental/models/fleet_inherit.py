@@ -190,71 +190,91 @@ class FleetVehicle(models.Model):
 #             })
 #         return True
 
+    @api.model
     def create_vehicle_papers_tasks(self):
         """
         This function creates the tasks related to the vehicle papers if they do not already exist.
         It is called from a cron job and other places.
         """
         now = fields.Datetime.now()
-        for vehicle in self:
-            # print("TEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEST", vehicle.name)
-            # vehicle.activity_schedule(
-            #     'mail.mail_activity_data_todo',  # Activity type (default: To Do)
-            #     summary="Carte grise introuvable.",  # Activity title
-            #     note="Vous devez ajouter une Carte Grise pour cette véhicule.",  # Activity description
-            #     user_id=vehicle.env.user.id,  # Assign to the current user
-            #     # date_deadline=vehicle.acquisition_date + timedelta(days=60),
-            # )
-            # print("FIIIIIIIIIIIIIIIIIIIIN   TEEEEEEEEEEEEEEEEEEEEEEEEST")
-            # continue
+        vehicles = self.env["fleet.vehicle"].search([])
 
-            IrConfigParam = self.env['ir.config_parameter'].sudo()
+        for vehicle in vehicles:
+            # IrConfigParam = self.env['ir.config_parameter'].sudo()
             auto_gen_slug = settings.VEHICLE_ACTIVITIES_AUTOMATIC_CREATION_SLUG
-
+            # affected_user = self.env['res.users'].ref
+            affected_user = self.env.ref("base.user_admin")  # User to whome the task is affected.
+            
+            # Get data
             days_before_carte_grise_alert = self.env['vehicle.rental.paper.type'].search(
                 [("slug", "=", "carte-grise")], limit=1
             ).days_to_alert
             carte_grise = vehicle.paper_ids.filtered(
                 lambda p: p.type_id.slug == "carte-grise"
-            ).search([], limit=1)
+            )
+            carte_grise = carte_grise[0] if carte_grise else None
+
 
             days_before_visite_technique_alert = self.env['vehicle.rental.paper.type'].search(
                 [("slug", "=", "visite-technique")], limit=1
             ).days_to_alert
             visite_technique = vehicle.paper_ids.filtered(
                 lambda p: p.type_id.slug == "visite-technique"
-            ).search([], limit=1)
+            )
+            visite_technique = visite_technique[0] if visite_technique else None
 
             days_before_vignette_alert = self.env['vehicle.rental.paper.type'].search(
                 [("slug", "=", "vignette")], limit=1
             ).days_to_alert
             vignette = vehicle.paper_ids.filtered(
                 lambda p: p.type_id.slug == "vignette"
-            ).search([], limit=1)
+            )
+            vignette = vignette[0] if vignette else None
+
 
             days_before_assurance_alert = self.env['vehicle.rental.paper.type'].search(
-                [("slug", "=", "assurance")], limit=1
+                [("slug", "=", "attestation-dassurance")], limit=1
             ).days_to_alert
             assurance = vehicle.paper_ids.filtered(
-                lambda p: p.type_id.slug == "assurance"
-            ).search([], limit=1)
-
-            if vehicle.acquisition_date:
-
-                carte_grise_activity_slug = f"{auto_gen_slug}_carte_grise_{carte_grise.id}" if carte_grise else (
-                    f"{auto_gen_slug}_carte_grise_initial"
-                )
-
+                lambda p: p.type_id.slug == "attestation-dassurance"
+            )
+            assurance = assurance[0] if assurance else None
+            # Carte Grise
+            carte_grise_activity_slug = f"{auto_gen_slug}_carte_grise_{carte_grise.id}" if carte_grise else (
+                f"{auto_gen_slug}_carte_grise_{vehicle.id}_initial"
+            )
+            activity_carte_grise = self.env["mail.activity"].search(
+                domain=[
+                    ('slug', '=', carte_grise_activity_slug)
+                ],
+                limit=1
+            )
+            if not activity_carte_grise:
                 if not carte_grise or ((carte_grise.expiry_date - now.date()).days < days_before_carte_grise_alert):
+                    next_cart_grise_date = (
+                        carte_grise.expiry_date if carte_grise else
+                        vehicle.acquisition_date + timedelta(days=60)
+                    )
                     vehicle.activity_schedule(
                         'mail.mail_activity_data_todo',  # Activity type (default: To Do)
                         summary="Carte grise introuvable.",  # Activity title
                         note="Vous devez ajouter une Carte Grise pour cette véhicule.",  # Activity description
-                        user_id=self.env.user.id,  # Assign to the current user
-                        date_deadline=vehicle.acquisition_date + timedelta(days=60),
+                        user_id=affected_user,  # Assign to the current user
+                        date_deadline=next_cart_grise_date,
                         slug=carte_grise_activity_slug
                     )
 
+            # Visite Technique
+            visite_technique_activity_slug = f"{auto_gen_slug}_visite_technique_{visite_technique.id}" if visite_technique else (
+                f"{auto_gen_slug}_visite_technique_{vehicle.id}_initial"
+            )
+            activity_visite_technique_exist = len(self.env["mail.activity"].search(
+                domain=[
+                    ('slug', '=', visite_technique_activity_slug)
+                ],
+                limit=1
+            )) > 0
+            if not activity_visite_technique_exist:
                 if (not visite_technique and (now.date() - vehicle.acquisition_date).days > 365 - days_before_visite_technique_alert) or (
                     visite_technique and (visite_technique.expiry_date - now.date()).days < days_before_visite_technique_alert
                 ):
@@ -264,37 +284,60 @@ class FleetVehicle(models.Model):
                     )
                     vehicle.activity_schedule(
                         'mail.mail_activity_data_todo',
-                        summary="Visite technique",
+                        summary="Visite technique requise",
                         note=(
                             "La date de prochain visite technique pour cette véhicule est proche, "
-                            f"veuillez penser de la ramener un garage avant le {next_visite_technique_date.strftime('%d/%m/%Y')}"
+                            f"veuillez penser de la ramener vers un garage avant le {next_visite_technique_date.strftime('%d/%m/%Y')}"
                         ),
-                        user_id=self.env.user.id,
+                        user_id=affected_user,
                         date_deadline=next_visite_technique_date,  # A year after registration
-                        slug=auto_gen_slug
+                        slug=visite_technique_activity_slug
                     )
 
-                if carte_grise:
+            # Vignette
+            if carte_grise:
+                vignette_activity_slug = f"{auto_gen_slug}_vignette_{vignette.id}" if vignette else (
+                    f"{auto_gen_slug}_vignette_{vehicle.id}_initial"
+                )
+                activity_vignette_exist = len(self.env["mail.activity"].search(
+                    domain=[
+                        ('slug', '=', vignette_activity_slug)
+                    ],
+                    limit=1
+                )) > 0
+                if not activity_vignette_exist:
                     if not vignette or ((vignette.expiry_date - now.date()).days < days_before_vignette_alert):
                         next_vignette_date = now.date() if not vignette else vignette.expiry_date
                         vehicle.activity_schedule(
                             'mail.mail_activity_data_todo',  # Activity type (default: To Do)
                             summary="Vignette introuvable.",  # Activity title
                             note="Vous devez ajouter la vignette pour cette véhicule.",  # Activity description
-                            user_id=self.env.user.id,  # Assign to the current user
+                            user_id=affected_user,  # Assign to the current user
                             date_deadline=next_vignette_date,
-                            slug=auto_gen_slug
+                            slug=vignette_activity_slug
                         )
-
+            
+            # Assurance
+            assurance_slug = f"{auto_gen_slug}_assurance_{assurance.id}" if assurance else (
+                f"{auto_gen_slug}_assurance_{vehicle.id}_initial"
+            )
+            activity_assurance_exist = len(self.env["mail.activity"].search(
+                domain=[
+                    ('slug', '=', assurance_slug)
+                ],
+                limit=1
+            )) > 0
+            
+            if not activity_assurance_exist:
                 if not assurance or ((assurance.expiry_date - now.date()).days < days_before_assurance_alert):
                     next_assurance_date = now.date() if not assurance else assurance.expiry_date
                     vehicle.activity_schedule(
                         'mail.mail_activity_data_todo',  # Activity type (default: To Do)
                         summary="Assurance introuvable.",  # Activity title
                         note="Vous devez ajouter la assurance pour cette véhicule.",  # Activity description
-                        user_id=self.env.user.id,  # Assign to the current user
+                        user_id=affected_user,  # Assign to the current user
                         date_deadline=next_assurance_date,
-                        slug=auto_gen_slug
+                        slug=assurance_slug
                     )
 
         return True

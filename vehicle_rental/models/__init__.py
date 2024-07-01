@@ -14,5 +14,5 @@ from . import paper
 from . import type
 from . import fleet_service_type_inherit
 from . import res_config_settings
-from . import fleet_fehicle_log_service
+from . import fleet_vehicle_log_service
 from . import mail_activity

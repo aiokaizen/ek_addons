@@ -103,11 +103,6 @@
                     </page>
                 </xpath>
 
-                <xpath expr="//form/sheet" position="before">
-                    <div invisible="has_alert_message == ''" >
-                        <field name="has_alert_message" />
-                    </div>
-                </xpath>
             </field>
         </record>
 
