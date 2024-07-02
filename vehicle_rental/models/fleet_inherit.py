@@ -53,9 +53,18 @@ class FleetVehicle(models.Model):
     is_old_vehicle = fields.Boolean(string='Is Old Vehicle', compute='_compute_is_old_vehicle')
 
     vehicle_image_ids = fields.One2many('vehicle.image', 'vehicle_id')
-    
-   
+    # images = fields.Many2many('ir.attachment', string="Images")
 
+    # video_file = fields.Binary(string="Video File")
+    # video_filename = fields.Char(string="Video Filename")
+    # video_url = fields.Char(string="Video URL", compute='_compute_video_url')
+
+    # def _compute_video_url(self):
+    #     for record in self:
+    #         if record.video_file:
+    #             record.video_url = '/web/content/vehicle_rental/%d/video_file/%s' % (record.id, record.video_filename)
+    #         else:
+    #             record.video_url = False
 
     def available_to_in_maintenance(self):
         self.status = 'in_maintenance'
@@ -166,7 +175,7 @@ class FleetVehicle(models.Model):
 #     def create_cron_job(self):
 #         now = fields.Datetime.now()
 #         for vehicle in self:
-#             print("TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT", vehicle.name)
+#             print("TEST", vehicle.name)
 
 #             self.env["ir.cron"].create({
 #                 "name": "Test cron created by code for fleet vehicle!",
@@ -203,8 +212,8 @@ class FleetVehicle(models.Model):
             # IrConfigParam = self.env['ir.config_parameter'].sudo()
             auto_gen_slug = settings.VEHICLE_ACTIVITIES_AUTOMATIC_CREATION_SLUG
             # affected_user = self.env['res.users'].ref
-            affected_user = self.env.ref("base.user_admin")  # User to whome the task is affected.
-            
+            affected_user = self.env.ref("base.user_admin").id  # User to whome the task is affected.
+
             # Get data
             days_before_carte_grise_alert = self.env['vehicle.rental.paper.type'].search(
                 [("slug", "=", "carte-grise")], limit=1
@@ -316,7 +325,7 @@ class FleetVehicle(models.Model):
                             date_deadline=next_vignette_date,
                             slug=vignette_activity_slug
                         )
-            
+
             # Assurance
             assurance_slug = f"{auto_gen_slug}_assurance_{assurance.id}" if assurance else (
                 f"{auto_gen_slug}_assurance_{vehicle.id}_initial"
@@ -327,7 +336,7 @@ class FleetVehicle(models.Model):
                 ],
                 limit=1
             )) > 0
-            
+
             if not activity_assurance_exist:
                 if not assurance or ((assurance.expiry_date - now.date()).days < days_before_assurance_alert):
                     next_assurance_date = now.date() if not assurance else assurance.expiry_date
@@ -346,10 +355,10 @@ class FleetVehicle(models.Model):
     def _compute_has_alert(self):
 
         IrConfigParam = self.env['ir.config_parameter'].sudo()
-        alert_message_km = int(IrConfigParam.get_param('vehicle_rental.alert_message_km', default=1000))
-        w18_duration_default = int(IrConfigParam.get_param('vehicle_rental.w18_duration_default', default=1))
-        recepisse_duration_default = int(IrConfigParam.get_param('vehicle_rental.recepisse_duration_default', default=2))
-        carte_grise_duration_default = int(IrConfigParam.get_param('vehicle_rental.carte_grise_duration_default', default=10))
+        alert_message_km = int(IrConfigParam.get_param('vehicle_rental.alert_message_km')) or 1000
+        w18_duration_default = int(IrConfigParam.get_param('vehicle_rental.w18_duration_default')) or 1
+        recepisse_duration_default = int(IrConfigParam.get_param('vehicle_rental.recepisse_duration_default')) or 2
+        carte_grise_duration_default = int(IrConfigParam.get_param('vehicle_rental.carte_grise_duration_default')) or 10
 
         danger_list = []
         warning_list = []
@@ -452,7 +461,7 @@ class FleetVehicle(models.Model):
         )
         oil_change_odometer = last_vidange.oil_change_odometer or 0
         odometer_at_last_vidange = last_vidange.odometer or 0
-        max_odometer_change_oil = int(self.env['ir.config_parameter'].sudo().get_param('rental_vehicle.max_odometer_change_oil', default=10000))
+        max_odometer_change_oil = int(self.env['ir.config_parameter'].sudo().get_param('rental_vehicle.max_odometer_change_oil')) or 10000
         vidange_lifespan_odometer = oil_change_odometer or max_odometer_change_oil
         odometer_at_last_vidange = last_vidange.odometer if last_vidange else 0
         if self.odometer - odometer_at_last_vidange  > vidange_lifespan_odometer:
@@ -488,7 +497,7 @@ class FleetVehicle(models.Model):
                 user_id=self.env.user.id  # Assign to the current user
             )
             return True
-            
+
     @api.depends('first_contract_date')
     def _compute_is_old_vehicle(self):
         today = fields.Datetime.now().date()
@@ -499,7 +508,6 @@ class FleetVehicle(models.Model):
                 record.is_old_vehicle = (today - record.acquisition_date).days > (3 * 365)
             else:
                 record.is_old_vehicle = False
-
 
 
 class FleetVehicleLogContract(models.Model):
