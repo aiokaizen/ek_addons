@@ -8,21 +8,25 @@
             <field name="inherit_id" ref="base.res_config_settings_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//form/app[@id='fleet']" position="inside">
-                    <!-- <app data-string="Fleet" id="fleet" string="Fleet" name="fleet" groups="fleet.fleet_group_manager"> -->
-                        <block title="Gestion Des alertes Véhicules" id="end_contract_setting">
-                            <setting string="Expiration des documents">
+                        <block title="Parametrage de Véhicules" id="end_contract_setting">
+                            <!-- <setting string="Expiration des documents">
                                 <div class="text-muted content-group mt16">
                                      <group>
-                                        <!-- <field name="max_odometer_change_oil"/> -->
-                                        <field name="alert_message_km"/>
                                         <field name="w18_duration_default"/>
                                         <field name="recepisse_duration_default"/>
                                         <field name="carte_grise_duration_default"/>
                                     </group>
                                 </div>
+                            </setting> -->
+
+                            <setting string="Seuil d'alert vidange en kilométrage." title="Le nombre de kilomètres restants avant la prochaine vidange, où vous recevrez une alerte.">
+                                <div class="text-muted content-group mt16">
+                                    <span>Recevoir une alert </span>
+                                    <field name="alert_message_km" class="text-center" style="width: 10%; min-width: 5rem;" />
+                                    <span> kilométres avant la prochaine vidange.</span>
+                                </div>
                             </setting>
                         </block>
-                    <!-- </app> -->
                 </xpath>
             </field>
         </record>

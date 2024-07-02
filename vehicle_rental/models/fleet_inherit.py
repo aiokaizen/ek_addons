@@ -201,7 +201,7 @@ class FleetVehicle(models.Model):
             # IrConfigParam = self.env['ir.config_parameter'].sudo()
             auto_gen_slug = settings.VEHICLE_ACTIVITIES_AUTOMATIC_CREATION_SLUG
             # affected_user = self.env['res.users'].ref
-            affected_user = self.env.ref("base.user_admin").id  # User to whome the task is affected.
+            affected_user = self.env.ref("base.user_admin").id  # User to whom the task is affected.
 
             # Get data
             days_before_carte_grise_alert = self.env['vehicle.rental.paper.type'].search(
@@ -332,7 +332,7 @@ class FleetVehicle(models.Model):
                     vehicle.activity_schedule(
                         'mail.mail_activity_data_todo',  # Activity type (default: To Do)
                         summary="Assurance introuvable.",  # Activity title
-                        note="Vous devez ajouter la assurance pour cette véhicule.",  # Activity description
+                        note="Vous devez ajouter l'assurance pour cette véhicule.",  # Activity description
                         user_id=affected_user,  # Assign to the current user
                         date_deadline=next_assurance_date,
                         slug=assurance_slug

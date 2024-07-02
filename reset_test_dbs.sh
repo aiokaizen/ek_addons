@@ -1,3 +1,8 @@
+# ----
+# Description: This script deletes all Odoo test databases and deletes their respective filestores
+# Author: EKBlocks
+# Usage: . reset_test_dbs.sh
+# ----
 
 # Get the default filestore directory of the `odoo` user
 FILESTORE="$(eval echo ~odoo)/.local/share/Odoo/filestore"

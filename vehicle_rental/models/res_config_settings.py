@@ -8,21 +8,26 @@ from odoo import models, fields, api, _
 class ResConfigSettings(models.TransientModel):
     _inherit = ['res.config.settings']
 
-    alert_message_km = fields.Integer(string='Alert message before passing odometer', default=1000)
+    alert_message_km = fields.Integer(
+        string="Seuil d'alert vidange en kilométrage.", default=1000,
+        help=(
+            "Le nombre de kilométrageLe nombre de kilomètres restants "
+            "avant la prochaine vidange, où vous recevrez une alerte."
+        )
+    )
     w18_duration_default = fields.Integer(string='W18 duration default (in months)', default=1)
     recepisse_duration_default = fields.Integer(string='Récépissé duration default (in months)', default=1)
     carte_grise_duration_default = fields.Integer(string='Carte grise default (in years)', default=10)
-    
 
     @api.model
     def get_values(self):
         res = super(ResConfigSettings, self).get_values()
         IrConfigParam = self.env['ir.config_parameter'].sudo()
         res.update(
-            alert_message_km=int(IrConfigParam.get_param('vehicle_rental.alert_message_km', default=1000)),
-            w18_duration_default=int(IrConfigParam.get_param('vehicle_rental.w18_duration_default', default=1)),
-            recepisse_duration_default=int(IrConfigParam.get_param('vehicle_rental.recepisse_duration_default', default=1)),
-            carte_grise_duration_default=int(IrConfigParam.get_param('vehicle_rental.carte_grise_duration_default', default=10)),
+            alert_message_km=int(IrConfigParam.get_param('vehicle_rental.alert_message_km')) or 1000,
+            w18_duration_default=int(IrConfigParam.get_param('vehicle_rental.w18_duration_default')) or 1,
+            recepisse_duration_default=int(IrConfigParam.get_param('vehicle_rental.recepisse_duration_default')) or 1,
+            carte_grise_duration_default=int(IrConfigParam.get_param('vehicle_rental.carte_grise_duration_default')) or 10,
         )
         return res
 
