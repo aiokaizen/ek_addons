@@ -12,5 +12,3 @@ class FleetServiceType(models.Model):
     def _compute_slug(self):
         for record in self:
             record.slug = slugify(record.name)
-
-    

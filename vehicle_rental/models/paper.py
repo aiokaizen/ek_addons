@@ -20,7 +20,7 @@ class Paper(models.Model):
         string="Document",
         copy=False,
     )
-    filename = fields.Char('File Name', required=True)
+    filename = fields.Char('File Name')
 
     @api.model
     def create(self, vals):

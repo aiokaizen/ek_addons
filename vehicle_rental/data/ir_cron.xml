@@ -20,10 +20,10 @@
             <field name="code">model.create_vehicle_papers_tasks()</field>
             <field name="user_id" ref="base.user_root"/>
             <field name="interval_number">1</field>
-            <field name="interval_type">days</field>
-            <field name="nextcall" eval="(DateTime.now().replace(hour=14, minute=41) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')" />
-            <!-- <field name="interval_type">minutes</field>
-            <field name="nextcall" eval="(DateTime.now() + timedelta(minutes=1)).strftime('%Y-%m-%d %H:%M:%S')" /> -->
+            <!-- <field name="interval_type">days</field>
+            <field name="nextcall" eval="(DateTime.now().replace(hour=14, minute=41) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')" /> -->
+            <field name="interval_type">minutes</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(minutes=1)).strftime('%Y-%m-%d %H:%M:%S')" />
             <field name="numbercall">-1</field>
         </record>
 
