@@ -25,6 +25,9 @@ class FleetVehicle(models.Model):
     _inherit = 'fleet.vehicle'
     _description = __doc__
 
+    acquisition_date = fields.Date('Registration Date', required=True,
+        default=fields.Date.today, help='Date of vehicle registration')
+
     rent_day = fields.Monetary(string="Rent / Day")
     rent_week = fields.Monetary(string="Rent / Week")
     rent_month = fields.Monetary(string="Rent / Month")
