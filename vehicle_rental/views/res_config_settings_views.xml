@@ -27,16 +27,12 @@
             </field>
         </record>
 
-        <record id="fleet_config_settings_action" model="ir.actions.act_window">
+        <record id="fleet_config_settings_inherit_fleet_action" model="ir.actions.act_window">
             <field name="name">Settings</field>
             <field name="res_model">res.config.settings</field>
             <field name="view_mode">form</field>
             <field name="target">inline</field>
             <field name="context">{'module' : 'vehicle_rental', 'bin_size': False}</field>
         </record>
-
-        <menuitem id="fleet_config_settings_menu" name="Settings"
-            parent="fleet.fleet_configuration" sequence="0" action="fleet_config_settings_action"
-            groups="base.group_system"/>
     </data>
 </odoo>

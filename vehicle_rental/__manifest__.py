@@ -33,7 +33,6 @@
         'views/invoice_inherit_views.xml',
         'views/paper_type_view.xml',
         'views/fleet_vehicle_cost_inherit_views.xml',
-        # 'views/fleet_rental_config_view.xml',
         'views/res_config_settings_views.xml',
         # Reports
         'report/vehicle_contract_report_views.xml',

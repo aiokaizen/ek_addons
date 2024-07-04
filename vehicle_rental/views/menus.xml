@@ -42,7 +42,10 @@
                   parent="menu_configuration"
                   action="vehicle_rental_paper_type"
                   sequence="1"/>
-        <!-- <menuitem id="rental_vehicle_config_menu" name="Settings"
-              parent="menu_configuration" action="rental_vehicle_config_action"/> -->
+       
+
+        <menuitem id="fleet_config_settings_menu" name="Settings"
+            parent="menu_configuration" sequence="0" action="fleet.fleet_config_settings_action"
+            groups="base.group_system"/>
     </data>
 </odoo>
