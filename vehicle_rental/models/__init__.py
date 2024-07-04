@@ -17,3 +17,5 @@ from . import res_config_settings
 from . import fleet_vehicle_log_service
 from . import mail_activity
 from . import fleet_vehicle_odometer
+from . import paper_partner
+from . import res_partner

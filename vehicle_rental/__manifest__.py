@@ -34,6 +34,7 @@
         'views/paper_type_view.xml',
         'views/fleet_vehicle_cost_inherit_views.xml',
         'views/res_config_settings_views.xml',
+        'views/res_partner_view.xml',
         # Reports
         'report/vehicle_contract_report_views.xml',
         'report/scratch_report_views.xml',
