@@ -78,14 +78,14 @@
                                            readonly="status != 'a_draft'"/>
                                     <field name="pick_up_city" placeholder="City" class="o_address_city"
                                            readonly="status != 'a_draft'"/>
-                                    <field name="pick_up_state_id" class="o_address_state" placeholder="State"
+                                    <!-- <field name="pick_up_state_id" class="o_address_state" placeholder="State"
                                            options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
                                            readonly="status != 'a_draft'"/>
                                     <field name="pick_up_zip" placeholder="ZIP" class="o_address_zip"
                                            readonly="status != 'a_draft'"/>
                                     <field name="pick_up_country_id" placeholder="Country" class="o_address_country"
                                            options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
-                                           readonly="status != 'a_draft'"/>
+                                           readonly="status != 'a_draft'"/> -->
                                 </div>
                             </group>
                             <group>
@@ -98,14 +98,14 @@
                                            readonly="status != 'a_draft'"/>
                                     <field name="drop_off_city" placeholder="City" class="o_address_city"
                                            readonly="status != 'a_draft'"/>
-                                    <field name="drop_off_state_id" class="o_address_state" placeholder="State"
+                                    <!-- <field name="drop_off_state_id" class="o_address_state" placeholder="State"
                                            options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
                                            readonly="status != 'a_draft'"/>
                                     <field name="drop_off_zip" placeholder="ZIP" class="o_address_zip"
                                            readonly="status != 'a_draft'"/>
                                     <field name="drop_off_country_id" placeholder="Country" class="o_address_country"
                                            options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
-                                           readonly="status != 'a_draft'"/>
+                                           readonly="status != 'a_draft'"/> -->
                                 </div>
                             </group>
                         </group>
