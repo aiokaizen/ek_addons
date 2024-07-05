@@ -18,6 +18,13 @@
                     </field>
                 </page>
             </xpath>
+
+            <xpath expr="//field[@name='function']" position="after">
+                <field name="nationality" placeholder="e.g. Moroccan"
+                                invisible="is_company"/>
+                <field name="birthday" 
+                                invisible="is_company"/>
+            </xpath>
         </field>
     </record>
 </odoo>
