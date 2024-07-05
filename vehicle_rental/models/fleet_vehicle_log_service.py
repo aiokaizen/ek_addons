@@ -6,16 +6,34 @@ class FleetVehicleLogServiceProduct(models.Model):
 
     log_service_id = fields.Many2one('fleet.vehicle.log.services', string='Vehicle Log Service')
     product_id = fields.Many2one('product.product', string='Product')
-    quantity = fields.Float(string='Quantity')
-    price_unit = fields.Float(string='Unit Price')
-    subtotal = fields.Float(string='Subtotal', compute='_compute_subtotal')
+    quantity = fields.Monetary(string='Quantity', default=1)
+    price_unit = fields.Monetary(string='Unit Price')
+    subtotal = fields.Monetary(string='Subtotal', compute='_compute_subtotal')
+    amount_untaxed = fields.Monetary(string="Untaxed Amount", store=True, compute='_compute_amounts')
+    amount_tax = fields.Monetary(string="Taxes", store=True, compute='_compute_amounts')
+    amount_total = fields.Monetary(string="Total", store=True, compute='_compute_amounts')
+    currency_id = fields.Many2one('res.currency', string='Currency', related='log_service_id.currency_id', store=True, readonly=True)
 
     @api.depends('quantity', 'price_unit')
     def _compute_subtotal(self):
         for record in self:
             record.subtotal = record.quantity * record.price_unit
+    
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
 
+        if self.product_id:
+            self.price_unit = self.product_id.lst_price
 
+    @api.depends('subtotal')
+    def _compute_amounts(self):
+        for record in self:
+            tax_rate = 0.2  # Assuming a tax rate of 20%
+            record.amount_untaxed = record.subtotal
+            record.amount_tax = record.subtotal * tax_rate
+            record.amount_total = record.amount_untaxed + record.amount_tax
+    
+   
 class FleetVehicleLogServices(models.Model):
     _inherit = 'fleet.vehicle.log.services'
 
@@ -24,7 +42,10 @@ class FleetVehicleLogServices(models.Model):
     service_product_ids = fields.One2many('fleet.vehicle.log.service.product', 'log_service_id', string='Service Products')
     has_sale_order = fields.Boolean("Has sale order", compute="_compute_has_sale_order")
     
-
+    amount_untaxed = fields.Monetary(string="Untaxed Amount", compute='_compute_total_amounts')
+    amount_tax = fields.Monetary(string="Taxes", compute='_compute_total_amounts')
+    amount_total = fields.Monetary(string="Total", compute='_compute_total_amounts')
+    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id.id)
 
     @api.onchange("service_type_id")
     def _onchange_slug_service(self):
@@ -94,6 +115,16 @@ class FleetVehicleLogServices(models.Model):
             'view_mode': 'form',
         }
 
+
+    @api.depends('service_product_ids.amount_untaxed', 'service_product_ids.amount_tax', 'service_product_ids.amount_total')
+    def _compute_total_amounts(self):
+        for record in self:
+            amount_untaxed = sum(product.amount_untaxed for product in record.service_product_ids)
+            amount_tax = sum(product.amount_tax for product in record.service_product_ids)
+            amount_total = sum(product.amount_total for product in record.service_product_ids)
+            record.amount_untaxed = amount_untaxed
+            record.amount_tax = amount_tax
+            record.amount_total = amount_total
 
 
 class SaleOrder(models.Model):
