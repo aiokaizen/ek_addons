@@ -324,7 +324,7 @@
                         <group string="Payment Details">
                             <field name="payment_type" widget="radio" options="{'horizontal': true}"
                                    readonly="installment_created != False"/>
-                        </group>
+                        </group>            
                         <group>
                             <group>
                                 <field name="invoice_item_id" readonly="installment_created != False"/>
@@ -348,6 +348,10 @@
                                        readonly="status != 'a_draft'"/>
                             </group>
                         </group>
+                        <group string="Note">
+                            <field name="note" readonly="status != 'a_draft'" />
+                        </group>
+
                         <notebook>
                             <page name="vehicle_payment_details" string="Vehicle Payment Details">
                                 <field name="vehicle_payment_option_ids" nolabel="1" readonly="1"

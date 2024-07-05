@@ -179,6 +179,8 @@ class VehicleContract(models.Model):
     total_km_rent = fields.Monetary()
     total_mi_rent = fields.Monetary()
 
+    note = fields.Text(string=_("Note"))
+
     def a_draft_to_b_in_progress(self):
         for rec in self:
             vehicle_id = rec.vehicle_id.id
