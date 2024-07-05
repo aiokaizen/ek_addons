@@ -504,7 +504,7 @@
                                     </kanban>
                                 </field>
                             </page>
-                            <page name="insurance_policy" string="Insurance Policy">
+                            <!-- <page name="insurance_policy" string="Insurance Policy">
                                 <field name="insurance_policy_ids" nolabel="1" readonly="status == 'c_return'">
                                     <form>
                                         <sheet>
@@ -540,7 +540,7 @@
                                         <field name="currency_id" column_invisible="True"/>
                                     </tree>
                                 </field>
-                            </page>
+                            </page> -->
                             <page name="cancellation_policy" string="Cancellation Policy"
                                   invisible="status != 'd_cancel'">
                                 <group string="Policy Details">
