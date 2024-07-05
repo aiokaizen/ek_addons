@@ -67,6 +67,15 @@
                                 <field name="customer_email" readonly="status != 'a_draft'"/>
                             </group>
                         </group>
+                        <group string="Second driver Details">
+                            <group>
+                                <field name="second_driver_id" readonly="status != 'a_draft'"/>
+                            </group>
+                            <group>
+                                <field name="second_driver_phone" readonly="status != 'a_draft'"/>
+                                <field name="second_driver_email" readonly="status != 'a_draft'"/>
+                            </group>
+                        </group>
                         <group string="Pick-Up &amp; Drop-Off Details">
                             <group>
                                 <field name="start_date" required="1" readonly="status != 'a_draft'"/>

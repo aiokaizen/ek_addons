@@ -81,6 +81,9 @@ class VehicleContract(models.Model):
     customer_phone = fields.Char(string="Phone")
     customer_email = fields.Char(string="Email")
     customer_document_id = fields.Many2one("customer.documents", string="Document")
+    second_driver_id = fields.Many2one("res.partner", required=False)
+    second_driver_email = fields.Char(string="Email", required=False)
+    second_driver_phone = fields.Char(string="Phone", required=False)
     document_count = fields.Integer(compute='_compute_document_count')
 
     rent_type = fields.Selection([('hour', "Hours"), ('days', "Days"), ('week', "Weeks"), ('month', "Months"),
@@ -308,6 +311,13 @@ class VehicleContract(models.Model):
             if rec.customer_id:
                 rec.customer_phone = rec.customer_id.phone
                 rec.customer_email = rec.customer_id.email
+
+    @api.onchange('second_driver_id')
+    def get_second_driver_details(self):
+        for rec in self:
+            if rec.second_driver_id:
+                rec.second_driver_phone = rec.second_driver_id.phone
+                rec.second_driver_email = rec.second_driver_id.email
 
     @api.onchange('vehicle_id')
     def get_vehicle_details(self):
