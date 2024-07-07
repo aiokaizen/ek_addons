@@ -65,6 +65,12 @@
                             <group>
                                 <field name="customer_phone" readonly="status != 'a_draft'"/>
                                 <field name="customer_email" readonly="status != 'a_draft'"/>
+                                <field name="moroccan_address" readonly="status != 'a_draft'"/>
+                                <field name="foreign_address" readonly="status != 'a_draft'"/>
+                                <field name="custom_nationality" readonly="status != 'a_draft'"/>
+                                <field name="custom_cin" readonly="status != 'a_draft'"/>
+                                <field name="custom_passport" readonly="status != 'a_draft'"/>
+                                <field name="custom_permis" readonly="status != 'a_draft'"/>
                             </group>
                         </group>
                         <group string="Second driver Details">

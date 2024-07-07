@@ -180,6 +180,12 @@ class VehicleContract(models.Model):
     total_mi_rent = fields.Monetary()
 
     note = fields.Text(string=_("Note"))
+    moroccan_address = fields.Char(string=_("Moroccan address"))
+    foreign_address = fields.Char(string=_("Foreign address"))
+    custom_nationality = fields.Char(string=_("Nationality"))
+    custom_cin = fields.Char(string=_("CIN"))
+    custom_passport = fields.Char(string=_("Passport N"))
+    custom_permis = fields.Char(string=_("Permis"))
 
     def a_draft_to_b_in_progress(self):
         for rec in self:
