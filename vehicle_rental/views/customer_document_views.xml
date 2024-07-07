@@ -9,8 +9,12 @@
                     <field name="vehicle_contract_id" readonly="1"/>
                     <field name="vehicle_id"/>
                     <field name="document_type"/>
-                    <field name="file_name" column_invisible="True"/>
-                    <field name="avatar" filename="file_name" widget="binary"/>
+                    <field name="delivery_date"/>
+                    <field name="delivery_place"/>
+                    <!-- <field name="file_name" column_invisible="True"/> -->
+                    <field name="attachment_ids" widget="many2many_binary" string="Document" class="g-col-8"/>
+
+                    <!-- <field name="avatar" filename="file_name" widget="binary"/> -->
                 </tree>
             </field>
         </record>
