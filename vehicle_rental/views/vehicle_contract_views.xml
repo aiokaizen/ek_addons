@@ -42,10 +42,10 @@
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box" position="inside">
-                            <button class="oe_stat_button" type="object" name="action_customer_document"
+                            <!-- <button class="oe_stat_button" type="object" name="action_customer_document"
                                     icon="fa-fw o_button_icon fa-id-card-o">
                                 <field string="Documents" name="document_count" widget="statinfo"/>
-                            </button>
+                            </button> -->
                             <button class="oe_stat_button" type="object" name="view_customer_invoice"
                                     icon="fa-pencil-square-o" invisible="invoice_count == 0">
                                 <field string="Invoices" name="invoice_count" widget="statinfo"/>
@@ -67,10 +67,10 @@
                                 <field name="customer_email" readonly="status != 'a_draft'"/>
                                 <field name="moroccan_address" readonly="status != 'a_draft'"/>
                                 <field name="foreign_address" readonly="status != 'a_draft'"/>
-                                <field name="custom_nationality" readonly="status != 'a_draft'"/>
-                                <field name="custom_cin" readonly="status != 'a_draft'"/>
-                                <field name="custom_passport" readonly="status != 'a_draft'"/>
-                                <field name="custom_permis" readonly="status != 'a_draft'"/>
+                                <field name="customer_nationality" readonly="status != 'a_draft'"/>
+                                <field name="customer_cin" readonly="1"/>
+                                <field name="customer_passport" readonly="1"/>
+                                <field name="customer_permis" readonly="1"/>
                             </group>
                         </group>
                         <group string="Second driver Details">
@@ -80,6 +80,12 @@
                             <group>
                                 <field name="second_driver_phone" readonly="status != 'a_draft'"/>
                                 <field name="second_driver_email" readonly="status != 'a_draft'"/>
+                                <field name="second_moroccan_address" readonly="status != 'a_draft'"/>
+                                <field name="second_foreign_address" readonly="status != 'a_draft'"/>
+                                <field name="second_customer_nationality" readonly="status != 'a_draft'"/>
+                                <field name="second_customer_cin" readonly="1"/>
+                                <field name="second_customer_passport" readonly="1"/>
+                                <field name="second_customer_permis" readonly="1"/>
                             </group>
                         </group>
                         <group string="Pick-Up &amp; Drop-Off Details">

@@ -180,12 +180,130 @@ class VehicleContract(models.Model):
     total_mi_rent = fields.Monetary()
 
     note = fields.Text(string=_("Note"))
-    moroccan_address = fields.Char(string=_("Moroccan address"))
-    foreign_address = fields.Char(string=_("Foreign address"))
-    custom_nationality = fields.Char(string=_("Nationality"))
-    custom_cin = fields.Char(string=_("CIN"))
-    custom_passport = fields.Char(string=_("Passport N"))
-    custom_permis = fields.Char(string=_("Permis"))
+    moroccan_address = fields.Char(string=_("Moroccan address"), compute="_compute_moroccan_address")
+    foreign_address = fields.Char(string=_("Foreign address"), compute="_moroccan_address")
+    customer_nationality = fields.Char(string=_("Nationality"))
+    customer_cin = fields.Char(string=_("CIN"), compute="_compute_delivery_cin", readonly=True)
+    delivry_date_cin = fields.Char(string=_("Délivré le"), compute="_compute_delivery_cin")
+    delivry_place_cin = fields.Char(string=_("Délivré (e) à"), compute="_compute_delivery_cin")
+    customer_passport = fields.Char(string=_("Passport N"), compute="_compute_delivery_passport", readonly=True)
+    delivry_date_passport = fields.Char(string=_("Délivré le"), compute="_compute_delivery_passport")
+    delivry_place_passport = fields.Char(string=_("Délivré (e) à"), compute="_compute_delivery_passport")
+    customer_permis = fields.Char(string=_("Permis"), compute="_compute_delivery_permis", readonly=True)
+    delivry_date_permis = fields.Char(string=_("Délivré le"), compute="_compute_delivery_permis")
+    delivry_place_permis = fields.Char(string=_("Délivré (e) à"), compute="_compute_delivery_permis")
+
+    second_moroccan_address = fields.Char(string=_("Moroccan address"), compute="_compute_second_moroccan_address")
+    second_foreign_address = fields.Char(string=_("Foreign address"), compute="_second_moroccan_address")
+    second_customer_nationality = fields.Char(string=_("Nationality"))
+    second_customer_cin = fields.Char(string=_("CIN"), compute="_compute_delivery_cin", readonly=True)
+    second_delivry_date_cin = fields.Char(string=_("Délivré le"), compute="_compute_delivery_cin")
+    second_delivry_place_cin = fields.Char(string=_("Délivré (e) à"), compute="_compute_delivery_cin")
+    second_customer_passport = fields.Char(string=_("Passport N"), compute="_compute_delivery_passport", readonly=True)
+    second_delivry_date_passport = fields.Char(string=_("Délivré le"), compute="_compute_delivery_passport")
+    second_delivry_place_passport = fields.Char(string=_("Délivré (e) à"), compute="_compute_delivery_passport")
+    second_customer_permis = fields.Char(string=_("Permis"), compute="_compute_delivery_permis", readonly=True)
+    second_delivry_date_permis = fields.Char(string=_("Délivré le"), compute="_compute_delivery_permis")
+    second_delivry_place_permis = fields.Char(string=_("Délivré (e) à"), compute="_compute_delivery_permis")
+
+    payments_invoice = fields.Json(compute='_compute_payments_invoice')
+
+    def _compute_payments_invoice(self):
+        for record in self:
+            invoice = self.env['account.move'].search([('vehicle_contract_id', '=', record.id)], limit=1,)
+            move_lines = self.env['account.move.line'].search([('move_id', '=', invoice.id)])
+            partial_reconciles = self.env['account.partial.reconcile'].search([
+                '|', ('debit_move_id', 'in', move_lines.ids), ('credit_move_id', 'in', move_lines.ids)])
+            payments = self.env['account.payment'].search([
+                '|', ('move_id', 'in', partial_reconciles.mapped('debit_move_id.move_id.id')),
+                ('move_id', 'in', partial_reconciles.mapped('credit_move_id.move_id.id'))
+            ])
+            total_due = invoice.amount_total
+            total_paid = 0
+            payment_details = []
+
+            for payment in payments:
+                total_paid += payment.amount
+                remaining_balance = total_due - total_paid
+                payment_details.append({
+                    'payment_id': payment.id,
+                    'amount': payment.amount,
+                    'date': payment.date.strftime('%Y-%m-%d'),
+                    'state': payment.state,
+                    'remaining_balance': remaining_balance,
+                })
+
+            self.payments_invoice = payment_details
+
+    def _compute_moroccan_address(self):
+        for record in self:
+            invoice = self.env['account.move'].search([('vehicle_contract_id', '=', record.id)], limit=1,)
+            payments = self.env["account.payment"].search([("move_id", "=", invoice.id)])
+            record.moroccan_address = record.customer_id.street
+            record.foreign_address = record.customer_id.street2
+
+    def _compute_second_moroccan_address(self):
+        for record in self:
+            record.second_moroccan_address = record.second_driver_id.street
+            record.second_foreign_address = record.second_driver_id.street2
+
+    # @api.depends('')
+    def _compute_delivery_cin(self):
+        for record in self:
+            doc = self.env["vehicle.rental.partner.paper"].search([
+                ('owner_id', '=', self.customer_id.id),
+                ('type', '=', "cin")
+            ], limit=1)
+            doc_second = self.env["vehicle.rental.partner.paper"].search([
+                ('owner_id', '=', self.second_driver_id.id),
+                ('type', '=', "cin")
+            ], limit=1)
+
+            record.delivry_date_cin = doc.delivery_date or None
+            record.delivry_place_cin = doc.delivery_place or None
+            record.second_delivry_date_cin = doc_second.delivery_date or None
+            record.second_delivry_place_cin = doc_second.delivery_place or None
+            record.customer_cin = doc.number
+            record.second_customer_cin = doc_second.number
+
+
+    # @api.depends()doc_second
+    def _compute_delivery_passport(self):
+        for record in self:
+            doc = self.env["vehicle.rental.partner.paper"].search([
+                ('owner_id', '=', self.customer_id.id),
+                ('type', '=', "passeport")
+            ], limit=1)
+            doc_second = self.env["vehicle.rental.partner.paper"].search([
+                ('owner_id', '=', self.second_driver_id.id),
+                ('type', '=', "passeport")
+            ], limit=1)
+            record.delivry_date_passport = doc.delivery_date or None
+            record.delivry_place_passport = doc.delivery_place or None
+            record.second_delivry_date_passport = doc_second.delivery_date or None
+            record.second_delivry_place_passport = doc_second.delivery_place or None
+            record.customer_passport = doc.number
+            record.second_customer_passport = doc_second.number
+    
+    def _compute_delivery_permis(self):
+        for record in self:
+            doc = self.env["vehicle.rental.partner.paper"].search(
+                [
+                    ('owner_id', '=', self.customer_id.id),
+                    ('type', '=', "permit")
+                ], limit=1)
+            second_doc = self.env["vehicle.rental.partner.paper"].search(
+                [
+                    ('owner_id', '=', self.second_driver_id.id),
+                    ('type', '=', "permit")
+                ], limit=1)
+
+            record.delivry_date_permis = doc.delivery_date
+            record.delivry_place_permis = doc.delivery_place
+            record.second_delivry_date_permis = second_doc.delivery_date
+            record.second_delivry_place_permis = second_doc.delivery_place
+            record.customer_permis = doc.number
+            record.second_customer_permis = second_doc.number
 
     def a_draft_to_b_in_progress(self):
         for rec in self:
@@ -806,6 +924,7 @@ class VehicleContract(models.Model):
             invoice_count = self.env['account.move'].search_count([('vehicle_contract_id', '=', rec.id)])
             rec.invoice_count = invoice_count
         return True
+    
 
     def view_customer_invoice(self):
         return {

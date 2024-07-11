@@ -37,6 +37,112 @@
                                         <br/>
                                         Email:
                                         <span t-field="contract.customer_email"/>
+                                        <br/>
+                                        Moroccan address:
+                                        <span t-field="contract.moroccan_address"/>
+                                        <br/>
+                                        Foreign address:
+                                        <span t-field="contract.foreign_address"/>
+                                        <br/>
+                                        Nationality:
+                                        <span t-field="contract.customer_nationality"/>
+                                        <br/>
+                                        <div t-if="contract.customer_cin">
+                                            CIN:
+                                            <span t-field="contract.customer_cin"/> 
+                                            <span t-if="contract.delivry_date_cin" >
+                                                 Delivry at: 
+                                                <span t-field="contract.delivry_date_cin"/>
+                                            </span>
+                                            <span t-if="contract.delivry_place_cin" >
+                                                 in
+                                                <span t-field="contract.delivry_place_cin"/> 
+                                                <br/>
+                                            </span>
+                                        </div>
+                                        <div t-if="contract.customer_permis">
+                                            Passport:
+                                            <span t-field="contract.customer_passport"/> <br />
+                                            <span t-if="contract.delivry_date_passport" > Delivry at: <span t-field="contract.delivry_date_passport" /></span>
+                                            <span t-if="contract.delivry_place_passport" >  in
+                                                <span t-field="contract.delivry_place_passport"/>
+                                                <br/>
+                                            </span>
+                                        </div>
+                                        
+                                        <div t-if="contract.customer_permis" >
+                                            Permis:
+                                            <span t-field="contract.customer_permis"/> <br /> 
+                                            <span t-if="contract.delivry_date_permis" > Delivry at: <span t-field="contract.delivry_date_permis"/></span>
+                                            <span t-if="contract.delivry_place_permis" >  in
+                                                <span t-field="contract.delivry_place_permis"/>
+                                            </span>
+                                        </div>
+                                        
+                                        
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr t-if="contract.second_driver_id" >
+                                <td>
+                                    <span>
+                                        <strong>Second Customer Details</strong>
+                                        <br/>
+                                        Customer:
+                                        <span t-field="contract.second_driver_id"/>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        <br/>
+                                        Phone:
+                                        <span t-field="contract.second_driver_phone"/>
+                                        <br/>
+                                        Email:
+                                        <span t-field="contract.second_driver_email"/>
+                                        <br/>
+                                        Moroccan address:
+                                        <span t-field="contract.second_moroccan_address"/>
+                                        <br/>
+                                        Foreign address:
+                                        <span t-field="contract.second_foreign_address"/>
+                                        <br/>
+                                        Nationality:
+                                        <span t-field="contract.second_customer_nationality"/>
+                                        <br/>
+                                        <div t-if="contract.second_customer_cin">
+                                            CIN:
+                                            <span t-field="contract.second_customer_cin"/> 
+                                            <span t-if="contract.second_delivry_date_cin" >
+                                                 Delivry at: 
+                                                <span t-field="contract.second_delivry_date_cin"/>
+                                            </span>
+                                            <span t-if="contract.second_delivry_place_cin" >
+                                                 in
+                                                <span t-field="contract.second_delivry_place_cin"/> 
+                                                <br/>
+                                            </span>
+                                        </div>
+                                        <div t-if="contract.second_customer_passport">
+                                            Passport:
+                                            <span t-field="contract.second_customer_passport"/> <br />
+                                            <span t-if="contract.second_delivry_date_passport" > Delivry at: <span t-field="contract.second_delivry_date_passport" /></span>
+                                            <span t-if="contract.second_delivry_place_passport" >  in
+                                                <span t-field="contract.second_delivry_place_passport"/>
+                                                <br/>
+                                            </span>
+                                        </div>
+                                        
+                                        <div t-if="contract.second_customer_permis" >
+                                            Permis:
+                                            <span t-field="contract.second_customer_permis"/> <br /> 
+                                            <span t-if="contract.second_delivry_date_permis" > Delivry at: <span t-field="contract.second_delivry_date_permis"/></span>
+                                            <span t-if="contract.second_delivry_place_permis" >  in
+                                                <span t-field="contract.second_delivry_place_permis"/>
+                                            </span>
+                                        </div>
+                                        
+                                        
                                     </span>
                                 </td>
                             </tr>
@@ -340,7 +446,7 @@
                             </tr>
                         </table>
 
-                        <table class="table table-sm o_main_table" style="font-size: 12px;"
+                        <!-- <table class="table table-sm o_main_table" style="font-size: 12px;"
                                t-if="contract.vehicle_payment_option_ids">
                             <tr>
                                 <td colspan="6"
@@ -500,9 +606,9 @@
                                     <span t-field="extra.total_service_charge"/>
                                 </td>
                             </tr>
-                        </table>
+                        </table> -->
 
-                        <table class="table table-sm o_main_table" style="font-size: 12px;">
+                        <!-- <table class="table table-sm o_main_table" style="font-size: 12px;">
                             <tr>
                                 <td style="background-color: #F8F8F8; font-size: 14px; padding: 2px;border: aliceblue;">
                                     <strong>➤&#160;Vehicle Damages</strong>
@@ -521,7 +627,24 @@
                                     <span t-field="contract.description"/>
                                 </td>
                             </tr>
-                        </table>
+                        </table> -->
+                        <t t-foreach="contract.payments_invoice" t-as="payment" >
+                            <string>amount :</string> |
+                            <span t-esc="payment['amount']" ></span>
+                            <string>date :</string> |
+                            <span t-esc="payment['date']" ></span>
+                            <string>rest :</string>
+                            <span t-esc="payment['remaining_balance']" ></span><br/> 
+                        </t>
+
+                        <!-- <t t-foreach="contract.payments_invoice" t-as="payment" >
+                            <tr>
+                                amount :<span t-esc="payment['amount']" ></span>
+                            </tr>
+                            <tr>
+                                Rest :<span t-esc="payment['remaining_balance']" ></span>
+                            </tr>
+                        </t> -->
 
                         <t t-if="contract.status == 'd_cancel'">
                             <table class="table table-sm o_main_table" style="font-size: 12px;">

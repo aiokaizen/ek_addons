@@ -10,6 +10,7 @@
                     <field name="paper_ids" >
                         <tree editable="top" >
                             <field name="type" />
+                            <field name="number" />
                             <field name="delivery_date" />
                             <field name="delivery_place" />
                             <!-- <field name="file" /> -->
