@@ -202,6 +202,7 @@ class FleetVehicle(models.Model):
 #             })
 #         return True
 
+
     @api.model
     def create_vehicle_papers_tasks(self):
         """
@@ -351,7 +352,36 @@ class FleetVehicle(models.Model):
                         date_deadline=next_assurance_date,
                         slug=assurance_slug
                     )
+            
+            
+            
+            for paper in vehicle.paper_ids:
 
+                if paper.type_id.slug in ('visite-technique', 'attestation-dassurance', 'vignette', 'w18', 'recepisse', 'carte-grise'):
+                    continue
+                
+                paper_slug = f"{auto_gen_slug}_paper_{paper.id}" 
+                activity_paper_exist = len(self.env["mail.activity"].search(
+                    domain=[
+                        ('slug', '=', paper_slug)
+                    ],
+                    limit=1
+                )) > 0
+                if activity_paper_exist:
+                    continue
+                if paper.expiry_date > now.date() or (paper.expiry_date - now.date()).days < paper.type_id.days_to_alert:
+                    message = f"Vous devez ajouter le document {paper.type_id.name} pour cette véhicule."
+
+                    vehicle.activity_schedule(
+                        'mail.mail_activity_data_todo',  # Activity type (default: To Do)
+                        summary=paper.type_id.name,  # Activity title
+                        note=message,  # Activity description
+                        user_id=affected_user,  # Assign to the current user
+                        date_deadline=paper.expiry_date,
+                        slug=paper_slug
+                    )
+
+                
         return True
 
     

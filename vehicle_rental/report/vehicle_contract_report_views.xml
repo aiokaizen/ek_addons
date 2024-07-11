@@ -628,6 +628,10 @@
                                 </td>
                             </tr>
                         </table> -->
+
+                        <strong>Obsevation</strong>
+                        <t t-esc="contract.note" ></t> <br />
+                        
                         <t t-foreach="contract.payments_invoice" t-as="payment" >
                             <string>amount :</string> |
                             <span t-esc="payment['amount']" ></span>
