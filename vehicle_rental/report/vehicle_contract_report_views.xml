@@ -630,14 +630,14 @@
                         </table> -->
 
                         <strong>Obsevation</strong>
-                        <t t-esc="contract.note" ></t> <br />
-                        
+                        <t t-esc="contract.note" ></t> <br /><br />
+
                         <t t-foreach="contract.payments_invoice" t-as="payment" >
-                            <string>amount :</string> |
+                            <string>amount </string> |
                             <span t-esc="payment['amount']" ></span>
-                            <string>date :</string> |
+                            <string>date </string> |
                             <span t-esc="payment['date']" ></span>
-                            <string>rest :</string>
+                            <string>rest </string>
                             <span t-esc="payment['remaining_balance']" ></span><br/> 
                         </t>
 
