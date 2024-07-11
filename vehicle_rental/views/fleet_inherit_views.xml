@@ -59,6 +59,10 @@
                         <field name="extra_charge_km"/>
                         <field name="extra_charge_mi"/>
                     </group>
+                    <group string="Crédit bancaire">
+                        <field name="bank_credit"/>
+                        <field name="date_end_bank_credit" invisible="bank_credit == False" />
+                    </group>
                 </xpath>
 
                 <xpath expr="//notebook/page[@name='note']" position="before" >

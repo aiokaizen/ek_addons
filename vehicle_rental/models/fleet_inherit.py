@@ -5,7 +5,8 @@ from datetime import timedelta
 from odoo import models, fields, api, _
 from dateutil.relativedelta import relativedelta
 import logging
-from markupsafe import Markup
+from odoo.exceptions import ValidationError
+
 
 from odoo.addons.vehicle_rental import settings
 
@@ -56,6 +57,10 @@ class FleetVehicle(models.Model):
     is_old_vehicle = fields.Boolean(string='Is Old Vehicle', compute='_compute_is_old_vehicle')
 
     vehicle_image_ids = fields.One2many('vehicle.image', 'vehicle_id')
+
+    bank_credit = fields.Boolean(default=False, string="Crédit bancaire")
+    date_end_bank_credit = fields.Date(string="Date de fin du crédit bancaire")
+
     # images = fields.Many2many('ir.attachment', string="Images")
 
     # video_file = fields.Binary(string="Video File")
@@ -68,6 +73,13 @@ class FleetVehicle(models.Model):
     #             record.video_url = '/web/content/vehicle_rental/%d/video_file/%s' % (record.id, record.video_filename)
     #         else:
     #             record.video_url = False
+
+    @api.constrains('credit_bank', 'date_of_credit')
+    def _check_date_of_credit(self):
+        for record in self:
+            if record.bank_credit and not record.date_end_bank_credit:
+                raise ValidationError("La date de crédit est requise lorsque le champ Crédit Banque est activé.")
+
 
     def available_to_in_maintenance(self):
         self.status = 'in_maintenance'
@@ -356,10 +368,8 @@ class FleetVehicle(models.Model):
             
             
             for paper in vehicle.paper_ids:
-
                 if paper.type_id.slug in ('visite-technique', 'attestation-dassurance', 'vignette', 'w18', 'recepisse', 'carte-grise'):
                     continue
-                
                 paper_slug = f"{auto_gen_slug}_paper_{paper.id}" 
                 activity_paper_exist = len(self.env["mail.activity"].search(
                     domain=[
@@ -380,8 +390,23 @@ class FleetVehicle(models.Model):
                         date_deadline=paper.expiry_date,
                         slug=paper_slug
                     )
+            main_levee_slug = f"{auto_gen_slug}_main_levee_{vehicle.id}" 
+            activity_main_levee_exist = len(self.env["mail.activity"].search(
+                domain=[
+                    ('slug', '=', main_levee_slug)
+                ],
+                limit=1
+            )) > 0
+            if vehicle.bank_credit and vehicle.date_end_bank_credit >= now.date() and not activity_main_levee_exist:
+                vehicle.activity_schedule(
+                        'mail.mail_activity_data_todo',  # Activity type (default: To Do)
+                        summary="La main levée",  # Activity title
+                        note="Vous avez un crédit en cours. Veuillez obtenir une 'main levée' de la banque.",  # Activity description
+                        user_id=affected_user,  # Assign to the current user
+                        date_deadline=paper.expiry_date,
+                        slug=main_levee_slug
+                    )
 
-                
         return True
 
     
