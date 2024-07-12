@@ -162,7 +162,7 @@ class VehicleContract(models.Model):
 
     payment_type = fields.Selection(
         [('daily', "Daily"), ('weekly', "Weekly"), ('monthly', "Monthly"), ('quarterly', "Quarterly"),
-         ('yearly', "Yearly"), ('full_payment', "Full Payment")], string="Payment Type")
+         ('yearly', "Yearly"), ('full_payment', "Full Payment")], string="Payment Type", default="full_payment")
     vehicle_payment_option_ids = fields.One2many('vehicle.payment.option', 'vehicle_contract_id')
     invoice_item_id = fields.Many2one('product.product', string="Invoice Item", required=True,
                                       default=lambda self: self.env.ref('vehicle_rental.vehicle_rent_charge',
