@@ -247,7 +247,7 @@ class VehicleContract(models.Model):
             record.second_moroccan_address = record.second_driver_id.street
             record.second_foreign_address = record.second_driver_id.street2
 
-    # @api.depends('')
+    @api.onchange("customer_id")
     def _compute_delivery_cin(self):
         for record in self:
             doc = self.env["vehicle.rental.partner.paper"].search([
@@ -433,17 +433,52 @@ class VehicleContract(models.Model):
 
     @api.onchange('customer_id')
     def get_customer_details(self):
-        for rec in self:
-            if rec.customer_id:
-                rec.customer_phone = rec.customer_id.phone
-                rec.customer_email = rec.customer_id.email
+        if self.customer_id:
+            self.customer_phone = self.customer_id.phone
+            self.customer_email = self.customer_id.email
+            self.customer_nationality = self.customer_id.nationality
+            self.moroccan_address = self.customer_id.street
+            self.foreign_address = self.customer_id.street2
+            doc_cin = self.env["vehicle.rental.partner.paper"].search([
+                ('owner_id', '=', self.customer_id.id),
+                ('type', '=', "cin")
+            ], limit=1)
+            doc_passport = self.env["vehicle.rental.partner.paper"].search([
+                ('owner_id', '=', self.customer_id.id),
+                ('type', '=', "passeport")
+            ], limit=1)
+            doc_permis = self.env["vehicle.rental.partner.paper"].search([
+                ('owner_id', '=', self.customer_id.id),
+                ('type', '=', "permit")
+            ], limit=1)
+            self.customer_cin = doc_cin.number
+            self.customer_passport = doc_passport.number
+            self.customer_permis = doc_permis.number
+    
 
     @api.onchange('second_driver_id')
     def get_second_driver_details(self):
-        for rec in self:
-            if rec.second_driver_id:
-                rec.second_driver_phone = rec.second_driver_id.phone
-                rec.second_driver_email = rec.second_driver_id.email
+        if self.second_driver_id:
+            self.second_driver_phone = self.second_driver_id.phone
+            self.second_driver_email = self.second_driver_id.email
+            self.second_customer_nationality = self.second_driver_id.nationality
+            self.second_moroccan_address = self.second_driver_id.street
+            self.second_foreign_address = self.second_driver_id.street2
+            doc_cin = self.env["vehicle.rental.partner.paper"].search([
+                ('owner_id', '=', self.second_driver_id.id),
+                ('type', '=', "cin")
+            ], limit=1)
+            doc_passport = self.env["vehicle.rental.partner.paper"].search([
+                ('owner_id', '=', self.second_driver_id.id),
+                ('type', '=', "passeport")
+            ], limit=1)
+            doc_permis = self.env["vehicle.rental.partner.paper"].search([
+                ('owner_id', '=', self.second_driver_id.id),
+                ('type', '=', "permit")
+            ], limit=1)
+            self.second_customer_cin = doc_cin.number
+            self.second_customer_passport = doc_passport.number
+            self.second_customer_permis = doc_permis.number
 
     @api.onchange('vehicle_id')
     def get_vehicle_details(self):
