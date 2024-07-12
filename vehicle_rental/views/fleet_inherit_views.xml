@@ -10,8 +10,11 @@
                 <xpath expr="//field[@name='state_id']" position="attributes">
                     <attribute name="invisible">True</attribute>
                 </xpath>
-                <xpath expr="//field[@name='contract_count']" position="attributes">
+                <!-- <xpath expr="//field[@name='contract_count']" position="attributes">
                     <attribute name="string">Maintenances</attribute>
+                </xpath> -->
+                <xpath expr="//button[@name='return_action_to_open'][field[@name='contract_count']]" position="attributes">
+                    <attribute name="invisible">1</attribute>
                 </xpath>
                 <xpath expr="//button[@name='open_assignation_logs']" position="before">
                     <button class="oe_stat_button" type="object" name="action_rental_contract_view" icon="fa-taxi">
