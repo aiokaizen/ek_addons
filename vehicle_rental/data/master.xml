@@ -25,5 +25,12 @@
         <record id="vehicle_rental_paper_type_vidange_de_vehicle" model="vehicle.rental.paper.type">
             <field name="name">Vidange de véhicule</field>
         </record>
+
+        <!-- Service vidange -->
+        <record id="vehicle_rental_service_vidange" model="fleet.service.type">
+            <field name="name">Vidange</field>
+            <field name="category" >service</field> 
+            <field name="slug" >oil-change</field>
+        </record>
     </data>
 </odoo>
