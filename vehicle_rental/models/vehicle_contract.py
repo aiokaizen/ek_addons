@@ -180,8 +180,8 @@ class VehicleContract(models.Model):
     total_mi_rent = fields.Monetary()
 
     note = fields.Text(string=_("Note"))
-    moroccan_address = fields.Char(string=_("Moroccan address"), compute="_compute_moroccan_address")
-    foreign_address = fields.Char(string=_("Foreign address"), compute="_moroccan_address")
+    moroccan_address = fields.Char(string=_("Moroccan address"))
+    foreign_address = fields.Char(string=_("Foreign address"))
     customer_nationality = fields.Char(string=_("Nationality"))
     customer_cin = fields.Char(string=_("CIN"), compute="_compute_delivery_cin", readonly=True)
     delivry_date_cin = fields.Char(string=_("Délivré le"), compute="_compute_delivery_cin")
@@ -193,8 +193,8 @@ class VehicleContract(models.Model):
     delivry_date_permis = fields.Char(string=_("Délivré le"), compute="_compute_delivery_permis")
     delivry_place_permis = fields.Char(string=_("Délivré (e) à"), compute="_compute_delivery_permis")
 
-    second_moroccan_address = fields.Char(string=_("Moroccan address"), compute="_compute_second_moroccan_address")
-    second_foreign_address = fields.Char(string=_("Foreign address"), compute="_second_moroccan_address")
+    second_moroccan_address = fields.Char(string=_("Moroccan address"))
+    second_foreign_address = fields.Char(string=_("Foreign address"))
     second_customer_nationality = fields.Char(string=_("Nationality"))
     second_customer_cin = fields.Char(string=_("CIN"), compute="_compute_delivery_cin", readonly=True)
     second_delivry_date_cin = fields.Char(string=_("Délivré le"), compute="_compute_delivery_cin")
