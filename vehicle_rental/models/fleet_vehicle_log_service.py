@@ -9,6 +9,7 @@ class FleetVehicleLogServiceProduct(models.Model):
     quantity = fields.Monetary(string='Quantity', default=1)
     price_unit = fields.Monetary(string='Unit Price')
     subtotal = fields.Monetary(string='Subtotal', compute='_compute_subtotal')
+
     amount_untaxed = fields.Monetary(string="Untaxed Amount", store=True, compute='_compute_amounts')
     amount_tax = fields.Monetary(string="Taxes", store=True, compute='_compute_amounts')
     amount_total = fields.Monetary(string="Total", store=True, compute='_compute_amounts')
@@ -28,10 +29,21 @@ class FleetVehicleLogServiceProduct(models.Model):
     @api.depends('subtotal')
     def _compute_amounts(self):
         for record in self:
-            tax_rate = 0.2  # Assuming a tax rate of 20%
-            record.amount_untaxed = record.subtotal
-            record.amount_tax = record.subtotal * tax_rate
-            record.amount_total = record.amount_untaxed + record.amount_tax
+            if record.product_id.taxes_id:
+                tax_rate = record.product_id.taxes_id.amount / 100
+                price_include = record.product_id.taxes_id.price_include
+            else:
+                tax_rate = 0
+                price_include = True
+
+            if not price_include:
+                record.amount_untaxed = record.subtotal
+                record.amount_total = record.amount_untaxed * (1 + tax_rate)
+            else:
+                record.amount_total = record.subtotal
+                record.amount_untaxed = record.amount_total / (1 + tax_rate)
+
+            record.amount_tax = record.amount_total - record.amount_untaxed
     
    
 class FleetVehicleLogServices(models.Model):
