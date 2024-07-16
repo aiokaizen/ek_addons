@@ -25,6 +25,9 @@
         <record id="vehicle_rental_paper_type_vidange_de_vehicle" model="vehicle.rental.paper.type">
             <field name="name">Vidange de véhicule</field>
         </record>
+        <record id="vehicle_rental_paper_type_main_levee_de_vehicle" model="vehicle.rental.paper.type">
+            <field name="name">La main levée</field>
+        </record>
 
         <!-- Service vidange -->
         <record id="vehicle_rental_service_vidange" model="fleet.service.type">
