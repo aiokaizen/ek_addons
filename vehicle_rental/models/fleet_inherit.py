@@ -187,33 +187,6 @@ class FleetVehicle(models.Model):
         else:
             return False
 
-#     def create_cron_job(self):
-#         now = fields.Datetime.now()
-#         for vehicle in self:
-#             print("TEST", vehicle.name)
-
-#             self.env["ir.cron"].create({
-#                 "name": "Test cron created by code for fleet vehicle!",
-#                 "model_id": self.env["ir.model"].search([("model", "=", "fleet.vehicle")], limit=1).id,
-#                 "interval_type": "hours",
-#                 "interval_number": 24,
-#                 "numbercall": 3,
-#                 "active": True,
-#                 # "nextcall": vehicle.acquisition_date + timedelta(days=30),
-#                 "nextcall": now + timedelta(seconds=10),
-#                 "help": "This is a test cron that was created automatically (Inactive by default)!!!",
-#                 # "groups_id": [self.env.ref('base.group_system').id,],
-#                 "groups_id": [],
-#                 "priority": 4,
-#                 # "ir_actions_server_id": self.env.ref('actions.some_action').id,
-#                 "code": """
-# vehicle = env["fleet.vehicle"].search([], limit=1)
-# vehicle.check_vehicle_tasks()
-# _logger.info("Hello there!!!")
-#                 """,
-#             })
-#         return True
-
 
     @api.model
     def create_vehicle_papers_tasks(self):
@@ -390,6 +363,7 @@ class FleetVehicle(models.Model):
                         date_deadline=paper.expiry_date,
                         slug=paper_slug
                     )
+            
             main_levee_slug = f"{auto_gen_slug}_main_levee_{vehicle.id}" 
             activity_main_levee_exist = len(self.env["mail.activity"].search(
                 domain=[
@@ -397,7 +371,8 @@ class FleetVehicle(models.Model):
                 ],
                 limit=1
             )) > 0
-            if vehicle.bank_credit and vehicle.date_end_bank_credit + timedelta(days=7) <= now.date() and not activity_main_levee_exist:
+
+            if vehicle.bank_credit and vehicle.date_end_bank_credit and vehicle.date_end_bank_credit - timedelta(days=7) <= now.date() and not activity_main_levee_exist:
                 vehicle.activity_schedule(
                         'mail.mail_activity_data_todo',  # Activity type (default: To Do)
                         summary="La main levée",  # Activity title
@@ -406,7 +381,6 @@ class FleetVehicle(models.Model):
                         date_deadline=vehicle.date_end_bank_credit,
                         slug=main_levee_slug
                     )
-
         return True
 
     
