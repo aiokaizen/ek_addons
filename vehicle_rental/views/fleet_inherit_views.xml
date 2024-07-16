@@ -22,6 +22,17 @@
                 <xpath expr="//search/filter[@name='planned']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
+                <xpath expr="//search/filter[@name='available']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//search/field[@name='vehicle_properties']" position="after">
+                    <filter string="Available" name="available"
+                    domain="[('status', '=', 'available')]"/>
+                    <filter string="In maintenance" name="available"
+                        domain="[('status', '=', 'in_maintenance')]"/>
+                </xpath>
+                
             </field>
         </record>
 
