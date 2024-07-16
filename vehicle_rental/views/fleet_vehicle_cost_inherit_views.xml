@@ -6,11 +6,29 @@
             <field name="model">fleet.vehicle.log.services</field>
             <field name="inherit_id" ref="fleet.fleet_vehicle_log_services_view_form"/>
             <field name="arch" type="xml">
-                <header>
+
+                <xpath expr="//form/header" position="inside">
+
+                    <button 
+                        invisible="has_sale_order"
+                        name="action_create_sale_order" 
+                        type="object" string="Create Sale Order" class="oe_highlight" 
+                    />
+                    <button 
+                        invisible="not has_sale_order"
+                        name="update_sale_order" 
+                        type="object" string="Update Sale Order" class="oe_highlight"
+                    />
+                </xpath>
+
+                <!-- <header>
                     <button name="action_create_sale_order" type="object" string="Create Sale Order" class="oe_highlight"/>
-                </header>
+
+                    
+                </header> -->
 
                 <xpath expr="//field[@name='date']" position="before">
+                    <field name="has_sale_order" invisible="1" />
                     <field name="slug_service" invisible="True" />
                     <field name="oil_change_odometer" invisible="slug_service != 'oil-change'"/>
                 </xpath>
@@ -50,18 +68,10 @@
                     </notebook>
                 </xpath>
 
-                <xpath expr="//header" position="inside" >
-                    <!-- <field name="has_sale_order" invisible="1" /> -->
-
-                    <!-- <button 
-                        name="action_create_sale_order" 
-                        type="object" string="Create Sale Order" class="oe_highlight" 
-                    /> -->
-                    <!-- <button 
-                        name="update_sale_order" 
-                        type="object" string="Update Sale Order" class="oe_highlight"
-                    /> -->
-                </xpath>
+                <!-- <xpath expr="//header" position="inside" >
+                    
+                    
+                </xpath> -->
             </field>
         </record>
 

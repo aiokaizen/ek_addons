@@ -80,20 +80,20 @@ class FleetVehicleLogServices(models.Model):
             ('state', 'not in', ['cancel', 'draft'])
         ], limit=1)
         return sale_order
-    @api.depends("vehicle_id")
+
     def _compute_has_sale_order(self):
-        self.ensure_one()
-        sale_order = self.env['sale.order'].search([
-            ('vehicle_id', '=', self.vehicle_id.id),
-            ('state', 'not in', ['cancel', 'draft'])
-        ], limit=1)
-        return len(sale_order) > 0
+        for rec in self:
+            sale_order = rec.env['sale.order'].search([
+                ('vehicle_id', '=', rec.vehicle_id.id),
+                ('state', 'not in', ['cancel'])
+            ], limit=1)
+            rec.has_sale_order =  len(sale_order) > 0
 
     def update_sale_order(self):
         sale_order = self._get_sale_order()
         if not sale_order:
             sale_order = self.env['sale.order'].create({
-                'partner_id': self.vehicle_id.driver_id.partner_id.id,
+                'partner_id': self.vehicle_id.driver_id.id,
                 'vehicle_id': self.vehicle_id.id,
             })
 
@@ -108,7 +108,12 @@ class FleetVehicleLogServices(models.Model):
         sale_order.write({
             'order_line': order_lines
         })
-        return sale_order
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'sale.order',
+            'res_id': sale_order.id,
+            'view_mode': 'form',
+        }
 
     def action_create_sale_order(self):
         self.ensure_one()
