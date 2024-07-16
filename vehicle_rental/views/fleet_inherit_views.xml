@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
+
+        <record id="vehicle_rental_search_view" model="ir.ui.view">
+            <field name="name">vehicle.rental.search.view</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_search"/>
+            <field name="arch" type="xml">
+                
+                <xpath expr="//search/filter[@name='bikes']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//search/filter[@name='cars']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//search/filter[@name='trailer_hook']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//search/filter[@name='planned']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
         <!--Fleet Vehicle-->
         <record id="vehicle_rental_form_view" model="ir.ui.view">
             <field name="name">vehicle.rental.form.view</field>
