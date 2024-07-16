@@ -5,28 +5,35 @@
         <!-- data of paper type -->
         <record id="vehicle_rental_paper_type_assurance" model="vehicle.rental.paper.type">
             <field name="name">Attestation d’Assurance</field>
+            <field name="auto_generated" >1</field>
         </record>
         <record id="vehicle_rental_paper_type_visite" model="vehicle.rental.paper.type">
             <field name="name">Visite Technique</field>
+            <field name="auto_generated" >1</field>
         </record>
         <record id="vehicle_rental_paper_type_vignette" model="vehicle.rental.paper.type">
             <field name="name">Vignette</field>
+            <field name="auto_generated" >1</field>
         </record>
         <record id="vehicle_rental_paper_type_w18" model="vehicle.rental.paper.type">
             <field name="name">W18</field>
-            
+            <field name="auto_generated" >1</field>
         </record>
         <record id="vehicle_rental_paper_type_recepisse" model="vehicle.rental.paper.type">
             <field name="name">Récépissé</field>
+            <field name="auto_generated" >1</field>
         </record>
         <record id="vehicle_rental_paper_type_carte_grise" model="vehicle.rental.paper.type">
             <field name="name">Carte Grise</field>
+            <field name="auto_generated" >1</field>
         </record>
         <record id="vehicle_rental_paper_type_vidange_de_vehicle" model="vehicle.rental.paper.type">
             <field name="name">Vidange de véhicule</field>
+            <field name="auto_generated" >1</field>
         </record>
         <record id="vehicle_rental_paper_type_main_levee_de_vehicle" model="vehicle.rental.paper.type">
             <field name="name">La main levée</field>
+            <field name="auto_generated" >1</field>
         </record>
 
         <!-- Service vidange -->

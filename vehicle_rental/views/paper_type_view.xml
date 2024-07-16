@@ -23,4 +23,18 @@
         </field>
     </record>
 
+    <record id="vehicle_rental_paper_type_view_form" model="ir.ui.view">
+        <field name="name">vehicle.rental.paper.type.form</field>
+        <field name="model">vehicle.rental.paper.type</field>
+        <field name="arch" type="xml">
+            <form string="Channel">
+                <group>
+                    <field name="auto_generated" invisible="1" />
+                    <field name="name" readonly="auto_generated" />
+                    <field name="days_to_alert" />
+                </group>
+            </form>
+        </field>
+    </record>
+
 </odoo>
