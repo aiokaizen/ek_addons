@@ -13,6 +13,10 @@
                         <field name="printer_name" placeholder="Epson Receipt Printer IP Address" />
                         <label for="qz_server_host">QZ Server Host<br/></label>
                         <field name="qz_server_host" placeholder="localhost" />
+                        <label for="qz_digital_certificate">Qz certificate<br/></label>
+                        <field name="qz_digital_certificate" />
+                        <label for="qz_private_key">QZ private key<br/></label>
+                        <field name="qz_private_key" />
                         <!-- <div class="row" invisible="printer_name in [False, '']">
                             <label string="Cashdrawer" for="iface_cashdrawer" class="col-lg-3 o_light_label"/>
                             <field name="iface_cashdrawer"/>

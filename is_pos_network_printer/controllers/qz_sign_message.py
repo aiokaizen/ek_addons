@@ -38,8 +38,12 @@ class SignMessage(http.Controller):
     @http.route('/qz-sign-message/', auth='public')
     def index(self, **kwargs):
 
-        with open('ek_addons/is_pos_network_printer/security/private-key.pem', 'rb') as key_file:
-            private_key = load_pem_private_key(key_file.read(), password=None)
+        config_id = kwargs.get('config_id')
+        pos_config = request.env['pos.config'].search([('id', '=', config_id)], limit=1)
+        private_key_file = base64.b64decode(pos_config.qz_private_key)
+        # with open('ek_addons/is_pos_network_printer/security/private-key.pem', 'rb') as key_file:
+            # private_key = load_pem_private_key(key_file.read(), password=None)
+        private_key = load_pem_private_key(private_key_file, password=None)
 
         message = kwargs.get('request', '').encode()
         signature = private_key.sign(
@@ -52,3 +56,4 @@ class SignMessage(http.Controller):
         return request.make_response(
             data_base64, [('Content-Type', 'text/plain')]
         )
+

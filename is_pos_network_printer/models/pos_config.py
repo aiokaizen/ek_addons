@@ -7,6 +7,7 @@
 #
 #################################################################################
 from odoo import fields, models
+import base64
 
 class PosConfig(models.Model):
     _inherit = 'pos.config'
@@ -21,3 +22,14 @@ class PosConfig(models.Model):
         string='QZ Tray server host', default="localhost",
         help="Hostname or IP address of the QZ server."
     )
+
+    qz_digital_certificate = fields.Binary(string="Qz digitale certificate")
+    qz_private_key = fields.Binary(string="Qz private key")
+    base64_qz_digital_certificate = fields.Char(compute="_compute_qz_digital_certificate")
+
+
+    def _compute_qz_digital_certificate(self):
+
+        for rec in self:
+            if rec.qz_digital_certificate:
+                rec.base64_qz_digital_certificate = base64.b64decode(rec.qz_digital_certificate)

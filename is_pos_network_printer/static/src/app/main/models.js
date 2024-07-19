@@ -11,19 +11,45 @@ import { customHtmlToCanvas as htmlToCanvas } from "@is_pos_network_printer/app/
 
 patch(PosStore.prototype, {
     async setup(...args) {
+        // fetch parametter config_id
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        let config_id = null
+        // Check if a parameter exists
+        if (urlParams.has('config_id')) {
+            console.log('param1 exists:', urlParams.get('config_id'));
+            config_id = urlParams.get('config_id')
+        }
+        let posConfig = await args[1].orm.searchRead("pos.config", [['id', '=', '1']], ['qz_digital_certificate', 'base64_qz_digital_certificate', 'id', 'name'], { limit: 1 })
 
         // Setting certification signing functions for QZ printing purposes.
-        qz.security.setCertificatePromise(function(resolve, reject) {
-            fetch(
-                "/is_pos_network_printer/static/src/app/main/qzlib/digital-certificate.txt",
-                {cache: 'no-store', headers: {'Content-Type': 'text/plain'}}
-            ).then(function(data) { console.log(data); return data.ok ? resolve(data.text()) : reject(data.text()); });
+        qz.security.setCertificatePromise(function (resolve, reject) {
+
+            try {
+
+                if (posConfig.length > 0) {
+                    let qz_digital_certificate = posConfig[0].base64_qz_digital_certificate
+                    console.log(qz_digital_certificate, " ??????????????????????????????????????????? ")
+                    return resolve(qz_digital_certificate)
+                } else {
+                    return reject(qz_digital_certificate)
+                }
+            } catch (error) {
+                console.error('Error fetching POS Config:', error);
+                return null;
+            }
+
+            // fetch(
+            //     "/is_pos_network_printer/static/src/app/main/qzlib/digital-certificate.txt",
+            //     { cache: 'no-store', headers: { 'Content-Type': 'text/plain' } }
+            // ).then(function (data) { console.log(data); return data.ok ? resolve(data.text()) : reject(data.text()); });
         });
-        // qz.security.setSignatureAlgorithm("sha512"); // Lower than 2.1; SHA512
-        qz.security.setSignaturePromise(function(toSign) {
-            return function(resolve, reject) {
-                fetch("/qz-sign-message?request=" + toSign, {cache: 'no-store', headers: {'Content-Type': 'text/plain'}})
-                    .then(function(data) { data.ok ? resolve(data.text()) : reject(data.text()); });
+
+
+        qz.security.setSignaturePromise(function (toSign) {
+            return function (resolve, reject) {
+                fetch("/qz-sign-message?request=" + toSign + '&config_id=' + config_id, { cache: 'no-store', headers: { 'Content-Type': 'text/plain' } })
+                    .then(function (data) { data.ok ? resolve(data.text()) : reject(data.text()); });
             };
         });
 
