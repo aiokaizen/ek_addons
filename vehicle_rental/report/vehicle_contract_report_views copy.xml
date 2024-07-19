@@ -28,7 +28,9 @@
                                         Customer:
                                         <span t-field="contract.customer_id"/>
                                     </span>
-                                     <span>
+                                </td>
+                                <td>
+                                    <span>
                                         <br/>
                                         Phone:
                                         <span t-field="contract.customer_phone"/>
@@ -80,13 +82,17 @@
                                         
                                     </span>
                                 </td>
-                                <td t-if="contract.second_driver_id" >
+                            </tr>
+                            <tr t-if="contract.second_driver_id" >
+                                <td>
                                     <span>
                                         <strong>Second Customer Details</strong>
                                         <br/>
                                         Customer:
                                         <span t-field="contract.second_driver_id"/>
                                     </span>
+                                </td>
+                                <td>
                                     <span>
                                         <br/>
                                         Phone:
@@ -192,11 +198,6 @@
                                         Model:
                                         <span t-field="contract.model_year"/>
                                         <br/>
-                                        
-                                    </span>
-                                </td>
-                                <td>
-                                    <span>
                                         Transmission:
                                         <span t-field="contract.transmission"/>
                                         <br/>
@@ -208,7 +209,7 @@
                                         <span t-field="contract.odometer_unit"/>
                                     </span>
                                 </td>
-                                <!-- <td>
+                                <td>
                                     <span>
                                         <br/>
                                         <span>
@@ -233,8 +234,8 @@
                                                 <span t-field="contract.driver_charge"/>
                                             </t>
                                         </t>
-                                    </span> -->
-                                <!-- </td> -->
+                                    </span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>
@@ -348,26 +349,26 @@
                             <tr>
                                 <td>
                                     <span>
-                                        <strong t-if="contract.is_any_extra_charges" >
+                                        <strong>
                                             Extra Charges Details
                                         </strong>
-                                        <!-- <br/> -->
-                                        <!-- <span>
+                                        <br/>
+                                        <span>
                                             Is any extra charges:
                                             <t t-if="contract.is_any_extra_charges">Yes</t>
                                             <t t-else="">No</t>
-                                        </span> -->
+                                        </span>
                                         <br/>
                                         <t t-if="contract.is_any_extra_charges">
                                             <t t-if="contract.rent_type == 'hour'">
                                                 Total Extra Hours
-                                                <span t-field="contract.total_extra_hour or '------'"/>
+                                                <span t-field="contract.total_extra_hour"/>
                                                 <br/>
                                                 Extra Charge / Hour
-                                                <span t-field="contract.extra_charge or '------'"/>
+                                                <span t-field="contract.extra_charge"/>
                                                 <br/>
                                                 Total Extra Charges
-                                                <span t-field="contract.total_extra_charges "/>
+                                                <span t-field="contract.total_extra_charges"/>
                                             </t>
                                             <t t-if="contract.rent_type == 'days'">
                                                 Total Extra Days
@@ -629,7 +630,7 @@
                         </table> -->
 
                         <strong>Obsevation</strong>
-                        <t t-esc="contract.note or ': ---------------' " ></t> <br /><br />
+                        <t t-esc="contract.note" ></t> <br /><br />
 
                         <t t-foreach="contract.payments_invoice" t-as="payment" >
                             <string>amount </string> |

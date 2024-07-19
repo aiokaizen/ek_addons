@@ -339,9 +339,12 @@ class FleetVehicle(models.Model):
                     )
             
             
-            
+            # auto generate action for papers create by user not by system
             for paper in vehicle.paper_ids:
-                if paper.type_id.slug in ('visite-technique', 'attestation-dassurance', 'vignette', 'w18', 'recepisse', 'carte-grise'):
+                if paper.type_id.slug in (
+                    'visite-technique', 'attestation-dassurance', 'vignette', 'w18',
+                    'recepisse', 'carte-grise', 'la-main-levee'
+                ):
                     continue
                 paper_slug = f"{auto_gen_slug}_paper_{paper.id}" 
                 activity_paper_exist = len(self.env["mail.activity"].search(
@@ -363,7 +366,8 @@ class FleetVehicle(models.Model):
                         date_deadline=paper.expiry_date,
                         slug=paper_slug
                     )
-            
+            main_levee = self.env['vehicle.rental.paper'].search([('vehicle_id', '=', vehicle.id), ('type_id.slug', '=', 'la-main-levee')])
+           
             main_levee_slug = f"{auto_gen_slug}_main_levee_{vehicle.id}" 
             activity_main_levee_exist = len(self.env["mail.activity"].search(
                 domain=[
@@ -372,15 +376,19 @@ class FleetVehicle(models.Model):
                 limit=1
             )) > 0
 
-            if vehicle.bank_credit and vehicle.date_end_bank_credit and vehicle.date_end_bank_credit - timedelta(days=7) <= now.date() and not activity_main_levee_exist:
-                vehicle.activity_schedule(
-                        'mail.mail_activity_data_todo',  # Activity type (default: To Do)
-                        summary="La main levée",  # Activity title
-                        note="Vous avez un crédit en cours. Veuillez obtenir une 'main levée' de la banque.",  # Activity description
-                        user_id=affected_user,  # Assign to the current user
-                        date_deadline=vehicle.date_end_bank_credit,
-                        slug=main_levee_slug
-                    )
+            if len(main_levee) == 0:
+                if (
+                    vehicle.bank_credit and vehicle.date_end_bank_credit 
+                    and vehicle.date_end_bank_credit - timedelta(days=7) <= now.date() and not activity_main_levee_exist
+                ):
+                    vehicle.activity_schedule(
+                            'mail.mail_activity_data_todo',  # Activity type (default: To Do)
+                            summary="La main levée",  # Activity title
+                            note="Vous avez un crédit en cours. Veuillez obtenir une 'main levée' de la banque.",  # Activity description
+                            user_id=affected_user,  # Assign to the current user
+                            date_deadline=vehicle.date_end_bank_credit,
+                            slug=main_levee_slug
+                        )
         return True
 
     

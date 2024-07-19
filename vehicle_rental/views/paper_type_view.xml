@@ -31,6 +31,7 @@
                 <group>
                     <field name="auto_generated" invisible="1" />
                     <field name="name" readonly="auto_generated" />
+                    <field name="slug" readonly="1" />
                     <field name="days_to_alert" />
                 </group>
             </form>
