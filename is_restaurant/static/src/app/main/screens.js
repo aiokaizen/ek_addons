@@ -3,47 +3,57 @@
 /* See LICENSE file for full copyright and licensing details. */
 /* License URL : <https://store.webkul.com/license.html/> */
 
-import { ReceiptScreen } from "@point_of_sale/app/screens/receipt_screen/receipt_screen";
-// import { PaymentScreen } from "@point_of_sale/app/screens/payment_screen/payment_screen";
-import { usePos } from "@point_of_sale/app/store/pos_hook";
+import { PrintBillButton } from "@pos_restaurant/app/control_buttons/print_bill_button/print_bill_button";
 import { patch } from "@web/core/utils/patch";
 import { _t } from "@web/core/l10n/translation";
 import { ErrorPopup } from "@point_of_sale/app/errors/popups/error_popup";
 import { renderToString } from "@web/core/utils/render";
-import { onMounted } from "@odoo/owl";
 import { HWPrinter } from "@point_of_sale/app/printer/hw_printer";
-// import { htmlToCanvas } from "@point_of_sale/app/printer/render_service";
 import { customHtmlToCanvas as htmlToCanvas } from "@is_pos_network_printer/app/main/render_service";
 
-patch(ReceiptScreen.prototype, {
-    setup() {
-        this.pos = usePos();
-        onMounted(this.onMounted);
-        this.classReceipt = "pos-receipt-print-custom"
-        super.setup();
-    },
-    onMounted() {
-        this.printNetworkPrinterReceipt();
-    },
-    async printNetworkPrinterReceipt(event) {
-        var self = this;
-        var receipt = renderToString('XmlReceipt', {
-            data: self.pos.get_order().export_for_printing(),
-            formatCurrency: this.env.utils.formatCurrency,
+
+
+patch(PrintBillButton.prototype, {
+    // setup() {
+    //     this.pos = usePos();
+    //     onMounted(this.onMounted);
+    //     this.classReceipt = "pos-bill-print-custom"
+    //     this.isBillReceipt = true
+    //     super.setup();
+    // },
+
+
+    async printBillOrder() {
+
+        // ###############################
+        // This function is not yet ready!
+        // ###############################
+        let self = this
+        let order = this.pos.get_order().export_for_printing()
+        let isPrintSuccessful = true
+        console.log("this is order: ", order);
+        order.currency = this.pos.currency.symbol
+        const receiptXmlBill = renderToString('XmlBill', {
+            data: order,
         })
-        receipt = "<receipt></receipt>"
+        $("#id-bill-print-container").html(`
+            <div class="pos-order-container">
+                ${receiptXmlBill}
+            </div>
+        `);
+
+        const receiptString = $("#id-bill-print-container")[0];
         const printer = new HWPrinter({ rpc: this.rpc, url: this.host });
-        const receiptString = $(".pos-receipt-container .d-inline-block")[0];
 
         const ticketImage = printer.processCanvas(
-            await htmlToCanvas(receiptString, { addClass: "pos-receipt-print" })
+            await htmlToCanvas(receiptString, { addClass: 'pos-order-print' })
         );
-
+        const container = $("#id-bill-print-container")[0];
         try {
             const esc_commands = await this.env.services.orm.silent.call(
                 'pos.order',
                 'get_esc_command_set',
-                [{ "data": receipt }]
+                [{ "data": "<receipt></receipt>" }]
             );
             if (esc_commands) {
                 // var esc = esc_commands.replace("\n", "\x0A")
@@ -87,10 +97,26 @@ patch(ReceiptScreen.prototype, {
             }
         } catch (event) {
             // event.preventDefault();
-            self.env.services.popup.add(ErrorPopup, {
+            this.env.services.popup.add(ErrorPopup, {
                 title: _t('Failed To Fetch Receipt Details.'),
                 body: _t('Please make sure you are connected to the network.'),
             });
         }
+        return isPrintSuccessful;
+
+    },
+    // /**
+    //  * @override
+    //  */
+    async printReceipt() {
+        // this.printNetworkPrinterOrder();
+        this.printBillOrder()
+        this.currentOrder._printed = false;
+
+    },
+
+    async click() {
+        // await this.pos.showTempScreen("BillScreen");
+        this.printBillOrder();
     }
 });

@@ -354,9 +354,7 @@
         <xpath expr="//p[text()='Odoo Point of Sale']" position="replace">
             <div></div>
         </xpath>
-        <xpath expr="//p[text()='Odoo Restaurant']" position="replace">
-            <div></div>
-        </xpath>
+        
 
         <xpath expr="//div[hasclass('pos-receipt-taxes')]" position="replace" >
             <br/>
