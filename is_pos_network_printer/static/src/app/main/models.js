@@ -20,7 +20,7 @@ patch(PosStore.prototype, {
             console.log('param1 exists:', urlParams.get('config_id'));
             config_id = urlParams.get('config_id')
         }
-        let posConfig = await args[1].orm.searchRead("pos.config", [['id', '=', '1']], ['qz_digital_certificate', 'base64_qz_digital_certificate', 'id', 'name'], { limit: 1 })
+        let posConfig = await args[1].orm.searchRead("pos.config", [['id', '=', config_id]], ['qz_digital_certificate', 'base64_qz_digital_certificate', 'id', 'name'], { limit: 1 })
 
         // Setting certification signing functions for QZ printing purposes.
         qz.security.setCertificatePromise(function (resolve, reject) {
@@ -29,7 +29,6 @@ patch(PosStore.prototype, {
 
                 if (posConfig.length > 0) {
                     let qz_digital_certificate = posConfig[0].base64_qz_digital_certificate
-                    console.log(qz_digital_certificate, " ??????????????????????????????????????????? ")
                     return resolve(qz_digital_certificate)
                 } else {
                     return reject(qz_digital_certificate)
