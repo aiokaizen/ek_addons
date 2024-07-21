@@ -40,7 +40,12 @@ class SignMessage(http.Controller):
 
         config_id = kwargs.get('config_id')
         pos_config = request.env['pos.config'].search([('id', '=', config_id)], limit=1)
+        if not pos_config.qz_private_key:
+            return request.make_response(
+                "", [('Content-Type', 'text/plain')]
+            )
         private_key_file = base64.b64decode(pos_config.qz_private_key)
+
         # with open('ek_addons/is_pos_network_printer/security/private-key.pem', 'rb') as key_file:
             # private_key = load_pem_private_key(key_file.read(), password=None)
         private_key = load_pem_private_key(private_key_file, password=None)

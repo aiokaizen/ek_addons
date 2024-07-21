@@ -27,11 +27,11 @@ patch(PosStore.prototype, {
 
             try {
 
-                if (posConfig.length > 0) {
+                if (posConfig.length > 0 && posConfig[0].base64_qz_digital_certificate) {
                     let qz_digital_certificate = posConfig[0].base64_qz_digital_certificate
                     return resolve(qz_digital_certificate)
                 } else {
-                    return reject(qz_digital_certificate)
+                    return reject("")
                 }
             } catch (error) {
                 console.error('Error fetching POS Config:', error);
