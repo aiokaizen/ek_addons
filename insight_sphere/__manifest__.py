@@ -17,6 +17,7 @@
         'purchase',
 
         # Design
+        'muk_web_appsbar',
         'muk_web_colors',
     ],
     'data': [
@@ -27,7 +28,7 @@
         'security/insight_sphere_security.xml',
 
         'views/report_templates.xml',
-                
+
         'data/master.xml',
         'data/res_company_data.xml',
         'data/report_layout.xml',
@@ -37,9 +38,10 @@
         'views/product_view.xml',
         'views/website_template.xml',
         'views/insight_sphere_views.xml',
+        "views/stock_picking_type_views.xml",
 
         'menus/insight_sphere_menus.xml',
-        
+
         'views/report_invoice.xml',
 
         # 'data/master.xml',
