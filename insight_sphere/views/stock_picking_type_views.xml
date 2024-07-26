@@ -5,9 +5,9 @@
         <field name="model">stock.picking.type</field>
         <field name="arch" type="xml">
             <search string="Search Picking Type">
-                <field name="authorized_user_ids" invisible="1" />
                 <field name="warehouse_id" />
-                <!-- <field name="default_location_dest_id" /> -->
+                <field name="default_location_dest_id" />
+                <!-- <field name="authorized_user_ids" invisible="1" /> -->
                 <!-- <filter
                     name="authorised_operation_types"
                     string="Opérations autorisés"
