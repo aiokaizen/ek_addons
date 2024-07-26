@@ -7,7 +7,7 @@
             <search string="Search Picking Type">
                 <field name="authorized_user_ids" invisible="1" />
                 <field name="warehouse_id" />
-                <field name="default_location_dest_id" />
+                <!-- <field name="default_location_dest_id" /> -->
                 <!-- <filter
                     name="authorised_operation_types"
                     string="Opérations autorisés"
