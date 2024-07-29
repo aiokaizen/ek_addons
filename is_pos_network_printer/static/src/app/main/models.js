@@ -100,9 +100,6 @@ patch(PosStore.prototype, {
     },
     async printNetworkPrinterOrder(order, cancelled = false) {
 
-        // ###############################
-        // This function is not yet ready!
-        // ###############################
         const orderChange = order.changesToOrder(cancelled);
         let isPrintSuccessful = true;
         const d = new Date();

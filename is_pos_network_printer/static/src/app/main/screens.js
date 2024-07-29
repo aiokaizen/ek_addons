@@ -48,12 +48,33 @@ patch(ReceiptScreen.prototype, {
             if (esc_commands) {
                 // var esc = esc_commands.replace("\n", "\x0A")
                 var printer_name = self.pos.config.printer_name;
+                var can_open_cash_drawer = false;
+
+                // Check if the client has payed using cash?
+                for(let payment_line of self.currentOrder.paymentlines) {
+                    if (payment_line.payment_method.type === 'cash') {
+                        can_open_cash_drawer = true;
+                        break;
+                    }
+                }
+                // If so, open the cash drawer.
+                var cash_drawer_pulse = can_open_cash_drawer ? '\x10' + '\x14' + '\x01' + '\x00' + '\x05' : '';
+
                 if (!qz.websocket.isActive()) {
                     self.pos.connect_to_nw_printer().finally(function () {
                         if (self.pos.nw_printer && self.pos.nw_printer.remote_status == "success") {
                             var config = qz.configs.create(printer_name);
                             // var data = [esc]
-                            var wk_data = [{ type: 'raw', format: 'image', data: 'data:image/jpeg;base64,' + ticketImage + '', options: { language: "ESCPOS", dotDensity: 'double' } }, '\x1B' + '\x69',]
+                            var wk_data = [
+                                {
+                                    type: 'raw',
+                                    format: 'image',
+                                    data: 'data:image/jpeg;base64,' + ticketImage + '',
+                                    options: { language: "ESCPOS", dotDensity: 'double' }
+                                },
+                                '\x1B' + '\x69',
+                                cash_drawer_pulse,  // Generate Pulse to kick-out cash drawer
+                            ]
                             // { type: 'raw', format: 'image', data: receipt_data.receipt.company.logo, options: { language: "ESCPOS", dotDensity: 'double'} },
                             qz.print(config, wk_data).then(function () { }).catch(function (e) {
                                 console.error(e);
@@ -75,15 +96,11 @@ patch(ReceiptScreen.prototype, {
                         },
                         '\x1B' + '\x64' + '\x02', // Add two line feeds
                         '\x1D' + '\x56' + '\x42' + '\x03', // Cut paper command with partial cut
-                        // '\x1B' + '\x69',
+                        cash_drawer_pulse,  // Generate Pulse to kick-out cash drawer
                     ]
-                    // { type: 'raw', format: 'image', data: receipt_data.receipt.company.logo, options: { language: "ESCPOS", dotDensity: 'double'} },
                     qz.print(config, wk_data).then(function () { });
-
                 }
                 return { successful: true };
-
-
             }
         } catch (event) {
             // event.preventDefault();
