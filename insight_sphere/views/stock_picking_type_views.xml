@@ -1,20 +1,19 @@
 <?xml version="1.0"?>
 <odoo>
-    <record id="is_stock_picking_type_search" model="ir.ui.view">
+    <!-- <record id="is_stock_picking_type_search" model="ir.ui.view">
         <field name="name">is_stock.picking.type.search</field>
         <field name="model">stock.picking.type</field>
         <field name="arch" type="xml">
             <search string="Search Picking Type">
                 <field name="warehouse_id" />
-                <field name="default_location_dest_id" />
-                <!-- <field name="authorized_user_ids" invisible="1" /> -->
+                <field name="default_location_dest_id" /> -->
                 <!-- <filter
                     name="authorised_operation_types"
                     string="Opérations autorisés"
                     domain="[('authorized_user_ids.id', '=', uid)]"
                     help="Afficher seulement les types d'opérations liés aux entrepôts qui vous ont été affectés."
                 /> -->
-            </search>
+            <!-- </search>
         </field>
-    </record>
+    </record> -->
 </odoo>
