@@ -2,6 +2,7 @@
 /* Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) */
 /* See LICENSE file for full copyright and licensing details. */
 /* License URL : <https://store.webkul.com/license.html/> */
+/* global html2canvas */
 
 import { ReceiptScreen } from "@point_of_sale/app/screens/receipt_screen/receipt_screen";
 // import { PaymentScreen } from "@point_of_sale/app/screens/payment_screen/payment_screen";
@@ -51,7 +52,7 @@ patch(ReceiptScreen.prototype, {
                 var can_open_cash_drawer = false;
 
                 // Check if the client has payed using cash?
-                for(let payment_line of self.currentOrder.paymentlines) {
+                for (let payment_line of self.currentOrder.paymentlines) {
                     if (payment_line.payment_method.type === 'cash') {
                         can_open_cash_drawer = true;
                         break;
@@ -99,6 +100,25 @@ patch(ReceiptScreen.prototype, {
                         cash_drawer_pulse,  // Generate Pulse to kick-out cash drawer
                     ]
                     qz.print(config, wk_data).then(function () { });
+
+                    // html2canvas(document.querySelector(".pos-receipt-print", { scale: 2, useCORS: true })).then(canvas => {
+                    //     // Convert Canvas to Blob
+                    //     var dataUrl = canvas.toDataURL('image/jpeg');
+                    //     var base64Data = dataUrl.split(',')[1];
+                    //     // Print using QZ Tray
+                    //     var data = [
+                    //         {
+                    //             type: 'raw',
+                    //             format: 'base64',
+                    //             options: {
+                    //                 dotDensity: 'double',
+
+                    //             },
+                    //             data: ticketImage
+                    //         }
+                    //     ];
+                    //     qz.print(config, data).catch(err => console.error(err));
+                    // });
                 }
                 return { successful: true };
             }
