@@ -13,6 +13,7 @@
         'account',
         'stock',
         'point_of_sale',
+        'pos_hr',
         'sale_management',
         'purchase',
 
