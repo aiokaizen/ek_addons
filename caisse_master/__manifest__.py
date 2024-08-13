@@ -15,10 +15,17 @@
     'data': [
         # Security
         # 'security/ir.model.access.csv',
+        # views
+        # 'views/pos_navbar_inherit.xml'
+        # 'views/pos_restaurant.xml',
+        'views/website_template.xml',
     ],
     "assets":  {
         'point_of_sale._assets_pos': [
             'caisse_master/static/src/**/*',
+        ],
+        'web.assets_backend': [
+            'caisse_master/static/src/app/custom_title_service.js',
         ],
     },
     'license': 'Other proprietary',
