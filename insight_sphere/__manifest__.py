@@ -31,7 +31,7 @@
         'views/report_templates.xml',
 
         'data/master.xml',
-        'data/res_company_data.xml',
+        # 'data/res_company_data.xml',
         'data/report_layout.xml',
 
 
