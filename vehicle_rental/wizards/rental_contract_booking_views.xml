@@ -38,13 +38,13 @@
                         </page>
                     </notebook>
                     <footer>
-                        <button string="Cancel" special="cancel"/>
+                        <button string="Annuler" special="cancel"/>
                     </footer>
                 </form>
             </field>
         </record>
         <record id="action_rental_contract_booking" model="ir.actions.act_window">
-            <field name="name">Contract Booking</field>
+            <field name="name">Réservation de Contrat</field>
             <field name="res_model">rental.contract.booking</field>
             <field name="target">new</field>
             <field name="view_id" ref="rental_contract_booking_form_view"/>

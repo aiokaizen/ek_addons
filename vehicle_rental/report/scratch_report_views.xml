@@ -13,28 +13,28 @@
                             <div id="information" class="row mt32 mb32">
                                 <div class="col-auto col-4 mw-100 mb-2" t-if="scratch.reference_no"
                                      name="reference_no">
-                                    <strong>Reference Number</strong>
+                                    <strong>Number  de Reference</strong>
                                     <p class="m-0" t-field="scratch.reference_no"/>
                                 </div>
                                 <div class="col-auto col-4 mw-100 mb-2" t-if="scratch.vehicle_id"
                                      name="vehicle_id">
-                                    <strong>Vehicle</strong>
+                                    <strong>Véhicule</strong>
                                     <p class="m-0" t-field="scratch.vehicle_id"/>
                                 </div>
                                 <div class="col-auto col-4 mw-100 mb-2" t-if="scratch.model_year" name="model_year">
-                                    <strong>Model</strong>
+                                    <strong>Modèle</strong>
                                     <p class="m-0" t-field="scratch.model_year"/>
                                 </div>
                             </div>
                             <div id="information" class="row mt32 mb32">
                                 <div class="col-auto col-4 mw-100 mb-2" t-if="scratch.customer_id"
                                      name="customer_id">
-                                    <strong>Customer</strong>
+                                    <strong>Client</strong>
                                     <p class="m-0" t-field="scratch.customer_id.name"/>
                                 </div>
                                 <div class="col-auto col-4 mw-100 mb-2" t-if="scratch.responsible_id"
                                      name="responsible_id">
-                                    <strong>Responsible</strong>
+                                    <strong>Responsable</strong>
                                     <p class="m-0" t-field="scratch.responsible_id.name"/>
                                 </div>
                                 <div class="col-auto col-4 mw-100 mb-2">

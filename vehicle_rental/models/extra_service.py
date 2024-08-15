@@ -9,11 +9,11 @@ class ExtraService(models.Model):
     _name = 'extra.service'
     _description = __doc__
 
-    product_id = fields.Many2one('product.product', string="Product", required=True)
+    product_id = fields.Many2one('product.product', string="Produit", required=True)
     description = fields.Char(string="Description")
-    product_qty = fields.Float(string="Quantity", required=True, default=1)
-    amount = fields.Monetary(string="Amount")
-    total_service_charge = fields.Monetary(string="Sub Total", compute='_get_total_service_charge')
+    product_qty = fields.Float(string="Quantité", required=True, default=1)
+    amount = fields.Monetary(string="Montant")
+    total_service_charge = fields.Monetary(string="Sous-total", compute='_get_total_service_charge')
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
     currency_id = fields.Many2one('res.currency', string='Currency', related="company_id.currency_id")
     vehicle_contract_id = fields.Many2one('vehicle.contract', ondelete="cascade")

@@ -10,33 +10,33 @@
                         <field name="status" widget="statusbar" statusbar_visible="a_draft,b_in_progress,c_return"/>
                         <field name="installment_created" invisible="1"/>
 
-                        <button string="Update Vehicle Data" name="vehicle_details_update" class="oe_highlight"
+                        <button string="Mettre à jour les données du véhicule" name="vehicle_details_update" class="oe_highlight"
                                 type="object" invisible="status in ['c_return', 'd_cancel']"/>
 
-                        <button string="In Progress" name="a_draft_to_b_in_progress" type="object"
+                        <button string="En cours" name="a_draft_to_b_in_progress" type="object"
                                 class="btn btn-warning" invisible="status not in ['a_draft']"/>
 
-                        <button string="Deposit" name="action_vehicle_rent_deposit" class="btn btn-info" type="object"
+                        <button string="Dépôt" name="action_vehicle_rent_deposit" class="btn btn-info" type="object"
                                 invisible="if_any_deposit == False or account_payment_id != False"/>
 
-                        <button string="Create Extra Service Invoice" name="action_create_extra_service_charge_invoice"
+                        <button string="Créer une facture pour service supplémentaire" name="action_create_extra_service_charge_invoice"
                                 type="object" class="btn btn-primary"
                                 invisible="not extra_service_ids or extra_service_invoice_id != False or status in ['c_return', 'd_cancel']"/>
 
-                        <button name="action_create_vehicle_payment" type="object" string="Create Installment"
+                        <button name="action_create_vehicle_payment" type="object" string="Créer un échéancier"
                                 class="oe_highlight"
                                 invisible="status == 'a_draft' or installment_created != False or status == 'd_cancel'"/>
 
-                        <button string="Return" name="b_in_progress_to_c_return" type="object" class="btn btn-success"
+                        <button string="Retour" name="b_in_progress_to_c_return" type="object" class="btn btn-success"
                                 invisible="status not in ['b_in_progress'] or not vehicle_payment_option_ids"/>
 
-                        <button name="%(action_vehicle_damage)d" string="Damage Invoice" type="action"
+                        <button name="%(action_vehicle_damage)d" string="Facture pour dommages" type="action"
                                 class="oe_highlight" invisible="status != 'c_return' or is_invoice_done != False"/>
 
-                        <button string="Cancel" name="c_return_to_d_cancel" type="object" class="btn btn-danger"
+                        <button string="Annuler" name="c_return_to_d_cancel" type="object" class="btn btn-danger"
                                 invisible="status not in ['b_in_progress']"/>
 
-                        <button string="Cancellation Charge" name="cancellation_charge_invoice" class="oe_highlight"
+                        <button string="Frais d'annulation" name="cancellation_charge_invoice" class="oe_highlight"
                                 type="object"
                                 invisible="status not in ['d_cancel'] or cancellation_invoice_id != False"/>
                     </header>
@@ -58,7 +58,7 @@
                                 <field name="reference_no"/>
                             </h1>
                         </div>
-                        <group string="Customer Details">
+                        <group string="Détails du Client">
                             <group>
                                 <field name="customer_id" readonly="status != 'a_draft'" required="1"/>
                             </group>
@@ -73,7 +73,7 @@
                                 <field name="customer_permis" readonly="1"/>
                             </group>
                         </group>
-                        <group string="Second driver Details">
+                        <group string="Détails du Deuxième Conducteur">
                             <group>
                                 <field name="second_driver_id" readonly="status != 'a_draft'"/>
                             </group>
@@ -91,7 +91,7 @@
                         <group string="Pick-Up &amp; Drop-Off Details">
                             <group>
                                 <field name="start_date" required="1" readonly="status != 'a_draft'"/>
-                                <span class="o_form_label o_td_label" name="address_name">Pick-Up Location</span>
+                                <span class="o_form_label o_td_label" name="address_name">Lieu de Prise en Charge</span>
                                 <div class="o_address_format">
                                     <field name="pick_up_street" placeholder="Street..." class="o_address_street"
                                            readonly="status != 'a_draft'"/>
@@ -111,7 +111,7 @@
                             </group>
                             <group>
                                 <field name="end_date" required="1" readonly="status != 'a_draft'"/>
-                                <span class="o_form_label o_td_label" name="address_name">Drop-Off Location</span>
+                                <span class="o_form_label o_td_label" name="address_name">Lieu de Dépôt</span>
                                 <div class="o_address_format">
                                     <field name="drop_off_street" placeholder="Street..." class="o_address_street"
                                            readonly="status != 'a_draft'"/>
@@ -205,7 +205,7 @@
                             </group>
                         </group>
                         <group>
-                            <group string="Extra Charges Details">
+                            <group string="Détails des Charges Supplémentaires">
                                 <field name="extra_charge_invoice_id" invisible="1"/>
                                 <field name="is_any_extra_charges" readonly="extra_charge_invoice_id != False"/>
 
@@ -253,7 +253,7 @@
                                        invisible="is_any_extra_charges == False or rent_type != 'mi'"
                                        readonly="extra_charge_invoice_id != False"/>
 
-                                <label for="total_extra_charges" class="mt-1" string="Total Extra Charges"
+                                <label for="total_extra_charges" class="mt-1" string="Total des Charges Supplémentaires"
                                        invisible="is_any_extra_charges == False"/>
                                 <div name="total_extra_charges">
                                     <field name="total_extra_charges" class="oe_inline"
@@ -261,8 +261,8 @@
                                 </div>
                             </group>
 
-                            <group string="Invoice Details">
-                                <label for="extra_charge_invoice_id" string="Extra Charge Invoice"
+                            <group string="Détails de la Facture">
+                                <label for="extra_charge_invoice_id" string="Facture de Charge Supplémentaire"
                                        invisible="extra_charge_invoice_id == False"/>
                                 <div class="address_format">
                                     <field name="extra_charge_invoice_id" readonly="1" style="width: auto;"
@@ -327,13 +327,13 @@
                             </group>
                             <div class="row">
                                 <div class="col-6">
-                                    <button string="Extra Charge Invoice" name="action_create_extra_charge_invoice"
+                                    <button string="Facture des Charges Supplémentaires" name="action_create_extra_charge_invoice"
                                             class="oe_highlight" type="object"
                                             invisible="is_any_extra_charges == False or extra_charge_invoice_id != False"/>
                                 </div>
                             </div>
                         </group>
-                        <group string="Payment Details">
+                        <group string="Détails du Paiement">
                             <field name="payment_type" widget="radio" options="{'horizontal': true}"
                                    invisible="1" readonly="installment_created != False"/>
                         </group>            
@@ -365,7 +365,7 @@
                         </group>
 
                         <notebook>
-                            <page name="vehicle_payment_details" string="Vehicle Payment Details">
+                            <page name="vehicle_payment_details" string="Détails de Paiement du Véhicule">
                                 <field name="vehicle_payment_option_ids" nolabel="1" readonly="1"
                                        context="{'default_invoice_item_id': invoice_item_id}">
                                     <form>
@@ -422,7 +422,7 @@
                                     </tree>
                                 </field>
                             </page>
-                            <page name="extra_service" string="Extra Services">
+                            <page name="extra_service" string="Services Supplémentaires">
                                 <field name="extra_service_ids"
                                        readonly="extra_service_invoice_id != False or status in ['c_return', 'd_cancel']">
                                     <form>
@@ -457,7 +457,7 @@
                                     </div>
                                     <div class="col-2" style="text-align: right;">
                                         <h6>
-                                            Total Service Charge
+                                            Total des frais de service
                                             <hr style="margin: 0px;"/>
                                         </h6>
                                         Total:
@@ -466,11 +466,11 @@
                                     </div>
                                 </div>
                             </page>
-                            <page name="rental_vehicle_image" string="Vehicle Images">
+                            <page name="rental_vehicle_image" string="Images du Véhicule">
                                 <field name="rental_vehicle_image_ids" nolabel="1" readonly="status == 'c_return'">
                                     <form>
                                         <sheet>
-                                            <group string="Vehicle Image">
+                                            <group string="Images du Véhicule">
                                                 <field name="avatar" widget="image" style="width: 75%;" nolabel="1"/>
                                             </group>
                                         </sheet>
@@ -493,11 +493,11 @@
                                     </kanban>
                                 </field>
                             </page>
-                            <page name="rental_vehicle_return_image" string="Vehicle Return Images" invisible="status != 'c_return'" >
+                            <page name="rental_vehicle_return_image" string="Images de Retour du Véhicule" invisible="status != 'c_return'" >
                                 <field name="rental_vehicle_image_return_ids" nolabel="1" >
                                     <form>
                                         <sheet>
-                                            <group string="Vehicle Return Image">
+                                            <group string="Image de Retour du Véhicule">
                                                 <field name="avatar_return" widget="image" style="width: 75%;" nolabel="1"/>
                                             </group>
                                         </sheet>
@@ -557,9 +557,9 @@
                                     </tree>
                                 </field>
                             </page> -->
-                            <page name="cancellation_policy" string="Cancellation Policy"
+                            <page name="cancellation_policy" string="Politique d'Annulation"
                                   invisible="status != 'd_cancel'">
-                                <group string="Policy Details">
+                                <group string="Détails de la Politique">
                                     <group>
                                         <field name="cancellation_policy_id" required="status == 'd_cancel'"
                                                readonly="cancellation_invoice_id != False"/>
@@ -577,12 +577,12 @@
                                 <field name="terms_and_conditions" readonly="cancellation_invoice_id != False"/>
                                 <br/>
                                 <h6>
-                                    Cancellation Reasons
+                                    Raisons de l'Annulation
                                 </h6>
                                 <hr/>
                                 <field name="cancellation_reason" readonly="cancellation_invoice_id != False"/>
                             </page>
-                            <page name="damage" string="Vehicle Damages" invisible="is_invoice_done == False">
+                            <page name="damage" string="Dommages au Véhicule" invisible="is_invoice_done == False">
                                 <group>
                                     <group>
                                     </group>
@@ -634,7 +634,7 @@
                             </div>
                             <div class="col-4">
                                 <group>
-                                    <field name="date" string="Sign Date" readonly="status == 'c_return'"/>
+                                    <field name="date" string="Date de Sgnature" readonly="status == 'c_return'"/>
                                 </group>
                                 <field name="signature" widget="signature" nolabel="1" readonly="status == 'c_return'"/>
                                 <br/>
@@ -791,7 +791,7 @@
             </field>
         </record>
         <record id="action_vehicle_contract" model="ir.actions.act_window">
-            <field name="name">Contracts</field>
+            <field name="name">Contrats</field>
             <field name="res_model">vehicle.contract</field>
             <field name="view_mode">tree,kanban,form,calendar,pivot,activity,search</field>
         </record>

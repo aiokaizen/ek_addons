@@ -36,7 +36,7 @@
                                         Email:
                                         <span t-field="contract.customer_email"/>
                                         <br/>
-                                        Moroccan address:
+                                        Adresse Marocaine:
                                         <span t-field="contract.moroccan_address"/>
                                         <br/>
                                         Foreign address:

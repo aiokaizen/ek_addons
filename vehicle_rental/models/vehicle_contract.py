@@ -46,95 +46,94 @@ class VehicleContract(models.Model):
 
     reference_no = fields.Char(string='Reference No', required=True, readonly=True, default=lambda self: _('New'),
                                copy=False)
-    vehicle_ids = fields.Many2many('fleet.vehicle', compute='_get_available_vehicles', string="Vehicles")
-    vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle",
+    vehicle_ids = fields.Many2many('fleet.vehicle', compute='_get_available_vehicles', string="Véhicules")
+    vehicle_id = fields.Many2one('fleet.vehicle', string="Véhicule",
                                  domain="[('id', 'not in', vehicle_ids), ('status', '=', 'available')]", copy=False)
-    license_plate = fields.Char(string="License Plate")
+    license_plate = fields.Char(string="Immatriculation")
 
-    is_driver_required = fields.Boolean(string="Driver Required")
-    driver_id = fields.Many2one('res.partner', string="Driver")
-    driver_charge_type = fields.Selection([('including', "Including in rent charge"),
-                                           ('excluding', "Excluding in rent charge")], string="Charges Type",
+    is_driver_required = fields.Boolean(string="Chauffeur Requis")
+    driver_id = fields.Many2one('res.partner', string="Chauffeur")
+    driver_charge_type = fields.Selection([('including', "Inclus dans le tarif de location"),
+                                           ('excluding', "Exclu du tarif de location")], string="Type de fraix",
                                           default='including')
-    driver_charge = fields.Monetary(string="Charge")
+    driver_charge = fields.Monetary(string="Fraix")
 
-    last_odometer = fields.Float(string="Last Odometer", copy=False)
-    return_odometer = fields.Float(string="Return Odometer", copy=False)
-    odometer_unit = fields.Selection([('kilometers', 'km'), ('miles', 'mi')], 'Odometer Unit',
-                                     default='kilometers', copy=False)
+    last_odometer = fields.Float(string="Dernier Compteur", copy=False)
+    return_odometer = fields.Float(string="Compteur de Retour", copy=False)
+    odometer_unit = fields.Selection([('kilometers', 'km'), ('miles', 'mi')], 'Unité du Compteur',
+                                  default='kilometers', copy=False)
     model_year = fields.Char(string="Model", copy=False)
 
     fuel_type = fields.Selection([('diesel', 'Diesel'),
-                                  ('gasoline', 'Gasoline'),
-                                  ('full_hybrid', 'Full Hybrid'),
-                                  ('plug_in_hybrid_diesel', 'Plug-in Hybrid Diesel'),
-                                  ('plug_in_hybrid_gasoline', 'Plug-in Hybrid Gasoline'),
-                                  ('cng', 'CNG'),
-                                  ('lpg', 'LPG'),
-                                  ('hydrogen', 'Hydrogen'),
-                                  ('electric', 'Electric')],
-                                 string="Fuel Type")
-    transmission = fields.Selection([('manual', 'Manual'), ('automatic', 'Automatic')], string="Transmission",
+                                    ('essence', 'Essence'),
+                                    ('hybride_complet', 'Hybride Complet'),
+                                    ('hybride_rechargeable_diesel', 'Hybride Rechargeable Diesel'),
+                                    ('hybride_rechargeable_essence', 'Hybride Rechargeable Essence'),
+                                    ('cng', 'GNC'),
+                                    ('lpg', 'GPL'),
+                                    ('hydrogen', 'Hydrogène'),
+                                    ('electric', 'Électrique')],
+                                string="Type de Carburant")
+    transmission = fields.Selection([('manuel', 'Manuel'),('automatique', 'Automatique')], string="Type de Transmission",
                                     copy=False)
 
-    customer_id = fields.Many2one("res.partner")
-    customer_phone = fields.Char(string="Phone")
-    customer_email = fields.Char(string="Email")
+    customer_id = fields.Many2one("res.partner", string="Client")
+    customer_phone = fields.Char(string="Téléphone")
+    customer_email = fields.Char(string="E-mail")
     customer_document_id = fields.Many2one("customer.documents", string="Document")
-    second_driver_id = fields.Many2one("res.partner", required=False)
-    second_driver_email = fields.Char(string="Email", required=False)
-    second_driver_phone = fields.Char(string="Phone", required=False)
+    second_driver_id = fields.Many2one("res.partner", required=False, string="Deuxième Conducteur")
+    second_driver_email = fields.Char(string="E-mail", required=False)
+    second_driver_phone = fields.Char(string="Téléphone", required=False)
     document_count = fields.Integer(compute='_compute_document_count')
 
-    rent_type = fields.Selection([('hour', "Hours"), ('days', "Days"), ('week', "Weeks"), ('month', "Months"),
-                                  ('year', "Years"), ('km', "Kilometers"), ('mi', 'Miles')], string="Rent Type")
-    total_days = fields.Float(string="Total Days", compute="_total_rental_days")
-    total_km = fields.Float(string="Total Kilometers", default=1)
+    rent_type = fields.Selection([('hour', "Heures"), ('days', "Jours"), ('week', "Semaines"), ('month', "Mois"),('year', "Années"), ('km', "Kilomètres"), ('mi', 'Miles')], string="Type de Location")
+    total_days = fields.Float(string="Total Jours", compute="_total_rental_days")
+    total_km = fields.Float(string="Total Kilomètres", default=1)
     total_mi = fields.Float(string="Total Miles", default=1)
-    rent = fields.Monetary(string="Rent")
-    total_vehicle_rent = fields.Monetary(string="Total Rental Charges", compute='_get_total_vehicle_rent')
+    rent = fields.Monetary(string="Loyer")
+    total_vehicle_rent = fields.Monetary(string="Total des Charges de Location", compute='_get_total_vehicle_rent')
 
-    is_any_extra_charges = fields.Boolean(string="Is any extra charges")
-    total_extra_days = fields.Integer(string="Total Extra Days", default=1)
-    total_extra_week = fields.Integer(string="Total Extra Weeks", default=1)
-    total_extra_month = fields.Integer(string="Total Extra Months", default=1)
+    is_any_extra_charges = fields.Boolean(string="Y a-t-il des frais supplémentaires ?")
+    total_extra_days = fields.Integer(string="Total des Jours Supplémentaires", default=1)
+    total_extra_week = fields.Integer(string="Total des Semaines Supplémentaires", default=1)
+    total_extra_month = fields.Integer(string="Total des Mois Supplémentaires", default=1)
 
-    total_extra_hour = fields.Integer(string="Total Extra Hours", default=1)
-    total_extra_year = fields.Integer(string="Total Extra Years", default=1)
+    total_extra_hour = fields.Integer(string="Total des Heures Supplémentaires", default=1)
+    total_extra_year = fields.Integer(string="Total des Années Supplémentaires", default=1)
 
-    total_extra_km = fields.Float(string="Total Extra K/M", default=1)
-    total_extra_mi = fields.Float(string="Total Extra Miles", default=1)
-    extra_charge = fields.Monetary(string="Extra Charge")
-    total_extra_charges = fields.Monetary(string="Total Extra Charges", compute='_get_total_extra_charges')
+    total_extra_km = fields.Float(string="Total des Kilomètres Supplémentaires", default=1)
+    total_extra_mi = fields.Float(string="Total des Miles Supplémentaires", default=1)
+    extra_charge = fields.Monetary(string="Frais Supplémentaires")
+    total_extra_charges = fields.Monetary(string="Total des Frais Supplémentaires", compute='_get_total_extra_charges')
 
-    start_date = fields.Datetime(string="Pick-up Date", copy=False)
+    start_date = fields.Datetime(string="Date de Prise en Charge", copy=False)
     pick_up_street = fields.Char(translate=True)
     pick_up_street2 = fields.Char(translate=True)
     pick_up_city = fields.Char(translate=True)
-    pick_up_state_id = fields.Many2one("res.country.state", string='State',
+    pick_up_state_id = fields.Many2one("res.country.state", string='État',
                                        domain="[('country_id', '=?', pick_up_country_id)]")
     pick_up_country_id = fields.Many2one("res.country")
     pick_up_zip = fields.Char()
 
-    end_date = fields.Datetime(string="Drop-off Date", copy=False)
+    end_date = fields.Datetime(string="Date de Restitution", copy=False)
     drop_off_street = fields.Char(translate=True)
     drop_off_street2 = fields.Char(translate=True)
     drop_off_city = fields.Char(translate=True)
-    drop_off_state_id = fields.Many2one("res.country.state", string=' State',
+    drop_off_state_id = fields.Many2one("res.country.state", string=' État',
                                         domain="[('country_id', '=?', drop_off_country_id)]")
     drop_off_country_id = fields.Many2one("res.country")
     drop_off_zip = fields.Char()
 
     responsible_id = fields.Many2one('res.users', default=lambda self: self.env.user, required=True)
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
-    currency_id = fields.Many2one('res.currency', string='Currency', related="company_id.currency_id")
-    cancellation_policy_id = fields.Many2one("cancellation.policy", string="Policy")
-    terms_and_conditions = fields.Text(string="Terms and Conditions")
-    cancellation_reason = fields.Text(string="Cancellation Reason")
-    cancellation_charge = fields.Monetary(string="Cancellation Charge")
+    currency_id = fields.Many2one('res.currency', string='Devise', related="company_id.currency_id")
+    cancellation_policy_id = fields.Many2one("cancellation.policy", string="Politique")
+    terms_and_conditions = fields.Text(string="Conditions Générales")
+    cancellation_reason = fields.Text(string="Raison de l'Annulation")
+    cancellation_charge = fields.Monetary(string="Frais d'Annulation")
     cancellation_invoice_id = fields.Many2one('account.move')
     cancellation_invoice_state = fields.Selection(related='cancellation_invoice_id.payment_state',
-                                                  string="Cancellation Invoice State")
+                                                  string="État de la Facture d'Annulation")
     rental_vehicle_image_ids = fields.One2many('rental.vehicle.image', 'vehicle_contract_id')
     rental_vehicle_image_return_ids = fields.One2many('rental.vehicle.return.image', 'vehicle_contract_id')
     vehicle_damage_image_ids = fields.One2many('vehicle.damage.image', 'vehicle_contract_id')
@@ -143,7 +142,7 @@ class VehicleContract(models.Model):
     extra_service_charge = fields.Monetary(compute="_total_extra_service_charge", store=True)
 
     description = fields.Text(string="Description")
-    damage_amount = fields.Monetary(string="Damage Amount")
+    damage_amount = fields.Monetary(string="Montant des Dommages")
 
     tax_ids = fields.Many2many('account.tax', string='Taxes')
     invoice_id = fields.Many2one('account.move')
@@ -152,27 +151,27 @@ class VehicleContract(models.Model):
     status = fields.Selection([('a_draft', 'New'), ('b_in_progress', 'In Progress'), ('c_return', 'Return'),
                                ('d_cancel', 'Cancel')], default="a_draft")
     if_any_deposit = fields.Boolean()
-    deposit = fields.Monetary(string="Deposit")
-    account_payment_id = fields.Many2one('account.payment', string="Deposit Payment")
-    account_payment_state = fields.Selection(related='account_payment_id.state', string="Account Payment State")
+    deposit = fields.Monetary(string="Dépôt")
+    account_payment_id = fields.Many2one('account.payment', string="Paiement du Dépôt")
+    account_payment_state = fields.Selection(related='account_payment_id.state', string="État du Paiement du Compte")
     journal_id = fields.Many2one('account.journal', domain=[('type', 'in', ('bank', 'cash'))],
-                                 string="Deposit Journal")
+                                 string="Journal de Dépôt")
     date = fields.Date(string="Date")
     signature = fields.Binary(string="Signature")
 
     payment_type = fields.Selection(
-        [('daily', "Daily"), ('weekly', "Weekly"), ('monthly', "Monthly"), ('quarterly', "Quarterly"),
-         ('yearly', "Yearly"), ('full_payment', "Full Payment")], string="Payment Type", default="full_payment")
+        [('daily', "Quotidien"), ('weekly', "Hebdomadaire"), ('monthly', "Mensuel"), ('quarterly', "Trimestriel"),
+         ('yearly', "Annuel"), ('full_payment', "Paiement Complet")], string="Type de Paiement", default="full_payment")
     vehicle_payment_option_ids = fields.One2many('vehicle.payment.option', 'vehicle_contract_id')
-    invoice_item_id = fields.Many2one('product.product', string="Invoice Item", required=True,
+    invoice_item_id = fields.Many2one('product.product', string="Article de Facture", required=True,
                                       default=lambda self: self.env.ref('vehicle_rental.vehicle_rent_charge',
                                                                         raise_if_not_found=False))
     installment_created = fields.Boolean()
-    extra_charge_invoice_id = fields.Many2one('account.move', string="Extra Charge Invoice")
+    extra_charge_invoice_id = fields.Many2one('account.move', string="Facture de Charges Supplémentaires")
     extra_charge_payment_state = fields.Selection(related='extra_charge_invoice_id.payment_state',
-                                                  string="Extra Charge Payment State")
-    extra_service_invoice_id = fields.Many2one('account.move', string="Extra Service Invoice")
-    payment_state = fields.Selection(related="extra_service_invoice_id.payment_state", string="Payment State")
+                                                  string="État du Paiement des Charges Supplémentaires")
+    extra_service_invoice_id = fields.Many2one('account.move', string="Facture de Service Supplémentaire")
+    payment_state = fields.Selection(related="extra_service_invoice_id.payment_state", string="État du Paiement")
 
     # UnUsed
     total_day_rent = fields.Monetary()
@@ -180,9 +179,9 @@ class VehicleContract(models.Model):
     total_mi_rent = fields.Monetary()
 
     note = fields.Text(string=_("Note"))
-    moroccan_address = fields.Char(string=_("Moroccan address"))
-    foreign_address = fields.Char(string=_("Foreign address"))
-    customer_nationality = fields.Char(string=_("Nationality"))
+    moroccan_address = fields.Char(string=_("Adresse Marocaine"))
+    foreign_address = fields.Char(string=_("Adresse Étrangère"))
+    customer_nationality = fields.Char(string=_("Nationalité"))
     customer_cin = fields.Char(string=_("CIN"), compute="_compute_delivery_cin", readonly=True)
     delivry_date_cin = fields.Char(string=_("Délivré le"), compute="_compute_delivery_cin")
     delivry_place_cin = fields.Char(string=_("Délivré (e) à"), compute="_compute_delivery_cin")
@@ -193,9 +192,9 @@ class VehicleContract(models.Model):
     delivry_date_permis = fields.Char(string=_("Délivré le"), compute="_compute_delivery_permis")
     delivry_place_permis = fields.Char(string=_("Délivré (e) à"), compute="_compute_delivery_permis")
 
-    second_moroccan_address = fields.Char(string=_("Moroccan address"))
-    second_foreign_address = fields.Char(string=_("Foreign address"))
-    second_customer_nationality = fields.Char(string=_("Nationality"))
+    second_moroccan_address = fields.Char(string=_("Adresse Marocaine"))
+    second_foreign_address = fields.Char(string=_("Adresse Étrangère"))
+    second_customer_nationality = fields.Char(string=_("Nationalité"))
     second_customer_cin = fields.Char(string=_("CIN"), compute="_compute_delivery_cin", readonly=True)
     second_delivry_date_cin = fields.Char(string=_("Délivré le"), compute="_compute_delivery_cin")
     second_delivry_place_cin = fields.Char(string=_("Délivré (e) à"), compute="_compute_delivery_cin")

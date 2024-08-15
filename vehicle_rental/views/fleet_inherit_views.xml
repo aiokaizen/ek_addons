@@ -87,7 +87,7 @@
                 </xpath> -->
 
                 <xpath expr="//form/sheet/group" position="inside">
-                    <group string="Rent Details">
+                    <group string="Détails du loyer">
                         <field name="rent_hour"/>
                         <field name="rent_day"/>
                         <field name="rent_week"/>
@@ -96,7 +96,7 @@
                         <field name="rent_km"/>
                         <field name="rent_mi"/>
                     </group>
-                    <group string="Extra Charge Details">
+                    <group string="Détails des frais supplémentaires">
                         <field name="extra_charge_hour"/>
                         <field name="extra_charge_day"/>
                         <field name="extra_charge_week"/>
@@ -116,7 +116,7 @@
                         <field name="vehicle_image_ids" nolabel="1">
                             <form>
                                 <sheet>
-                                    <group string="Vehicle Image">
+                                    <group string="Images du véhicule">
                                         <field name="avatar" widget="image" style="width: 75%;" nolabel="1"/>
                                     </group>
                                 </sheet>

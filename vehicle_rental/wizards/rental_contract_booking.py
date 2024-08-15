@@ -8,10 +8,10 @@ class RentalContractBooking(models.TransientModel):
     _name = 'rental.contract.booking'
     _description = "Rental Contract Booking"
 
-    customer_id = fields.Many2one("res.partner")
-    start_date = fields.Datetime(string="Start Date")
-    end_date = fields.Datetime(string="End Date")
-    fleet_vehicle_ids = fields.Many2many('fleet.vehicle', string="Vehicle")
+    customer_id = fields.Many2one("res.partner", string="Client")
+    start_date = fields.Datetime(string="Date de début")
+    end_date = fields.Datetime(string="Date de fin")
+    fleet_vehicle_ids = fields.Many2many('fleet.vehicle', string="Véhicule")
 
     @api.onchange('start_date', 'end_date')
     def _onchange_available_vehicle(self):

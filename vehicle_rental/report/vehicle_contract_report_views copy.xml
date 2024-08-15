@@ -1,187 +1,199 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="vehicle_contract_report_template">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="contract">
                 <t t-call="web.external_layout">
                     <div class="page">
-                        <table class="table table-borderless" style="width: 100%; font-size: 12px; margin-top: 0px;">
+                        <table class="table table-borderless"
+                            style="width: 100%; font-size: 12px; margin-top: 0px;">
                             <tr>
                                 <td colspan="2"
                                     style="background-color: #F8F8F8; text-align: center; font-size: 15px; padding-top: 0px; padding-bottom: 0px;">
-                                    <strong>Vehicle Contract Details</strong>
+                                    <strong>Détails du Contrat de Véhicule</strong>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <span>
-                                        Reference Number:
-                                        <span t-field="contract.reference_no"/>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span>
-                                        <strong>Customer Details</strong>
-                                        <br/>
-                                        Customer:
-                                        <span t-field="contract.customer_id"/>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span>
-                                        <br/>
-                                        Phone:
-                                        <span t-field="contract.customer_phone"/>
-                                        <br/>
-                                        Email:
-                                        <span t-field="contract.customer_email"/>
-                                        <br/>
-                                        Moroccan address:
-                                        <span t-field="contract.moroccan_address"/>
-                                        <br/>
-                                        Foreign address:
-                                        <span t-field="contract.foreign_address"/>
-                                        <br/>
-                                        Nationality:
-                                        <span t-field="contract.customer_nationality"/>
-                                        <br/>
-                                        <div t-if="contract.customer_cin">
-                                            CIN:
-                                            <span t-field="contract.customer_cin"/> 
-                                            <span t-if="contract.delivry_date_cin" >
-                                                 Delivry at: 
-                                                <span t-field="contract.delivry_date_cin"/>
-                                            </span>
-                                            <span t-if="contract.delivry_place_cin" >
-                                                 in
-                                                <span t-field="contract.delivry_place_cin"/> 
-                                                <br/>
-                                            </span>
-                                        </div>
-                                        <div t-if="contract.customer_permis">
-                                            Passport:
-                                            <span t-field="contract.customer_passport"/> <br />
-                                            <span t-if="contract.delivry_date_passport" > Delivry at: <span t-field="contract.delivry_date_passport" /></span>
-                                            <span t-if="contract.delivry_place_passport" >  in
-                                                <span t-field="contract.delivry_place_passport"/>
-                                                <br/>
-                                            </span>
-                                        </div>
-                                        
-                                        <div t-if="contract.customer_permis" >
-                                            Permis:
-                                            <span t-field="contract.customer_permis"/> <br /> 
-                                            <span t-if="contract.delivry_date_permis" > Delivry at: <span t-field="contract.delivry_date_permis"/></span>
-                                            <span t-if="contract.delivry_place_permis" >  in
-                                                <span t-field="contract.delivry_place_permis"/>
-                                            </span>
-                                        </div>
-                                        
-                                        
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr t-if="contract.second_driver_id" >
-                                <td>
-                                    <span>
-                                        <strong>Second Customer Details</strong>
-                                        <br/>
-                                        Customer:
-                                        <span t-field="contract.second_driver_id"/>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span>
-                                        <br/>
-                                        Phone:
-                                        <span t-field="contract.second_driver_phone"/>
-                                        <br/>
-                                        Email:
-                                        <span t-field="contract.second_driver_email"/>
-                                        <br/>
-                                        Moroccan address:
-                                        <span t-field="contract.second_moroccan_address"/>
-                                        <br/>
-                                        Foreign address:
-                                        <span t-field="contract.second_foreign_address"/>
-                                        <br/>
-                                        Nationality:
-                                        <span t-field="contract.second_customer_nationality"/>
-                                        <br/>
-                                        <div t-if="contract.second_customer_cin">
-                                            CIN:
-                                            <span t-field="contract.second_customer_cin"/> 
-                                            <span t-if="contract.second_delivry_date_cin" >
-                                                 Delivry at: 
-                                                <span t-field="contract.second_delivry_date_cin"/>
-                                            </span>
-                                            <span t-if="contract.second_delivry_place_cin" >
-                                                 in
-                                                <span t-field="contract.second_delivry_place_cin"/> 
-                                                <br/>
-                                            </span>
-                                        </div>
-                                        <div t-if="contract.second_customer_passport">
-                                            Passport:
-                                            <span t-field="contract.second_customer_passport"/> <br />
-                                            <span t-if="contract.second_delivry_date_passport" > Delivry at: <span t-field="contract.second_delivry_date_passport" /></span>
-                                            <span t-if="contract.second_delivry_place_passport" >  in
-                                                <span t-field="contract.second_delivry_place_passport"/>
-                                                <br/>
-                                            </span>
-                                        </div>
-                                        
-                                        <div t-if="contract.second_customer_permis" >
-                                            Permis:
-                                            <span t-field="contract.second_customer_permis"/> <br /> 
-                                            <span t-if="contract.second_delivry_date_permis" > Delivry at: <span t-field="contract.second_delivry_date_permis"/></span>
-                                            <span t-if="contract.second_delivry_place_permis" >  in
-                                                <span t-field="contract.second_delivry_place_permis"/>
-                                            </span>
-                                        </div>
-                                        
-                                        
+                                    <span> Numéro de Référence: <span
+                                            t-field="contract.reference_no" />
                                     </span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <span>
-                                        <strong>Pick-Up &amp; Drop-Off Details</strong>
-                                        <br/>
-                                        Pick-up Date:
-                                        <span t-field="contract.start_date" style="margin-left: 27px;"/>
-                                        <br/>
-                                        Pick-Up Location:
-                                        <span t-field="contract.pick_up_street" style="margin-left: 5px;"/>
-                                        <br/>
-                                        <span t-field="contract.pick_up_street2" style="margin-left: 100px;"/>
-                                        <br/>
-                                        <span t-field="contract.pick_up_city" style="margin-left: 100px;"/>&#160;&#160;
-                                        <span t-field="contract.pick_up_state_id"/>&#160;&#160;
-                                        <span t-field="contract.pick_up_zip"/>
-                                        <br/>
-                                        <span t-field="contract.pick_up_country_id" style="margin-left: 100px;"/>
+                                        <strong>Détails du Client</strong>
+                                        <br /> Client: <span
+                                            t-field="contract.customer_id" />
                                     </span>
                                 </td>
                                 <td>
                                     <span>
-                                        <br/>
-                                        Drop-off Date:
-                                        <span t-field="contract.end_date" style="margin-left: 27px;"/>
-                                        <br/>
-                                        Drop-Off Location:
-                                        <span t-field="contract.drop_off_street" style="margin-left: 5px;"/>
-                                        <br/>
-                                        <span t-field="contract.drop_off_street2" style="margin-left: 108px;"/>
-                                        <br/>
-                                        <span t-field="contract.drop_off_city" style="margin-left: 108px;"/>&#160;&#160;
-                                        <span t-field="contract.drop_off_state_id"/>&#160;&#160;
-                                        <span t-field="contract.drop_off_zip"/>
-                                        <br/>
-                                        <span t-field="contract.drop_off_country_id" style="margin-left: 108px;"/>
+                                        <br /> Téléphone: <span t-field="contract.customer_phone" />
+                                        <br />
+                                        E-mail: <span t-field="contract.customer_email" />
+                                        <br />
+                                        Adresse Marocaine: <span t-field="contract.moroccan_address" />
+                                        <br />
+                                        Adresse Étrangère: <span t-field="contract.foreign_address" />
+                                        <br />
+                                        Nationalité: <span t-field="contract.customer_nationality" />
+                                        <br />
+                                        <div
+                                            t-if="contract.customer_cin"> CIN: <span
+                                                t-field="contract.customer_cin" /> 
+                                            <span
+                                                t-if="contract.delivry_date_cin"> Livraison à: <span
+                                                    t-field="contract.delivry_date_cin" />
+                                            </span>
+                                            <span
+                                                t-if="contract.delivry_place_cin"> à <span
+                                                    t-field="contract.delivry_place_cin" /> 
+                                                <br />
+                                            </span>
+                                        </div>
+                                        <div
+                                            t-if="contract.customer_permis"> Passeport: <span
+                                                t-field="contract.customer_passport" /> <br />
+                                            <span
+                                                t-if="contract.delivry_date_passport"> Livraison à: <span
+                                                    t-field="contract.delivry_date_passport" /></span>
+                                            <span
+                                                t-if="contract.delivry_place_passport"> à <span
+                                                    t-field="contract.delivry_place_passport" />
+                                                <br />
+                                            </span>
+                                        </div>
+                                        
+                                        <div
+                                            t-if="contract.customer_permis"> Permis: <span
+                                                t-field="contract.customer_permis" /> <br /> 
+                                            <span
+                                                t-if="contract.delivry_date_permis"> Livraison à: <span
+                                                    t-field="contract.delivry_date_permis" /></span>
+                                            <span
+                                                t-if="contract.delivry_place_permis"> à <span
+                                                    t-field="contract.delivry_place_permis" />
+                                            </span>
+                                        </div>
+
+
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr t-if="contract.second_driver_id">
+                                <td>
+                                    <span>
+                                        <strong>Détails du Deuxième Client</strong>
+                                        <br /> Client: <span
+                                            t-field="contract.second_driver_id" />
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        <br /> Téléphone: <span t-field="contract.second_driver_phone" />
+                                        <br />
+                                        E-mail: <span t-field="contract.second_driver_email" />
+                                        <br />
+                                        Adresse Marocaine: <span
+                                            t-field="contract.second_moroccan_address" />
+                                        <br />
+                                        Adresse Étrangère: <span
+                                            t-field="contract.second_foreign_address" />
+                                        <br />
+                                        Nationalité: <span
+                                            t-field="contract.second_customer_nationality" />
+                                        <br />
+                                        <div
+                                            t-if="contract.second_customer_cin"> CIN: <span
+                                                t-field="contract.second_customer_cin" /> 
+                                            <span
+                                                t-if="contract.second_delivry_date_cin"> Livraison à: <span
+                                                    t-field="contract.second_delivry_date_cin" />
+                                            </span>
+                                            <span
+                                                t-if="contract.second_delivry_place_cin"> à <span
+                                                    t-field="contract.second_delivry_place_cin" /> 
+                                                <br />
+                                            </span>
+                                        </div>
+                                        <div
+                                            t-if="contract.second_customer_passport"> Passeport: <span
+                                                t-field="contract.second_customer_passport" /> <br />
+                                            <span
+                                                t-if="contract.second_delivry_date_passport">
+                                                Livraison à: <span
+                                                    t-field="contract.second_delivry_date_passport" /></span>
+                                            <span
+                                                t-if="contract.second_delivry_place_passport"> à <span
+                                                    t-field="contract.second_delivry_place_passport" />
+                                                <br />
+                                            </span>
+                                        </div>
+                                        
+                                        <div
+                                            t-if="contract.second_customer_permis"> Permis: <span
+                                                t-field="contract.second_customer_permis" /> <br /> 
+                                            <span
+                                                t-if="contract.second_delivry_date_permis"> Livraison à: <span t-field="contract.second_delivry_date_permis" /></span>
+                                            <span
+                                                t-if="contract.second_delivry_place_permis"> à <span
+                                                    t-field="contract.second_delivry_place_permis" />
+                                            </span>
+                                        </div>
+
+
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>
+                                        <strong>Prise en charge &amp; Détails de la restitution</strong>
+                                        <br />
+                                        Date de prise en charge: <span t-field="contract.start_date"
+                                            style="margin-left: 27px;" />
+                                        <br /> Lieu de prise en charge: <span
+                                            t-field="contract.pick_up_street"
+                                            style="margin-left: 5px;" />
+                                        <br />
+                                        <span
+                                            t-field="contract.pick_up_street2"
+                                            style="margin-left: 100px;" />
+                                        <br />
+                                        <span
+                                            t-field="contract.pick_up_city"
+                                            style="margin-left: 100px;" />&#160;&#160; <span
+                                            t-field="contract.pick_up_state_id" />&#160;&#160; <span
+                                            t-field="contract.pick_up_zip" />
+                                        <br />
+                                        <span
+                                            t-field="contract.pick_up_country_id"
+                                            style="margin-left: 100px;" />
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        <br /> Date de restitution: <span t-field="contract.end_date"
+                                            style="margin-left: 27px;" />
+                                        <br /> Lieu de restitution: <span
+                                            t-field="contract.drop_off_street"
+                                            style="margin-left: 5px;" />
+                                        <br />
+                                        <span
+                                            t-field="contract.drop_off_street2"
+                                            style="margin-left: 108px;" />
+                                        <br />
+                                        <span
+                                            t-field="contract.drop_off_city"
+                                            style="margin-left: 108px;" />&#160;&#160; <span
+                                            t-field="contract.drop_off_state_id" />&#160;&#160; <span
+                                            t-field="contract.drop_off_zip" />
+                                        <br />
+                                        <span
+                                            t-field="contract.drop_off_country_id"
+                                            style="margin-left: 108px;" />
                                     </span>
                                 </td>
                             </tr>
@@ -189,49 +201,42 @@
                                 <td>
                                     <span>
                                         <strong>
-                                            Vehicle Details
+                                            Détails du véhicule
                                         </strong>
-                                        <br/>
-                                        Vehicle:
-                                        <span t-field="contract.vehicle_id"/>
-                                        <br/>
-                                        Model:
-                                        <span t-field="contract.model_year"/>
-                                        <br/>
-                                        Transmission:
-                                        <span t-field="contract.transmission"/>
-                                        <br/>
-                                        Fuel Type:
-                                        <span t-field="contract.fuel_type"/>
-                                        <br/>
-                                        Last Odometer:
-                                        <span t-field="contract.last_odometer"/>&#160;
-                                        <span t-field="contract.odometer_unit"/>
+                                        <br />
+                                        Véhicule: <span t-field="contract.vehicle_id" />
+                                        <br /> Modèle: <span
+                                            t-field="contract.model_year" />
+                                        <br /> Transmission: <span
+                                            t-field="contract.transmission" />
+                                        <br /> Type de carburant: <span
+                                            t-field="contract.fuel_type" />
+                                        <br /> Dernier compteur kilométrique: <span
+                                            t-field="contract.last_odometer" />&#160; <span
+                                            t-field="contract.odometer_unit" />
                                     </span>
                                 </td>
                                 <td>
                                     <span>
-                                        <br/>
-                                        <span>
-                                            Driver Required:
-                                            <t t-if="contract.is_driver_required">Yes</t>
-                                            <t t-else="">No</t>
+                                        <br />
+                                        <span> Chauffeur requis: <t
+                                                t-if="contract.is_driver_required">Oui</t>
+                                            <t
+                                                t-else="">Non</t>
                                         </span>
-                                        <br/>
-                                        <t t-if="contract.is_driver_required">
-                                            Driver:
-                                            <span t-field="contract.driver_id"/>
+                                        <br />
+                                        <t t-if="contract.is_driver_required"> Chauffeur: <span
+                                                t-field="contract.driver_id" />
                                         </t>
-                                        <br/>
-                                        <t t-if="contract.is_driver_required">
-                                            Driver Charge Type:
-                                            <span t-field="contract.driver_charge_type"/>
+                                        <br />
+                                        <t t-if="contract.is_driver_required"> Type de frais de chauffeur: <span
+                                                t-field="contract.driver_charge_type" />
                                         </t>
-                                        <br/>
+                                        <br />
                                         <t t-if="contract.is_driver_required">
                                             <t t-if="contract.driver_charge_type == 'excluding'">
-                                                Driver Charge:
-                                                <span t-field="contract.driver_charge"/>
+                                                Frais de chauffeur: <span
+                                                    t-field="contract.driver_charge" />
                                             </t>
                                         </t>
                                     </span>
@@ -241,107 +246,89 @@
                                 <td>
                                     <span>
                                         <strong>
-                                            Rent Details
+                                            Détails de la location
                                         </strong>
-                                        <br/>
-                                        Rent Type:
-                                        <span t-field="contract.rent_type"/>
-                                        <br/>
-                                        <t t-if="contract.rent_type == 'hour'">
-                                            Rent / Hour:
-                                            <span t-field="contract.rent"/>
-                                            <br/>
-                                            Total Hours:
-                                            <span t-field="contract.total_days"/>
-                                            <br/>
-                                            Total:
-                                            <span t-field="contract.total_vehicle_rent"/>
+                                        <br />
+                                        Type de location: <span t-field="contract.rent_type" />
+                                        <br />
+                                        <t
+                                            t-if="contract.rent_type == 'hour'"> Location / Heure: <span
+                                                t-field="contract.rent" />
+                                            <br /> Total Heures: <span
+                                                t-field="contract.total_days" />
+                                            <br /> Total: <span
+                                                t-field="contract.total_vehicle_rent" />
                                         </t>
-                                        <t t-if="contract.rent_type == 'days'">
-                                            Rent / Day:
-                                            <span t-field="contract.rent"/>
-                                            <br/>
-                                            Total Days:
-                                            <span t-field="contract.total_days"/>
-                                            <br/>
-                                            Total:
-                                            <span t-field="contract.total_vehicle_rent"/>
+                                        <t
+                                            t-if="contract.rent_type == 'days'"> Location / Jour: <span
+                                                t-field="contract.rent" />
+                                            <br /> Total Jours: <span
+                                                t-field="contract.total_days" />
+                                            <br /> Total: <span
+                                                t-field="contract.total_vehicle_rent" />
                                         </t>
-                                        <t t-if="contract.rent_type == 'week'">
-                                            Rent / Week:
-                                            <span t-field="contract.rent"/>
-                                            <br/>
-                                            Total Weeks:
-                                            <t t-esc='"%.2f" % contract.total_days'/>
-                                            <br/>
-                                            Total:
-                                            <span t-field="contract.total_vehicle_rent"/>
+                                        <t
+                                            t-if="contract.rent_type == 'week'"> Location / Semaine: <span
+                                                t-field="contract.rent" />
+                                            <br /> Total Semaines: <t
+                                                t-esc='"%.2f" % contract.total_days' />
+                                            <br /> Total: <span
+                                                t-field="contract.total_vehicle_rent" />
                                         </t>
-                                        <t t-if="contract.rent_type == 'month'">
-                                            Rent / Month:
-                                            <span t-field="contract.rent"/>
-                                            <br/>
-                                            Total Months:
-                                            <t t-esc='"%.2f" % contract.total_days'/>
-                                            <br/>
-                                            Total:
-                                            <span t-field="contract.total_vehicle_rent"/>
+                                        <t
+                                            t-if="contract.rent_type == 'month'"> Location / Mois: <span
+                                                t-field="contract.rent" />
+                                            <br /> Total ?ois: <t
+                                                t-esc='"%.2f" % contract.total_days' />
+                                            <br /> Total: <span
+                                                t-field="contract.total_vehicle_rent" />
                                         </t>
-                                        <t t-if="contract.rent_type == 'year'">
-                                            Rent / Year:
-                                            <span t-field="contract.rent"/>
-                                            <br/>
-                                            Total Years:
-                                            <t t-esc='"%.2f" % contract.total_days'/>
-                                            <br/>
-                                            Total:
-                                            <span t-field="contract.total_vehicle_rent"/>
+                                        <t
+                                            t-if="contract.rent_type == 'year'"> Location / An: <span
+                                                t-field="contract.rent" />
+                                            <br /> Total Années: <t
+                                                t-esc='"%.2f" % contract.total_days' />
+                                            <br /> Total: <span
+                                                t-field="contract.total_vehicle_rent" />
                                         </t>
-                                        <t t-if="contract.rent_type == 'km'">
-                                            Rent / Km:
-                                            <span t-field="contract.rent"/>
-                                            <br/>
-                                            Total Kilometers:
-                                            <span t-field="contract.total_km"/>
-                                            <br/>
-                                            Total:
-                                            <span t-field="contract.total_vehicle_rent"/>
+                                        <t
+                                            t-if="contract.rent_type == 'km'"> Location / Km: <span
+                                                t-field="contract.rent" />
+                                            <br /> Total Kilomètres: <span
+                                                t-field="contract.total_km" />
+                                            <br /> Total: <span
+                                                t-field="contract.total_vehicle_rent" />
                                         </t>
-                                        <t t-if="contract.rent_type == 'mi'">
-                                            Rent / Mi:
-                                            <span t-field="contract.rent"/>
-                                            <br/>
-                                            Total Miles:
-                                            <span t-field="contract.total_mi"/>
-                                            <br/>
-                                            Total:
-                                            <span t-field="contract.total_vehicle_rent"/>
+                                        <t
+                                            t-if="contract.rent_type == 'mi'"> Location / Miles: <span
+                                                t-field="contract.rent" />
+                                            <br /> Total Miles: <span
+                                                t-field="contract.total_mi" />
+                                            <br /> Total: <span
+                                                t-field="contract.total_vehicle_rent" />
                                         </t>
                                     </span>
                                 </td>
                                 <td>
                                     <span>
                                         <strong>
-                                            Payment Details
+                                            Détails de Paiement
                                         </strong>
-                                        <br/>
-                                        Payment Type:
-                                        <span t-field="contract.payment_type"/>
-                                        <br/>
-                                        Invoice Item:
-                                        <span t-field="contract.invoice_item_id"/>
-                                        <br/>
+                                        <br />
+                                        Type de Paiement: <span t-field="contract.payment_type" />
+                                        <br />
+                                        Article de Facture: <span t-field="contract.invoice_item_id" />
+                                        <br />
                                         <span>
-                                            If Any Deposit:
-                                            <t t-if="contract.if_any_deposit">Yes</t>
-                                            <t t-else="">No</t>
+                                        Si Dépôt: <t t-if="contract.if_any_deposit">Oui</t>
+                                            <t
+                                                t-else="">Non</t>
                                         </span>
-                                        <br/>
-                                        <t t-if="contract.if_any_deposit">
-                                            Deposit Journal:
-                                            <span t-field="contract.journal_id"/>&#160;&#160;&#160;
-                                            Deposit:
-                                            <span t-field="contract.deposit"/>
+                                        <br />
+                                        <t
+                                            t-if="contract.if_any_deposit"> Journal de Dépôt: <span
+                                                t-field="contract.journal_id" />&#160;&#160;&#160;
+                                        Dépôt: <span t-field="contract.deposit" />
                                         </t>
                                     </span>
                                 </td>
@@ -350,85 +337,66 @@
                                 <td>
                                     <span>
                                         <strong>
-                                            Extra Charges Details
+                                            Détails des Charges Supplémentaires
                                         </strong>
-                                        <br/>
-                                        <span>
-                                            Is any extra charges:
-                                            <t t-if="contract.is_any_extra_charges">Yes</t>
-                                            <t t-else="">No</t>
+                                        <br />
+                                        <span> Y a-t-il des charges supplémentaires: <t
+                                                t-if="contract.is_any_extra_charges">Oui</t>
+                                            <t
+                                                t-else="">Non</t>
                                         </span>
-                                        <br/>
+                                        <br />
                                         <t t-if="contract.is_any_extra_charges">
-                                            <t t-if="contract.rent_type == 'hour'">
-                                                Total Extra Hours
-                                                <span t-field="contract.total_extra_hour"/>
-                                                <br/>
-                                                Extra Charge / Hour
-                                                <span t-field="contract.extra_charge"/>
-                                                <br/>
-                                                Total Extra Charges
-                                                <span t-field="contract.total_extra_charges"/>
+                                            <t t-if="contract.rent_type == 'hour'"> Total Heures Supplémentaires <span t-field="contract.total_extra_hour" />
+                                                <br />
+                                                Charge Supplémentaire / Heure <span
+                                                    t-field="contract.extra_charge" />
+                                                <br /> Total Charges Supplémentaires <span
+                                                    t-field="contract.total_extra_charges" />
                                             </t>
-                                            <t t-if="contract.rent_type == 'days'">
-                                                Total Extra Days
-                                                <span t-field="contract.total_extra_days"/>
-                                                <br/>
-                                                Extra Charge / Day
-                                                <span t-field="contract.extra_charge"/>
-                                                <br/>
-                                                Total Extra Charges
-                                                <span t-field="contract.total_extra_charges"/>
+                                            <t t-if="contract.rent_type == 'days'"> Total Jours Supplémentaires <span
+                                                    t-field="contract.total_extra_days" />
+                                                <br />
+                                                Charge Supplémentaire / Jour <span
+                                                    t-field="contract.extra_charge" />
+                                                <br />
+                                                Total Charges Supplémentaires <span
+                                                    t-field="contract.total_extra_charges" />
                                             </t>
-                                            <t t-if="contract.rent_type == 'week'">
-                                                Total Extra Weeks
-                                                <span t-field="contract.total_extra_week"/>
-                                                <br/>
-                                                Extra Charge / Week
-                                                <span t-field="contract.extra_charge"/>
-                                                <br/>
-                                                Total Extra Charges
-                                                <span t-field="contract.total_extra_charges"/>
+                                            <t t-if="contract.rent_type == 'week'"> Total Semaines Supplémentaires <span t-field="contract.total_extra_week" />
+                                                <br />
+                                                Charge Supplémentaire / Semaine <span
+                                                    t-field="contract.extra_charge" />
+                                                <br /> Total Charges Supplémentaires <span
+                                                    t-field="contract.total_extra_charges" />
                                             </t>
-                                            <t t-if="contract.rent_type == 'month'">
-                                                Total Extra Months
-                                                <span t-field="contract.total_extra_month"/>
-                                                <br/>
-                                                Extra Charge / Month
-                                                <span t-field="contract.extra_charge"/>
-                                                <br/>
-                                                Total Extra Charges
-                                                <span t-field="contract.total_extra_charges"/>
+                                            <t t-if="contract.rent_type == 'month'"> Total Mois Supplémentaires <span t-field="contract.total_extra_month" />
+                                                <br />
+                                                Charge Supplémentaire / Mois <span
+                                                    t-field="contract.extra_charge" />
+                                                <br /> Total Charges Supplémentaires <span
+                                                    t-field="contract.total_extra_charges" />
                                             </t>
-                                            <t t-if="contract.rent_type == 'year'">
-                                                Total Extra Years
-                                                <span t-field="contract.total_extra_year"/>
-                                                <br/>
-                                                Extra Charge / Year
-                                                <span t-field="contract.extra_charge"/>
-                                                <br/>
-                                                Total Extra Charges
-                                                <span t-field="contract.total_extra_charges"/>
+                                            <t t-if="contract.rent_type == 'year'"> Total Années Supplémentaires <span t-field="contract.total_extra_year" />
+                                                <br />
+                                                Charge Supplémentaire / An <span
+                                                    t-field="contract.extra_charge" />
+                                                <br /> Total Charges Supplémentaires <span
+                                                    t-field="contract.total_extra_charges" />
                                             </t>
-                                            <t t-if="contract.rent_type == 'km'">
-                                                Total Extra Kilometers
-                                                <span t-field="contract.total_extra_km"/>
-                                                <br/>
-                                                Extra Charge / KM
-                                                <span t-field="contract.extra_charge"/>
-                                                <br/>
-                                                Total Extra Charges
-                                                <span t-field="contract.total_extra_charges"/>
+                                            <t t-if="contract.rent_type == 'km'"> Total Kilomètres Supplémentaires <span t-field="contract.total_extra_km" />
+                                                <br />
+                                                Charge Supplémentaire / KM <span
+                                                    t-field="contract.extra_charge" />
+                                                <br /> Total Charges Supplémentaires <span
+                                                    t-field="contract.total_extra_charges" />
                                             </t>
-                                            <t t-if="contract.rent_type == 'mi'">
-                                                Total Extra Miles
-                                                <span t-field="contract.total_extra_mi"/>
-                                                <br/>
-                                                Extra Charge / MI
-                                                <span t-field="contract.extra_charge"/>
-                                                <br/>
-                                                Total Extra Charges
-                                                <span t-field="contract.total_extra_charges"/>
+                                            <t t-if="contract.rent_type == 'mi'"> Total Miles Supplémentaires <span
+                                                    t-field="contract.total_extra_mi" />
+                                                <br /> Charge Supplémentaire / Miles <span t-field="contract.extra_charge" />
+                                                <br />
+                                            Total Charges Supplémentaires <span
+                                                    t-field="contract.total_extra_charges" />
                                             </t>
                                         </t>
                                     </span>
@@ -436,11 +404,10 @@
                                 <td>
                                     <span>
                                         <strong>
-                                            Responsible Details
+                                            Details de Responsable
                                         </strong>
-                                        <br/>
-                                        Responsible:
-                                        <span t-field="contract.responsible_id"/>
+                                        <br />
+                                        Responsable: <span t-field="contract.responsible_id" />
                                     </span>
                                 </td>
                             </tr>
@@ -630,15 +597,17 @@
                         </table> -->
 
                         <strong>Obsevation</strong>
-                        <t t-esc="contract.note" ></t> <br /><br />
+                        <t t-esc="contract.note"></t>
+                        <br />
+                        <br />
 
-                        <t t-foreach="contract.payments_invoice" t-as="payment" >
-                            <string>amount </string> |
-                            <span t-esc="payment['amount']" ></span>
-                            <string>date </string> |
-                            <span t-esc="payment['date']" ></span>
-                            <string>rest </string>
-                            <span t-esc="payment['remaining_balance']" ></span><br/> 
+                        <t t-foreach="contract.payments_invoice" t-as="payment">
+                            <string>?ontant </string> | <span t-esc="paiement['amount']"></span>
+                            <string>
+                            date </string> | <span t-esc="paiement['date']"></span>
+                            <string>Reste </string>
+                            <span
+                                t-esc="paiement['remaining_balance']"></span><br />
                         </t>
 
                         <!-- <t t-foreach="contract.payments_invoice" t-as="payment" >
@@ -679,27 +648,29 @@
                             </table>
                         </t> -->
                         <table class="table table-bordered" style="width: 100%; margin-top: 0px;"
-                               t-if="contract.rental_vehicle_image_ids">
+                            t-if="contract.rental_vehicle_image_ids">
                             <tr>
-                                <td style="text-align: center; font-size: 12px; background-color: #F8F8F8; padding: 2px;"
+                                <td
+                                    style="text-align: center; font-size: 12px; background-color: #F8F8F8; padding: 2px;"
                                     colspan="100%">
-                                    <strong>Vehicle Images</strong>
+                                    <strong>Images du Véhicule</strong>
                                 </td>
                             </tr>
-                            <t t-set="ap_tag" t-value="str('&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;')"/>
-                            <t t-set="img_count" t-value="0"/>
+                            <t t-set="ap_tag"
+                                t-value="str('&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;')" />
+                            <t t-set="img_count" t-value="0" />
                             <tr>
                                 <td>
                                     <t t-foreach="contract.rental_vehicle_image_ids" t-as="img">
-                                        <t t-set="img_count" t-value="img_count + 1"/>
+                                        <t t-set="img_count" t-value="img_count + 1" />
                                         <div style="display: inline-block; text-align: center;">
                                             <t t-if="img.avatar">
                                                 <img t-att-src="image_data_uri(img.avatar)"
-                                                     style="width: 260px; height: 240px; margin-left: 10px; margin-top: 10px; margin-bottom: 10px;"/>
+                                                    style="width: 260px; height: 240px; margin-left: 10px; margin-top: 10px; margin-bottom: 10px;" />
                                             </t>
                                         </div>
                                         <t t-if="img_count % 3 == 0">
-                                            <t t-raw="ap_tag"/>
+                                            <t t-raw="ap_tag" />
                                         </t>
                                     </t>
                                 </td>
@@ -718,13 +689,13 @@
                                 <span>
                                     Date:
                                 </span>
-                                <span t-field="contract.date"/>
-                                <br/>
+                                <span t-field="contract.date" />
+                                <br />
                                 <t t-if="contract.signature">
                                     <img t-att-src="image_data_uri(contract.signature)" att="Logo"
-                                         style="width: 100px; height: 40px; margin-bottom: -15px;"/>
+                                        style="width: 100px; height: 40px; margin-bottom: -15px;" />
                                 </t>
-                                <br/>
+                                <br />
                                 <span style="text-align: center;">
                                     <strong>
                                         Signature:
@@ -743,7 +714,7 @@
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">vehicle_rental.vehicle_contract_report_template</field>
         <field name="report_file">vehicle_rental.vehicle_contract_report_template</field>
-        <field name="binding_model_id" ref="model_vehicle_contract"/>
+        <field name="binding_model_id" ref="model_vehicle_contract" />
         <field name="binding_type">report</field>
     </record>
 </odoo>
