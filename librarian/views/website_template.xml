@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="insight_sphere_layout" inherit_id="web.layout" name="Caisse Master">
+        <xpath expr="//head/link[@rel='shortcut icon']" position="replace">
+            <link type="image/x-icon" rel="shortcut icon"
+                t-att-href="x_icon or '/caisse_master/static/img/icon.png'"/>
+        </xpath>
+        <xpath expr="//head/title" position="replace">
+            <title>Caisse Master</title>
+        </xpath>
+    </template>
+
+    <template id="caisse_master.index" inherit_id="point_of_sale.index" name="Caisse Master Index">
+        <xpath expr="//link[@href='/point_of_sale/static/src/img/favicon.ico']" position="replace">
+            <link rel="shortcut icon" href="/caisse_master/static/src/img/favicon.ico" type="image/x-icon"/>
+        </xpath>
+        <xpath expr="//head/title" position="replace">
+            <title>Caisse Master</title>
+        </xpath>
+    </template>
+
+    
+   
+
+    <template id="webclient_offline_inherit" name="Master Caisse offline">
+        <xpath expr="//div[@class='card']/p" position="replace">
+            <p>Check your network connection and come back here. Caisse master will load as soon as you're back online.</p>
+        </xpath>
+    </template>
+
+</odoo>
