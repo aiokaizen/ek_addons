@@ -18,10 +18,10 @@
     ],
     "assets":  {
         'point_of_sale._assets_pos': [
-            'lirarian/static/src/**/*',
+            'librarian/static/src/**/*',
         ],
         'web.assets_backend': [
-            'lirarian/static/src/app/custom_title_service.js',
+            'librarian/static/src/app/custom_title_service.js',
         ],
     },
     'license': 'Other proprietary',
