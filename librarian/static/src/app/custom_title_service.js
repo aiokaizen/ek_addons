@@ -27,7 +27,7 @@ export const customTitleService = {
             }
 
             // Custom logic to modify the title, e.g., adding a prefix
-            document.title = Object.values({ "Caisse Master": "Caisse Master", ...titleParts }).join(" - ");
+            document.title = Object.values({ "Librarian": "Librarian", ...titleParts }).join(" - ");
         }
 
         return {

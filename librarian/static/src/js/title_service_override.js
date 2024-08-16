@@ -1,5 +1,5 @@
 // Override all page titles
-// odoo.define('caisse_master.TitleServiceOverride', ['web.core', 'web.title_service'], function (require) {
+// odoo.define('librarian.TitleServiceOverride', ['web.core', 'web.title_service'], function (require) {
 
 //     'use strict';
 
@@ -19,7 +19,7 @@
 // });
 
 
-odoo.define('caisse_master.TitleServiceOverride', function (require) {
+odoo.define('librarian.TitleServiceOverride', function (require) {
 
     'use strict';
 
@@ -36,7 +36,7 @@ odoo.define('caisse_master.TitleServiceOverride', function (require) {
 
 
 // Override POS title
-odoo.define('caisse_master.PosTitleOverride', function (require) {
+odoo.define('librarian.PosTitleOverride', function (require) {
 
     'use strict';
 
@@ -56,7 +56,7 @@ odoo.define('caisse_master.PosTitleOverride', function (require) {
 
 
 
-// odoo.define('caisse_master.WebClientTitleOverride', function (require) {
+// odoo.define('librarian.WebClientTitleOverride', function (require) {
 //     'use strict';
 
 //     const WebClient = require('web.WebClient');

@@ -9,6 +9,7 @@
     'category': 'Sales',
     'summary': 'Librarian',
     'depends': [
+        'insight_sphere',
         'point_of_sale',
         'muk_web_colors',
     ],
