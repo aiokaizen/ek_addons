@@ -6,7 +6,7 @@
             company's id. -->
         <record id="base.main_company" model="res.company">
             <field name="name">EKBlocks</field>
-            <field name="logo_web" type="base64" file="insight_sphere/static/src/img/is_logo_long_green_white.png"/>
+            <field name="logo_web" type="base64" file="insight_sphere/static/src/img/logo_long_dark.png"/>
         </record>
 
     </data>

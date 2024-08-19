@@ -11,10 +11,14 @@
     'depends': [
         'insight_sphere',
         'point_of_sale',
-        'muk_web_colors',
     ],
     'data': [
+        'data/master.xml',
         'views/website_template.xml',
+        'views/product_views.xml',
+    ],
+    'demo': [
+        'data/demo.xml',
     ],
     "assets":  {
         'point_of_sale._assets_pos': [

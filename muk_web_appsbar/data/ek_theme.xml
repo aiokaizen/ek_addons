@@ -6,8 +6,8 @@
             company's id. -->
         <record id="base.main_company" model="res.company">
             <field name="name">EKBlocks</field>
-            <field name="logo_web" type="base64" file="muk_web_appsbar/static/src/img/logo_long_light.png"/>
-            <field name="appbar_image" type="base64" file="muk_web_appsbar/static/src/img/logo_long_light.png"/>
+            <field name="logo_web" type="base64" file="muk_web_appsbar/static/src/img/logo_long_dark.png"/>
+            <field name="appbar_image" type="base64" file="muk_web_appsbar/static/src/img/is_logo_long_green_white.png"/>
         </record>
 
     </data>
