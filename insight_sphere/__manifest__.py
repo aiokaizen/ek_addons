@@ -31,6 +31,7 @@
         'views/report_templates.xml',
 
         'data/master.xml',
+        'data/ek_theme.xml',
         # 'data/res_company_data.xml',
         'data/report_layout.xml',
 
@@ -60,6 +61,11 @@
     #         'insight_sphere/static/src/start.js',
     #     ],
     # },
+    "assets": {
+        'point_of_sale._assets_pos': [
+        'insight_sphere/static/src/app/**/*',
+        ],
+    },
     'license': 'Other proprietary',
     'application': True,
 }
