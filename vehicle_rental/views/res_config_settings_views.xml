@@ -26,6 +26,14 @@
                                     <span> kilométres avant la prochaine vidange.</span>
                                 </div>
                             </setting>
+
+                            <setting string="Seuil d'alert vidange en kilométrage. 2" title="Le nombre de kilomètres restants avant la prochaine vidange, où vous recevrez une alerte.">
+                                <div class="text-muted content-group mt16">
+                                    <span>Recevoir une alert </span>
+                                    <field name="alert_message_km" class="text-center" style="width: 10%; min-width: 5rem;" />
+                                    <span> kilométres avant la prochaine vidange.</span>
+                                </div>
+                            </setting>
                         </block>
                 </xpath>
             </field>
