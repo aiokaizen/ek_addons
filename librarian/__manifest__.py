@@ -16,6 +16,7 @@
         'data/master.xml',
         'views/website_template.xml',
         'views/product_views.xml',
+        'views/purchase_order_view.xml',
     ],
     'demo': [
         'data/demo.xml',
