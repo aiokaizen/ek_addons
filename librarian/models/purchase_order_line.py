@@ -12,6 +12,7 @@ class PurchaseOrderLine(models.Model):
             # Get the related stock picking (receipt movement) for the purchase order line
             receipt = self.env['stock.picking'].search([
                 ('purchase_id', '=', rec.order_id.id),
+                ('purchase_id.is_consignment_in', '=', True),
                 ('picking_type_id.code', '=', 'incoming')
             ], order='scheduled_date asc', limit=1)
 
