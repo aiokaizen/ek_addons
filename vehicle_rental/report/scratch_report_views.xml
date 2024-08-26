@@ -7,34 +7,34 @@
                     <t t-call="web.basic_layout">
                         <div class="page">
                             <h2 style="text-align: center;">
-                                Scratch Report
+                                Rapport sur les grattages
                             </h2>
                             <br/>
                             <div id="information" class="row mt32 mb32">
                                 <div class="col-auto col-4 mw-100 mb-2" t-if="scratch.reference_no"
                                      name="reference_no">
-                                    <strong>Reference Number</strong>
+                                    <strong>Numéro de Référence</strong>
                                     <p class="m-0" t-field="scratch.reference_no"/>
                                 </div>
                                 <div class="col-auto col-4 mw-100 mb-2" t-if="scratch.vehicle_id"
                                      name="vehicle_id">
-                                    <strong>Vehicle</strong>
+                                    <strong>Véhicule</strong>
                                     <p class="m-0" t-field="scratch.vehicle_id"/>
                                 </div>
                                 <div class="col-auto col-4 mw-100 mb-2" t-if="scratch.model_year" name="model_year">
-                                    <strong>Model</strong>
+                                    <strong>Modèle</strong>
                                     <p class="m-0" t-field="scratch.model_year"/>
                                 </div>
                             </div>
                             <div id="information" class="row mt32 mb32">
                                 <div class="col-auto col-4 mw-100 mb-2" t-if="scratch.customer_id"
                                      name="customer_id">
-                                    <strong>Customer</strong>
+                                    <strong>Client</strong>
                                     <p class="m-0" t-field="scratch.customer_id.name"/>
                                 </div>
                                 <div class="col-auto col-4 mw-100 mb-2" t-if="scratch.responsible_id"
                                      name="responsible_id">
-                                    <strong>Responsible</strong>
+                                    <strong>Responsable</strong>
                                     <p class="m-0" t-field="scratch.responsible_id.name"/>
                                 </div>
                                 <div class="col-auto col-4 mw-100 mb-2">
@@ -42,8 +42,7 @@
                             </div>
                             <br/>
                             <h6 style="text-align: center; margin: 0px;">
-                                Inspect vehicle with customer, Point out and mark on diagram any current damage
-                                or issues.
+                                Inspecter le véhicule avec le client, signaler et marquer sur le diagramme les éventuels défauts de fonctionnement.
                             </h6>
                             <table class="table table-borderless" style="margin-top: 0px;">
                                 <tr style="border: 1px solid black;">
@@ -59,24 +58,24 @@
                                             <tr style="height: 2.6rem; border-bottom: 1px solid black; margin-top: 5px;">
                                                 <td style="width: 20%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        SH
+                                                        TH
                                                     </strong>
                                                 </td>
                                                 <td style="width: 80%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        Swirls / Holograms
+                                                        Tourbillons / Hologrammes
                                                     </strong>
                                                 </td>
                                             </tr>
                                             <tr style="height: 2.6rem; border-bottom: 1px solid black;">
                                                 <td style="width: 20%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        WS
+                                                        PE
                                                     </strong>
                                                 </td>
                                                 <td style="width: 80%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        Water Spots
+                                                        Points d'Eau
                                                     </strong>
                                                 </td>
                                             </tr>
@@ -88,187 +87,187 @@
                                                 </td>
                                                 <td style="width: 80%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        Oxidation
+                                                        Oxydation
                                                     </strong>
                                                 </td>
                                             </tr>
                                             <tr style="height: 2.6rem; border-bottom: 1px solid black;">
                                                 <td style="width: 20%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        CF
+                                                        DV 
                                                     </strong>
                                                 </td>
                                                 <td style="width: 80%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        Clearcoat Failure
+                                                        Défaut de Vernis
                                                     </strong>
                                                 </td>
                                             </tr>
                                             <tr style="height: 2.6rem; border-bottom: 1px solid black;">
                                                 <td style="width: 20%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        DS
+                                                        GP
                                                     </strong>
                                                 </td>
                                                 <td style="width: 80%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        Deep Scratch
+                                                        Gratte Profonde
                                                     </strong>
                                                 </td>
                                             </tr>
                                             <tr style="height: 2.6rem; border-bottom: 1px solid black;">
                                                 <td style="width: 20%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        BD
+                                                        CO
                                                     </strong>
                                                 </td>
                                                 <td style="width: 80%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        Bird Dropping
+                                                        Chute d'Oiseaux
                                                     </strong>
                                                 </td>
                                             </tr>
                                             <tr style="height: 2.6rem; border-bottom: 1px solid black;">
                                                 <td style="width: 20%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        RP
+                                                        PB
                                                     </strong>
                                                 </td>
                                                 <td style="width: 80%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        Rough Paint
+                                                        Peinture Brute
                                                     </strong>
                                                 </td>
                                             </tr>
                                             <tr style="height: 2.6rem; border-bottom: 1px solid black;">
                                                 <td style="width: 20%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        UD
+                                                        DI
                                                     </strong>
                                                 </td>
                                                 <td style="width: 80%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        Unknown Defect
+                                                        Défaut Inconnu
                                                     </strong>
                                                 </td>
                                             </tr>
                                             <tr style="height: 2.6rem; border-bottom: 1px solid black;">
                                                 <td style="width: 20%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        PT
+                                                        TP
                                                     </strong>
                                                 </td>
                                                 <td style="width: 80%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        Paint Transfer
+                                                        Transfert de Peinture
                                                     </strong>
                                                 </td>
                                             </tr>
                                             <tr style="height: 2.6rem; border-bottom: 1px solid black;">
                                                 <td style="width: 20%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        PC
+                                                        EP
                                                     </strong>
                                                 </td>
                                                 <td style="width: 80%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        Pant Chip
+                                                        Eclat de Peinture
                                                     </strong>
                                                 </td>
                                             </tr>
                                             <tr style="height: 2.6rem; border-bottom: 1px solid black;">
                                                 <td style="width: 20%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        GS
+                                                        RV
                                                     </strong>
                                                 </td>
                                                 <td style="width: 80%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        Glass Scratch
+                                                        Rayures de Verre
                                                     </strong>
                                                 </td>
                                             </tr>
                                             <tr style="height: 2.6rem; border-bottom: 1px solid black;">
                                                 <td style="width: 20%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        GC
+                                                        PV
                                                     </strong>
                                                 </td>
                                                 <td style="width: 80%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        Glass Chip
+                                                        Puce de Verre
                                                     </strong>
                                                 </td>
                                             </tr>
                                             <tr style="height: 2.6rem; border-bottom: 1px solid black;">
                                                 <td style="width: 20%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        DD
+                                                        BP
                                                     </strong>
                                                 </td>
                                                 <td style="width: 80%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        Dents / Dings
+                                                        Bosses / Piqûres
                                                     </strong>
                                                 </td>
                                             </tr>
                                             <tr style="height: 2.6rem; border-bottom: 1px solid black;">
                                                 <td style="width: 20%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        SS
+                                                        BL
                                                     </strong>
                                                 </td>
                                                 <td style="width: 80%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        Side Swipe
+                                                        Balayage Latéral
                                                     </strong>
                                                 </td>
                                             </tr>
                                             <tr style="height: 2.6rem; border-bottom: 1px solid black;">
                                                 <td style="width: 20%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        CR
+                                                        FCT
                                                     </strong>
                                                 </td>
                                                 <td style="width: 80%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        Curb Rash
+                                                        Frottement contre les Trottoirs
                                                     </strong>
                                                 </td>
                                             </tr>
                                             <tr style="height: 2.6rem; border-bottom: 1px solid black;">
                                                 <td style="width: 20%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        WD
+                                                        DR
                                                     </strong>
                                                 </td>
                                                 <td style="width: 80%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        Wheel Damage
+                                                        Dommages aux Roues
                                                     </strong>
                                                 </td>
                                             </tr>
                                             <tr style="height: 2.6rem; border-bottom: 1px solid black;">
                                                 <td style="width: 20%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        GC
+                                                        GP
                                                     </strong>
                                                 </td>
                                                 <td style="width: 80%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        Gouges / Crease
+                                                        Gouges / Plis
                                                     </strong>
                                                 </td>
                                             </tr>
                                             <tr style="height: 2.6rem; border-bottom: 1px solid black;">
                                                 <td style="width: 20%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        LM
+                                                        ML
                                                     </strong>
                                                 </td>
                                                 <td style="width: 80%;padding: 2px; vertical-align: bottom;">
                                                     <strong>
-                                                        Loose Molding
+                                                        Moules lâches
                                                     </strong>
                                                 </td>
                                             </tr>

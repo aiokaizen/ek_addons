@@ -2,3 +2,4 @@
 **.pyc
 is_pos_network_printer/**/private-key.pem
 is_pos_network_printer/**/digital-certificate.txt
+.vscode

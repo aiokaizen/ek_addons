@@ -55,19 +55,19 @@ class VehicleRentalDashboard(models.Model):
 
     def get_rent_invoice_month(self):
         year = fields.date.today().year
-        data_dict = {'January': 0,
-                     'February': 0,
-                     'March': 0,
-                     'April': 0,
-                     'May': 0,
-                     'June': 0,
-                     'July': 0,
-                     'August': 0,
-                     'September': 0,
-                     'October': 0,
-                     'November': 0,
-                     'December': 0,
-                     }
+        data_dict = {'janvier': 0,
+                    'février': 0,
+                    'mars': 0,
+                    'avril': 0,
+                    'mai': 0,
+                    'juin': 0,
+                    'juillet': 0,
+                    'août': 0,
+                    'septembre': 0,
+                    'octobre': 0,
+                    'novembre': 0,
+                    'décembre': 0,
+                    }
 
         invoice_id = self.env['account.move'].search(
             [('vehicle_contract_id', '!=', False), ('move_type', '=', 'out_invoice')])

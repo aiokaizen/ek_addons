@@ -27,34 +27,34 @@ class FleetVehicle(models.Model):
     _description = __doc__
 
     acquisition_date = fields.Date('Registration Date', required=True,
-        default=fields.Date.today, help='Date of vehicle registration')
+        default=fields.Date.today, help="Date de registration du véhicule")
 
-    rent_day = fields.Monetary(string="Rent / Day")
-    rent_week = fields.Monetary(string="Rent / Week")
-    rent_month = fields.Monetary(string="Rent / Month")
-    rent_km = fields.Monetary(string="Rent / Kilometer")
-    rent_mi = fields.Monetary(string="Rent / Mile")
+    rent_day = fields.Monetary(string="Loyer / Jour")
+    rent_week = fields.Monetary(string="Loyer / Semaine")
+    rent_month = fields.Monetary(string="Loyer / Mois")
+    rent_km = fields.Monetary(string="Loyer / Kilomètre")
+    rent_mi = fields.Monetary(string="Loyer / Mile")
 
-    rent_hour = fields.Monetary(string="Rent / Hour")
-    rent_year = fields.Monetary(string="Rent / Year")
+    rent_hour = fields.Monetary(string="Loyer / Heure")
+    rent_year = fields.Monetary(string="Loyer / An")
 
-    extra_charge_day = fields.Monetary(string="Charge / Day")
-    extra_charge_week = fields.Monetary(string="Charge / Week")
-    extra_charge_month = fields.Monetary(string="Charge / Month")
-    extra_charge_km = fields.Monetary(string="Charge / Kilometer")
-    extra_charge_mi = fields.Monetary(string="Charge / Mile")
+    extra_charge_day = fields.Monetary(string="Fraix / Jour")
+    extra_charge_week = fields.Monetary(string="Fraix / Semaine")
+    extra_charge_month = fields.Monetary(string="Fraix / Mois")
+    extra_charge_km = fields.Monetary(string="Fraix / Kilomètre")
+    extra_charge_mi = fields.Monetary(string="Fraix / Mile")
 
-    extra_charge_hour = fields.Monetary(string="Charge / Hour")
-    extra_charge_year = fields.Monetary(string="Charge / Year")
+    extra_charge_hour = fields.Monetary(string="Fraix / Heure")
+    extra_charge_year = fields.Monetary(string="Fraix / An")   
 
     rental_contract_count = fields.Integer(compute='_total_rental_contract', string=" Contracts")
-    status = fields.Selection([('available', 'Operational'), ('in_maintenance', 'Under Maintenance')],
+    status = fields.Selection([('available', 'Opérationnel'), ('in_maintenance', 'En maintenance')],
                               string="Status", default="available")
     paper_ids = fields.One2many("vehicle.rental.paper", "vehicle_id", string="Papiers")
 
     has_alert_message = fields.Html(compute="_compute_has_alert")
 
-    is_old_vehicle = fields.Boolean(string='Is Old Vehicle', compute='_compute_is_old_vehicle')
+    is_old_vehicle = fields.Boolean(string='Est-ce un véhicule ancien ?', compute='_compute_is_old_vehicle')
 
     vehicle_image_ids = fields.One2many('vehicle.image', 'vehicle_id')
 

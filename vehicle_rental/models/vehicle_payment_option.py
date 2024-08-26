@@ -10,14 +10,14 @@ class VehiclePaymentOption(models.Model):
     _description = __doc__
     _rec_name = 'name'
 
-    name = fields.Char(string="Name", required=True, translate=True)
-    payment_date = fields.Date(string="Payment Date", required=True)
-    payment_amount = fields.Monetary(string="Payment Amount")
+    name = fields.Char(string="Nom", required=True, translate=True)
+    payment_date = fields.Date(string="Date Paiement", required=True)
+    payment_amount = fields.Monetary(string="Montant de paiement")
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
     currency_id = fields.Many2one('res.currency', string='Currency', related="company_id.currency_id")
-    invoice_item_id = fields.Many2one('product.product', string="Invoice Item")
-    invoice_id = fields.Many2one('account.move', string="Invoice")
-    payment_state = fields.Selection(related="invoice_id.payment_state", string="Payment State")
+    invoice_item_id = fields.Many2one('product.product', string="Article de Facture")
+    invoice_id = fields.Many2one('account.move', string="Facture")
+    payment_state = fields.Selection(related="invoice_id.payment_state", string="État du Paiement")
     vehicle_contract_id = fields.Many2one('vehicle.contract', ondelete='cascade')
 
     def action_create_payment_invoice(self):
