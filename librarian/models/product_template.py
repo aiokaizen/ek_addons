@@ -72,6 +72,8 @@ class ProductTemplate(models.Model):
                 continue
 
             results = json.loads(response.content)
+            if 'items' not in results:
+                continue
             book_data = results["items"][0]
             book_api_id = book_data["id"]
 
