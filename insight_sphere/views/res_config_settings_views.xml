@@ -9,10 +9,14 @@
         <field name="arch" type="xml">
             <xpath expr="//form" position="inside">
                 <app data-string="Insight Sphere" string="Insight Sphere" name="insight_sphere" groups="insight_sphere.group_insight_sphere_manager">
-                    <setting id="automatic_lock_confirmed_orders" help="Automatically lock confirmed orders to prevent editing">
-                        <!-- <field name="default_activate_invoincing_policy" /> -->
-                        <field name="activate_invoincing_policy" />
-                    </setting>
+
+                    <block title="Warehouse Settings" name="insight_sphere_setting_container">
+
+                        <setting id="automatic_lock_confirmed_orders" help="Hide invoicing policy from product form.">
+                            <field name="activate_invoincing_policy" />
+                        </setting>
+
+                    </block>
                 </app>
             </xpath>
         </field>
@@ -24,6 +28,38 @@
         <field name="view_mode">form</field>
         <field name="target">inline</field>
         <field name="context">{'module' : 'insight_sphere', 'bin_size': False}</field>
+    </record>
+
+    <!-- Remove Odoo upgrade tags from General settings -->
+    <record id="res_config_settings_view_form_general_override" model="ir.ui.view">
+        <field name="name">general.settings.override</field>
+        <field name="model">res.config.settings</field> <!-- Adjust the model if necessary -->
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//setting[@id='inter_company']" position="replace">
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Remove Odoo upgrade tags from Stock settings -->
+    <record id="res_config_settings_view_form_stock_override" model="ir.ui.view">
+        <field name="name">stock.setting.override</field>
+        <field name="model">res.config.settings</field> <!-- Adjust the model if necessary -->
+        <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//setting[@id='quality_control']" position="replace">
+            </xpath>
+
+            <xpath expr="//block[@name='barcode_setting_container']" position="replace">
+            </xpath>
+
+            <xpath expr="//block[@name='shipping_connectors_setting_container']" position="replace">
+            </xpath>
+
+        </field>
     </record>
 
 </odoo>

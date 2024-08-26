@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- We override data of the base company by setting that company's xml_id as the current
+            company's id. -->
+        <record id="base.main_company" model="res.company">
+            <field name="name">EKBlocks</field>
+            <field name="logo_web" type="base64" file="insight_sphere/static/src/img/logo_long_dark.png"/>
+        </record>
+
+    </data>
+</odoo>

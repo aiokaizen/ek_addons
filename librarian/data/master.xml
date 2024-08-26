@@ -1,0 +1,10 @@
+<odoo>
+    <data noupdate="1">
+
+        <!-- Categories -->
+        <record id="product_category_book" model="product.category">
+            <field name="name">Book</field>
+        </record>
+
+    </data>
+</odoo>

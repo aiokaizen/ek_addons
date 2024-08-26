@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+librarian.access_librarian_purchase_order_line,access_librarian_purchase_order_line,librarian.model_purchase_order_line,base.group_user,1,1,1,1

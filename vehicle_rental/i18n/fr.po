@@ -381,7 +381,7 @@ msgid ""
 msgstr ""
 "<strong>Détails du client</strong>\n"
 "                                        <br/>\n"
-"                                        Cliente:"
+"                                        Client:"
 
 #. module: vehicle_rental
 #: model_terms:ir.ui.view,arch_db:vehicle_rental.vehicle_contract_report_template
@@ -902,17 +902,17 @@ msgstr "Annulé"
 #. module: vehicle_rental
 #: model:ir.model.fields,field_description:vehicle_rental.field_vehicle_contract__driver_charge
 msgid "Charge"
-msgstr "Charge"
+msgstr "Fraix"
 
 #. module: vehicle_rental
 #: model:ir.model.fields,field_description:vehicle_rental.field_fleet_vehicle__extra_charge_day
 msgid "Charge / Day"
-msgstr "Frais / Jour"
+msgstr "Fraix / Jour"
 
 #. module: vehicle_rental
 #: model:ir.model.fields,field_description:vehicle_rental.field_fleet_vehicle__extra_charge_km
 msgid "Charge / Kilometer"
-msgstr "Charge / Kilomètre"
+msgstr "Fraix / Kilomètre"
 
 #. module: vehicle_rental
 #: model:ir.model.fields,field_description:vehicle_rental.field_fleet_vehicle__extra_charge_mi
@@ -922,7 +922,7 @@ msgstr "Frais / Mile"
 #. module: vehicle_rental
 #: model:ir.model.fields,field_description:vehicle_rental.field_vehicle_contract__driver_charge_type
 msgid "Charge Type"
-msgstr "Type de frais"
+msgstr "Type de fraix"
 
 #. module: vehicle_rental
 #: model_terms:ir.ui.view,arch_db:vehicle_rental.vehicle_contract_form_view
@@ -1011,7 +1011,7 @@ msgstr "Devise"
 #. module: vehicle_rental
 #: model:ir.model.fields,field_description:vehicle_rental.field_vehicle_contract__customer_id
 msgid "Customer"
-msgstr "Cliente"
+msgstr "Client"
 
 #. module: vehicle_rental
 #: model_terms:ir.ui.view,arch_db:vehicle_rental.vehicle_contract_form_view
@@ -1131,7 +1131,7 @@ msgstr "Documents"
 #. module: vehicle_rental
 #: model:ir.model.fields,field_description:vehicle_rental.field_vehicle_contract__driver_id
 msgid "Driver"
-msgstr "Conductrice"
+msgstr "Conducteur"
 
 #. module: vehicle_rental
 #: model_terms:ir.ui.view,arch_db:vehicle_rental.vehicle_contract_report_template
@@ -1156,7 +1156,7 @@ msgstr "Pilote requis :"
 #. module: vehicle_rental
 #: model_terms:ir.ui.view,arch_db:vehicle_rental.vehicle_contract_report_template
 msgid "Driver:"
-msgstr "Conductrice:"
+msgstr "Conducteur:"
 
 #. module: vehicle_rental
 #: model:ir.model.fields.selection,name:vehicle_rental.selection__customer_documents__document_type__dl

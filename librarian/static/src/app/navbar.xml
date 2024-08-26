@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="librarian.Navbar" t-inherit="point_of_sale.Navbar" t-inherit-mode="extension">
+        <xpath expr="//img[@class='pos-logo h-75 ms-3 me-auto align-self-center']" position="attributes">
+            <attribute name="alt">Librarian Logo</attribute>
+            <attribute name="src">/librarian/static/img/Green-wide.png</attribute>
+        </xpath>
+    </t>
+</templates>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Product Template views -->
+    <record id="product_template_form_view_book" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.book</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='options']" position="inside">
+                <span class="d-inline-block">
+                    <field name="is_book"/>
+                    <label for="is_book"/>
+                </span>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_form_view_book_attributes" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.book_attributes</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_standard_price']" position="after">
+                <group name="group_book_properties" invisible="is_book != True" string="Informations sur le livre">
+                    <field name="author_ids" widget="many2many_tags" />
+                    <field name="editor_id" />
+                    <field name="page_count" />
+                    <field name="release_year" />
+                    <field name="cover" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_search_view_books" model="ir.ui.view">
+        <field name="name">product.template.search.books.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <field name="pos_categ_ids" position="after">
+                <field string="Auteur" name="author_ids" filter_domain="[('author_ids', 'child_of', raw_value)]"/>
+            </field>
+            <field name="pos_categ_ids" position="after">
+                <field string="Auteur" name="editor_id" filter_domain="[('editor_id', 'child_of', raw_value)]"/>
+            </field>
+            <filter name="filter_to_availabe_pos" position="before">
+               <filter name="filter_only_books" string="Livres seulement" domain="[('is_book', '=', True)]"/>
+            </filter>
+            <filter name="filter_to_availabe_pos" position="before">
+               <filter name="filter_except_books" string="Exclure les Livres" domain="[('is_book', '=', False)]"/>
+            </filter>
+        </field>
+    </record>
+
+
+    <!-- Normal Product views -->
+    <record id="product_normal_form_view_book" model="ir.ui.view">
+        <field name="name">product.product.form.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='options']" position="inside">
+                <span class="d-inline-block">
+                    <field name="is_book"/>
+                    <label for="is_book"/>
+                </span>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -10,6 +10,7 @@
     'summary': 'Caisse Master Restaurant',
     'depends': [
         'caisse_master',
+        'pos_restaurant',
     ],
     'data': [
         # Security

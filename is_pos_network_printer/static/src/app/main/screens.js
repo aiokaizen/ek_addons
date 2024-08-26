@@ -24,7 +24,10 @@ patch(ReceiptScreen.prototype, {
         super.setup();
     },
     onMounted() {
-        this.printNetworkPrinterReceipt();
+        // @TODO: Change the if statement to verify that the PoS has network printer setting active.
+        if(1) {
+            this.printNetworkPrinterReceipt();
+        }
     },
     async printNetworkPrinterReceipt(event) {
         var self = this;
