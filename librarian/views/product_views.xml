@@ -42,7 +42,7 @@
                 <field string="Auteur" name="author_ids" filter_domain="[('author_ids', 'child_of', raw_value)]"/>
             </field>
             <field name="pos_categ_ids" position="after">
-                <field string="Auteur" name="editor_id" filter_domain="[('editor_id', 'child_of', raw_value)]"/>
+                <field string="Editeur" name="editor_id" filter_domain="[('editor_id', 'child_of', raw_value)]"/>
             </field>
             <filter name="filter_to_availabe_pos" position="before">
                <filter name="filter_only_books" string="Livres seulement" domain="[('is_book', '=', True)]"/>
