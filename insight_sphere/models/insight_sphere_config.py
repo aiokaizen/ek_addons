@@ -17,19 +17,17 @@ class InsightSphereConfig(models.Model):
         if not hasattr(cls, 'instance'):
             cls.instance = cls._create_default_instance()
         return cls.instance
-    
+
     @classmethod
     def _create_default_instance(cls):
         return cls.create({
             "name": "Insight Sphere Settings",
         })
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals_list):
         first_record = self.env['config'].search([], limit=1)
-        print("First record:", first_record)
         if first_record.exists():
-            print("Return existing record")
             return first_record
 
         print("Creating first record")
