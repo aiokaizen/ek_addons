@@ -17,6 +17,7 @@
 
                 <xpath expr="//group/field[@name='partner_id']" position="before">
                     <field name="is_consignment_in" />
+                    <field name="consignment_in_state" invisible="not is_consignment_in" readonly="True" />
                 </xpath>
 
             </field>

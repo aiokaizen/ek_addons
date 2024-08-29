@@ -11,7 +11,6 @@ class PurchaseOrder(models.Model):
             ("closed", "Clôturé"),
             ("returned", "Retourné")
         ],
-        default="open"
     )
     # @TODO: Think about the return and close scenario
 
@@ -20,6 +19,24 @@ class PurchaseOrder(models.Model):
         string='Has Receipt',
         compute='_compute_is_received'
     )
+
+    @api.depends("order_line.qty_invoiced")
+    def qty_invoiced_changed(self):
+
+        print("\n\n\nqty_invoiced_changed called!\n\n\n")
+
+        for order in self:
+
+            if order.consignment_in_state != 'open':
+                continue
+
+            closed = True
+            for order_line in order.order_line:
+                if order_line.product_qty > order_line.qty_invoiced:
+                    closed = False
+                    break
+
+            order.consignment_in_state = 'closed' if closed else 'open'
 
     @api.depends('name')
     def _compute_is_received(self):
