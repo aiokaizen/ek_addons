@@ -4,6 +4,16 @@ class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
     is_consignment_in = fields.Boolean(string="Dépôt Entré")
+    consignment_in_state = fields.Selection(
+        string="État du Dépôt Entré",
+        selection=[
+            ("open", "Ouvert"),
+            ("closed", "Clôturé"),
+            ("returned", "Retourné")
+        ],
+        default="open"
+    )
+    # @TODO: Think about the return and close scenario
 
     # @TODO: Should be removed if not used!
     is_received = fields.Boolean(
