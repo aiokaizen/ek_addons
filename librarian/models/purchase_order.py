@@ -11,23 +11,35 @@ class PurchaseOrder(models.Model):
             ("closed", "Clôturé"),
             ("returned", "Retourné")
         ],
+        compute='qty_invoiced_changed', store=True
     )
     # @TODO: Think about the return and close scenario
 
     # @TODO: Should be removed if not used!
     is_received = fields.Boolean(
         string='Has Receipt',
-        compute='_compute_is_received'
+        compute='_compute_is_received',
     )
+
+    @api.onchange('is_consignment_in')
+    def _onchange_consignment_in(self):
+        print("self:", self)
+        print("is_cons_in:", self.is_consignment_in)
+        print("\n\n\n\n")
+        if self.is_consignment_in:
+            self.consignment_in_state = 'open'
+        else:
+            self.consignment_in_state = False
 
     @api.depends("order_line.qty_invoiced")
     def qty_invoiced_changed(self):
 
-        print("\n\n\nqty_invoiced_changed called!\n\n\n")
-
         for order in self:
 
-            if order.consignment_in_state != 'open':
+            if order.consignment_in_state != 'open' and not order.order_line:
+                if order.consignment_in_state is False and order.is_consignment_in:
+                    print("State is changed!!\n\n\n")
+                    order.consignment_in_state = 'open'
                 continue
 
             closed = True

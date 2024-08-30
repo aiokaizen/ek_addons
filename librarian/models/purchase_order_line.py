@@ -14,12 +14,12 @@ class PurchaseOrderLine(models.Model):
                 ('purchase_id.is_consignment_in', '=', True),
                 ('picking_type_id.code', '=', 'incoming'),
                 ('state', '=', 'done'),
-            ], order='scheduled_date asc', limit=1)
+            ], order='date_done asc', limit=1)
 
             total_remaining_quantity = 0.0
             if receipt:
 
-                receipt_date = receipt.scheduled_date
+                receipt_date = receipt.date_done
 
 
                 sales_after_movement = self.env['sale.order'].search([
