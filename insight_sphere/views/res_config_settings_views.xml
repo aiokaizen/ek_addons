@@ -62,6 +62,85 @@
         </field>
     </record>
 
+    <!-- Remove Odoo upgrade tags from Invoicing settings -->
+    <record id="res_config_settings_view_form_account_override" model="ir.ui.view">
+        <field name="name">account.setting.override</field>
+        <field name="model">res.config.settings</field> <!-- Adjust the model if necessary -->
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//setting[@id='taxcloud_settings']" position="replace">
+            </xpath>
+
+            <xpath expr="//setting[@id='avatax_settings']" position="replace">
+            </xpath>
+
+            <xpath expr="//setting[@id='intrastat_statistics']" position="replace">
+            </xpath>
+            
+            <xpath expr="//setting[@id='account_batch_payment']" position="replace">
+            </xpath>
+
+            <xpath expr="//setting[@id='collect_customer_payment']" position="replace">
+            </xpath>
+
+            <xpath expr="//block[@id='print_vendor_checks_setting_container']" position="replace">
+            </xpath>
+
+            <xpath expr="//block[@id='account_digitalization']" position="replace">
+            </xpath>
+
+
+        </field>
+    </record>
+
+
+    <!-- Remove Odoo upgrade tags from Purchase settings -->
+    <record id="res_config_settings_view_form_purchase_override" model="ir.ui.view">
+        <field name="name">purchase.setting.override</field>
+        <field name="model">res.config.settings</field> 
+        <field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//setting[@id='three_way_matching']" position="replace">
+            </xpath>
+
+        </field>
+    </record>
+    <!-- Remove Odoo upgrade tags from Sales settings -->
+    <record id="res_config_settings_view_form_sale_override" model="ir.ui.view">
+        <field name="name">sale.setting.override</field>
+        <field name="model">res.config.settings</field> 
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//setting[@id='ups']" position="replace">
+            </xpath>
+
+            <xpath expr="//setting[@id='shipping_costs_dhl']" position="replace">
+            </xpath>
+
+            <xpath expr="//setting[@id='shipping_costs_fedex']" position="replace">
+            </xpath>
+
+            <xpath expr="//setting[@id='shipping_costs_usps']" position="replace">
+            </xpath>
+
+            <xpath expr="//setting[@id='shipping_costs_bpost']" position="replace">
+            </xpath>
+
+            <xpath expr="//setting[@id='shipping_costs_easypost']" position="replace">
+            </xpath>
+
+            <xpath expr="//setting[@id='shipping_costs_sendcloud']" position="replace">
+            </xpath>
+
+            <xpath expr="//setting[@id='shipping_costs_shiprocket']" position="replace">
+            </xpath>
+
+        </field>
+    </record>
+
 </odoo>
 
 
