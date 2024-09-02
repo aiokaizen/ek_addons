@@ -138,9 +138,21 @@
             <xpath expr="//setting[@id='shipping_costs_shiprocket']" position="replace">
             </xpath>
 
+            <xpath expr="//block[@id='connectors_setting_container']" position="replace">
+            </xpath>
+
         </field>
     </record>
 
+    <record id="res_config_settings_view_form_point_of_sale_override" model="ir.ui.view">
+        <field name="name">point_of_sale.setting.override</field>
+        <field name="model">res.config.settings</field> 
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='preparation_display']" position="replace">
+            </xpath>
+        </field>
+    </record>
 </odoo>
 
 
