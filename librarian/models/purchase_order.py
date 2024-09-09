@@ -8,8 +8,7 @@ class PurchaseOrder(models.Model):
         string="État du Dépôt Entré",
         selection=[
             ("open", "Ouvert"),
-            ("closed", "Clôturé"),
-            ("returned", "Retourné")
+            ("closed", "Clôturé")
         ],
         compute='qty_invoiced_changed', store=True
     )
@@ -31,7 +30,7 @@ class PurchaseOrder(models.Model):
         else:
             self.consignment_in_state = False
 
-    @api.depends("order_line.qty_invoiced")
+    @api.depends("order_line.qty_invoiced", 'order_line.return_qty', 'order_line.qty_received')
     def qty_invoiced_changed(self):
 
         for order in self:
@@ -44,10 +43,10 @@ class PurchaseOrder(models.Model):
 
             closed = True
             for order_line in order.order_line:
-                if order_line.product_qty > order_line.qty_invoiced:
+                if order_line.product_qty - order_line.qty_invoiced - order_line.return_qty > 0:
                     closed = False
                     break
-
+            
             order.consignment_in_state = 'closed' if closed else 'open'
 
     @api.depends('name')

@@ -17,7 +17,7 @@
 
                 <xpath expr="//group/field[@name='partner_id']" position="before">
                     <field name="is_consignment_in" readonly="state in ['purchase', 'done']" />
-                    <field name="consignment_in_state"  readonly="True" />
+                    <field name="consignment_in_state" readonly="True" invisible='not is_consignment_in' />
                 </xpath>
 
             </field>
@@ -34,7 +34,6 @@
                     <filter name="exclude_consignement_in" string="Exclure les dépôts entrés" domain="[('is_consignment_in', '=', False)]"/>
                     <filter name="consignement_in_open" string="Les dépôts en cours" domain="[('consignment_in_state', '=', 'open')]"/>
                     <filter name="consignement_in_closed" string="Les dépôts cloturée" domain="[('consignment_in_state', '=', 'closed')]"/>
-                    <filter name="consignement_in_returned" string="les dépôts retournés" domain="[('consignment_in_state', '=', 'returned')]"/>
                 </xpath>
             </field>
         </record>

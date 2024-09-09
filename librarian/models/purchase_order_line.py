@@ -6,6 +6,19 @@ class PurchaseOrderLine(models.Model):
 
     counted_qte = fields.Float(string='Quantité restante', compute='_compute_counted_qte')
 
+    return_qty = fields.Float(string='Return Quantity', compute='_compute_return_qty', store=True)
+
+    @api.depends('qty_received')
+    def _compute_return_qty(self):
+        for line in self:
+            # Find stock moves related to this purchase order line
+            return_moves = self.env['stock.move'].search([
+                ('purchase_line_id', '=', line.id),
+                ('state', '=', 'done'),
+                ('location_dest_id.usage', '=', 'supplier')  # Returning to supplier
+            ])
+            line.return_qty = sum(return_moves.mapped('product_uom_qty'))
+
     def _compute_counted_qte(self):
         for rec in self:
 
