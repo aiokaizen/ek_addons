@@ -4,7 +4,7 @@ class PurchaseOrderLine(models.Model):
 
     _inherit = 'purchase.order.line'
 
-    counted_qte = fields.Float(string='Quantité restant', compute='_compute_counted_qte')
+    counted_qte = fields.Float(string='Quantité restante', compute='_compute_counted_qte')
 
     def _compute_counted_qte(self):
         for rec in self:
@@ -20,7 +20,6 @@ class PurchaseOrderLine(models.Model):
             if receipt:
 
                 receipt_date = receipt.date_done
-
 
                 sales_after_movement = self.env['sale.order'].search([
                     ('state', '=', 'sale'),  # Only consider confirmed sales

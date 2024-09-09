@@ -15,8 +15,9 @@ class ProductTemplate(models.Model):
         ('hard_cover', 'Rigide'),
     ]
 
+    profit_percent = fields.Float("Pourcentage", digits=(5, 2))
     is_book = fields.Boolean("Livre", default=False)
-    barcode = fields.Char(
+    isbn = fields.Char(
         'ISBN', copy=False, index='btree_not_null',
         help="International Standard Book Number"
     )
@@ -40,19 +41,20 @@ class ProductTemplate(models.Model):
     )
     page_count = fields.Integer("Nombre de pages", required=False)
     release_year = fields.Char( "Année de parution", required=False)
+    size = fields.Char( "Taille", required=False)
     cover = fields.Selection(
         COVER_SELECTION,
         string="Couverture",
         required=False,
     )
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        result = super().create(vals_list)
-        if result.is_book:
-            # Get book data by ISBN
-            result.update_data_from_google_books()
-        return result
+    # @api.model_create_multi
+    # def create(self, vals_list):
+    #     result = super().create(vals_list)
+    #     # if result.is_book:
+    #     #     # Get book data by ISBN
+    #     #     result.update_data_from_google_books()
+    #     return result
 
     def update_data_from_google_books(self):
         """
@@ -141,7 +143,7 @@ class BookProductProduct(models.Model):
     _name = 'product.product'
     _inherit = 'product.product'
 
-    barcode = fields.Char(
+    isbn = fields.Char(
         'ISBN', copy=False, index='btree_not_null',
         help="International Standard Book Number"
     )

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_partner_view_search" model="ir.ui.view">
+            <field name="name">res.partner.search.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='inactive']" position="before">
+                   <filter string="Auteurs" name="is_author" domain="[('is_author','=', True)]"/>
+                   <filter string="Editeurs" name="is_editor" domain="[('is_editor','=', True)]"/>
+                   <separator/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -15,6 +15,41 @@
             </xpath>
         </field>
     </record>
+    <record id="product_template_only_form_view_book" model="ir.ui.view">
+        <field name="name">product.template_only.form.inherit.book</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='barcode']" position="after">
+                <field name="is_book" invisible="True"/>
+                <field name="isbn" invisible="is_book != True"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Product Normal views -->
+    <record id="product_normal_form_view_book" model="ir.ui.view">
+        <field name="name">product.normal.form.inherit.book</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='barcode']" position="after">
+                <field name="is_book" invisible="True"/>
+                <field name="isbn" invisible="is_book != True"/>
+            </xpath>
+        </field>
+    </record>
+    <!-- <record id="product_variant_easy_edit_view_book" model="ir.ui.view">
+        <field name="name">product.variant_easy_edit_view.inherit.book</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="arch" type="xml">
+            <field name="product_template_id.is_book" invisible="True"/>
+            <xpath expr="//field[@name='barcode']" position="after">
+                <field name="isbn" invisible="product_template_id.is_book != True"/>
+            </xpath>
+        </field>
+    </record> -->
 
     <record id="product_template_form_view_book_attributes" model="ir.ui.view">
         <field name="name">product.template.form.inherit.book_attributes</field>
@@ -27,6 +62,7 @@
                     <field name="editor_id" />
                     <field name="page_count" />
                     <field name="release_year" />
+                    <field name="size" />
                     <field name="cover" />
                 </group>
             </xpath>
@@ -38,12 +74,18 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_search_view"/>
         <field name="arch" type="xml">
+            <!-- Fields -->
             <field name="pos_categ_ids" position="after">
                 <field string="Auteur" name="author_ids" filter_domain="[('author_ids', 'child_of', raw_value)]"/>
             </field>
             <field name="pos_categ_ids" position="after">
                 <field string="Editeur" name="editor_id" filter_domain="[('editor_id', 'child_of', raw_value)]"/>
             </field>
+            <field name="pos_categ_ids" position="after">
+                <field string="Année de parution" name="release_year" filter_domain="[('release_year', '=', raw_value)]"/>
+            </field>
+
+            <!-- Filters -->
             <filter name="filter_to_availabe_pos" position="before">
                <filter name="filter_only_books" string="Livres seulement" domain="[('is_book', '=', True)]"/>
             </filter>
