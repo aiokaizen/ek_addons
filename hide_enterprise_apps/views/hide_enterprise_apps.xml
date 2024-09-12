@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Modify the action to apply domain to hide enterprise apps needing upgrade -->
+    <record id="base.open_module_tree" model="ir.actions.act_window">
+        <field name="domain">[("state", "!=", "uninstallable")]</field>
+    </record>
+
+    <!-- Inherit the Kanban view for modules -->
+    <record id="module_view_kanban_inherited" model="ir.ui.view">
+        <field name="name">Module Kanban View Inherited</field>
+        <field name="model">ir.module.module</field>
+        <field name="inherit_id" ref="base.module_view_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="domain">[("state", "!=", "uninstallable")]</attribute>
+                <!-- <attribute name="domain">[('is_enterprise', '=', False), ('state', '!=', 'to upgrade')]</attribute> -->
+                
+            </xpath>
+        </field>
+    </record>
+</odoo>
