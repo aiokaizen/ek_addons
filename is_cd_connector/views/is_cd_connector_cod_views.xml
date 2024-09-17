@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!-- Real Estate Receiver Action -->
+    <record id="is_cd_connector_receiver_action" model="ir.actions.act_window">
+        <field name="name">API Calls</field>
+        <field name="res_model">receiver</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Customize the search view -->
+    <record id="is_cd_connector_receiver_view_search" model="ir.ui.view">
+        <field name="name">is_cd_connector_receiver.view.search</field>
+        <field name="model">receiver</field>
+        <field name="arch" type="xml">
+            <search string="Search Properties">
+                <field name="name"/>
+                <field name="api_url" />
+            </search>
+        </field>
+    </record>
+
+    <!-- Customize the list/tree view -->
+    <record id="is_cd_connector_receiver_view_tree" model="ir.ui.view">
+        <field name="name">is_cd_connector_receiver.tree</field>
+        <field name="model">receiver</field>
+        <field name="arch" type="xml">
+            <tree string="Properties">
+                <field name="name" />
+                <field name="api_url" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Customize the form view -->
+    <record id="is_cd_connector_receiver_view_form" model="ir.ui.view">
+        <field name="name">is_cd_connector_receiver.form</field>
+        <field name="model">receiver</field>
+        <field name="arch" type="xml">
+            <form string="Receiver">
+                <sheet>
+                    <div class="oe_title">
+                        <div class="oe_edit_only">
+                            <label for="name"/>
+                        </div>
+                        <h1 class="mb32">
+                            <field name="name" class="mb16"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="api_url" />
+                            <field name="api_data" widget="json_textarea" />
+                            <field name="api_data2" />
+                            <field name="api_get_params" />
+                            <field name="api_headers" />
+                            <field name="api_extra_info" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>
