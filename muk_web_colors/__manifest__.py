@@ -19,7 +19,7 @@
     ],
     'data': [
         'templates/webclient.xml',
-        'views/res_config_settings.xml',
+        # 'views/res_config_settings.xml',
     ],
     'assets': {
         'web._assets_primary_variables': [

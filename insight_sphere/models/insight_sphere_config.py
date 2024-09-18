@@ -24,7 +24,7 @@ class InsightSphereConfig(models.Model):
             "name": "Insight Sphere Settings",
         })
 
-    @api.model_create_multi
+    @api.model
     def create(self, vals_list):
         first_record = self.env['config'].search([], limit=1)
         if first_record.exists():

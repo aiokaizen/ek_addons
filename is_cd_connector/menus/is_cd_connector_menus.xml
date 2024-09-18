@@ -4,9 +4,10 @@
     <!-- Menu Items -->
     <menuitem id="is_cd_connector_menu_root" name="Crono Diali Connector">
         <menuitem id="is_cd_connector_menu_first_level" name="API Calls">
-            <menuitem id="is_cd_connector_cod_report_menu_action" action="is_cd_connector_cod_report_action"/>
             <menuitem id="is_cd_connector_receiver_menu_action" action="is_cd_connector_receiver_action"/>
-            <menuitem id="is_cd_connector_cod_menu_action" action="is_cd_connector_receiver_action"/>
+        </menuitem>
+        <menuitem id="is_cd_connector_menu_second_level" name="COD">
+            <menuitem id="is_cd_connector_cod_report_menu_action" action="is_cd_connector_cod_report_action"/>
         </menuitem>
     </menuitem>
 

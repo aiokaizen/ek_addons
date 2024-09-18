@@ -36,8 +36,8 @@
                 <field name="shipper_name" />
                 <field name="cod_amount" />
                 <field name="cod_fee" />
-                <field name="status" />
-                <field name="invoice_id" />
+                <field name="status" readonly="True" />
+                <field name="invoice_id" readonly="True" />
             </tree>
         </field>
     </record>
@@ -76,13 +76,13 @@
                     <field name="invoice_generated" invisible='True' />
                     <!-- Add a button to call the action_generate_invoices method -->
                     <button name="action_generate_invoices" type="object" string="Generate Invoices" class="btn-primary" invisible='invoice_generated' />
-                    
+
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="%(action_cod_list_by_report_list)d" type="action"
                                 string="Afficher les encaissements"
-                                icon="fa-money" 
+                                icon="fa-money"
                                 class="oe_highlight"
                                 context="{'default_subscribe_id': active_id or False }">
                                     <!-- <field name="button_label" /> -->

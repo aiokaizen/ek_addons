@@ -2,7 +2,7 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 import base64
 import xlrd
-import os
+
 
 class CODReport(models.Model):
 
@@ -24,10 +24,10 @@ class CODReport(models.Model):
                 record.name = "Rapport"
 
     @api.model
-    def create(self, vals):
+    def create(self, vals_list):
         """Overriding the create method and assigning
          the sequence for the record and other field validations."""
-        records = super().create(vals)
+        records = super().create(vals_list)
         records.generate_cod()
 
         return records
@@ -89,7 +89,7 @@ class CODReport(models.Model):
                 not cod_amount or not customer_contact or not customer_address
             ): # should i have to add receive_state in this condition or not
                 status = 'Invalid'
-            
+
             if not tracking_id:
                 continue
 
@@ -139,8 +139,8 @@ class CODReport(models.Model):
             raise UserError("Invalid file format or content. Please upload a valid Excel file.")
 
         # Read and parse the Excel file row by row
-        product_id = 61  # Use your own product ID
-        sequence_obj = self.env['ir.sequence']  
+        product_id = 47  # Use your own product ID
+        sequence_obj = self.env['ir.sequence']
         cods = self.env['cod'].search([('report_id', '=', self.id)])
         for cod in cods:  # Start from the second row, assuming the first is the header
             if not cod.invoice_id:
@@ -156,10 +156,10 @@ class CODReport(models.Model):
                 shipper_name = cod.shipper_name
                 cod_amount = cod.cod_amount
                 cod_fee = cod.cod_fee
-                
+
                 if cod.status == 'Invalid':
                     continue
-                
+
                 # Search for or create the customer
                 partner_id = self.env['res.partner'].search([('name', '=', customer_name), ('phone', '=', customer_contact)], limit=1)
                 if not partner_id:
@@ -226,32 +226,30 @@ class COD(models.Model):
     shipper_name = fields.Char("Shipper Name")
     cod_amount = fields.Float("COD Amount")
     cod_fee = fields.Char("COD Fee (Estimate)")
-    status = fields.Selection([('Valid', 'Valid'), ('Invalid', 'Invalid')]) 
+    status = fields.Selection([('Valid', 'Valid'), ('Invalid', 'Invalid')], compute='_compute_status')
     invoice_id = fields.Many2one('account.move', string='Invoice')
 
-
-    @api.onchange('customer_name', 'customer_contact', 'customer_address', 'customer_postcode')
-    def onchange_for_status(self):
+    @api.depends('cod_amount', 'customer_name', 'customer_contact', 'customer_address', 'delivery_date')
+    def _compute_status(self):
         for rec in self:
-            if (not self.customer_name
+            if (not rec.customer_name
                 or not rec.customer_contact
-                or not rec.customer_address):
+                or not rec.customer_address
+                or not rec.cod_amount
+                or not rec.delivery_date):
                 rec.status = 'Invalid'
+                rec.sequence = 0
             else:
-                rec.status = 'Invalid'
-
-
+                rec.status = 'Valid'
+                rec.sequence = 1
 
     @api.model
-    def create(self, vals):
+    def create(self, vals_list):
         """Overriding the create method and assigning
          the sequence for the record and other field validations."""
-        if vals.get('status') == 'Invalid':
-            vals['sequence'] = 0
-        if vals.get('name', _('New')) == _('New'):
-            vals['name'] =  self.env['ir.sequence'].next_by_code(
+        if vals_list.get('status') == 'Invalid':
+            vals_list['sequence'] = 0
+        if vals_list.get('name', _('New')) == _('New'):
+            vals_list['name'] =  self.env['ir.sequence'].next_by_code(
                 'cod') or _('New')
-        return super().create(vals)
-
-    
-  
+        return super().create(vals_list)
