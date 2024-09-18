@@ -85,8 +85,8 @@ class CODReport(models.Model):
                 cod_amount = 0
             cod_fee = row[12].value
             status = 'Valid'
-            if (not customer_name or not delivery_date or  
-                not cod_amount or not customer_contact
+            if (not customer_name or not delivery_date  or
+                not cod_amount or not customer_contact or not customer_address
             ): # should i have to add receive_state in this condition or not
                 status = 'Invalid'
             
@@ -110,16 +110,6 @@ class CODReport(models.Model):
                 'cod_fee': cod_fee,
                 'status': status
             })
-
-            # Search for or create the customer
-            partner_id = self.env['res.partner'].search([('name', '=', customer_name), ('phone', '=', customer_contact)], limit=1)
-            if not partner_id:
-                partner_id = self.env['res.partner'].create({
-                    'name': customer_name,
-                    'phone': customer_contact,
-                    'street': customer_address,
-                    'zip': customer_postcode,
-                })
 
         return {
                 'type': 'ir.actions.client',
@@ -240,6 +230,18 @@ class COD(models.Model):
     invoice_id = fields.Many2one('account.move', string='Invoice')
 
 
+    @api.onchange('customer_name', 'customer_contact', 'customer_address', 'customer_postcode')
+    def onchange_for_status(self):
+        for rec in self:
+            if (not self.customer_name
+                or not rec.customer_contact
+                or not rec.customer_address):
+                rec.status = 'Invalid'
+            else:
+                rec.status = 'Invalid'
+
+
+
     @api.model
     def create(self, vals):
         """Overriding the create method and assigning
@@ -250,3 +252,6 @@ class COD(models.Model):
             vals['name'] =  self.env['ir.sequence'].next_by_code(
                 'cod') or _('New')
         return super().create(vals)
+
+    
+  
