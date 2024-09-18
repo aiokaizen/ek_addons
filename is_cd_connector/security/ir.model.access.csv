@@ -1,2 +1,4 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 is_cd_connector.access_receiver,access_receiver,is_cd_connector.model_receiver,base.group_user,1,1,1,1
+is_cd_connector.access_cod,access_cod,is_cd_connector.model_cod,base.group_user,1,1,1,0
+is_cd_connector.access_cod_report,access_cod_report,is_cd_connector.model_cod_report,base.group_user,1,1,1,1

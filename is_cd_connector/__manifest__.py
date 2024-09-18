@@ -14,6 +14,8 @@
     'data': [
         'security/ir.model.access.csv',
         'views/is_cd_connector_receiver_views.xml',
+        'views/is_cd_connector_cod_report_views.xml',
+        'data/ir_sequence_data.xml',
         'menus/is_cd_connector_menus.xml',
     ],
     'license': 'Other proprietary',
