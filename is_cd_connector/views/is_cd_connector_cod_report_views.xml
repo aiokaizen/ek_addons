@@ -20,24 +20,26 @@
         <field name="name">cod.report.tree</field>
         <field name="model">cod</field>
         <field name="arch" type="xml">
-            <tree editable='top'
+            <tree 
+                editable='top'
                 decoration-danger="status == 'Invalid'"
             >
-                <field name="name" />
-                <field name="report_id" />
-                <field name="delivery_date" />
-                <field name="tracking_id" />
-                <field name="receive_state" />
-                <field name="customer_name" />
-                <field name="customer_contact" />
-                <field name="customer_address" />
-                <field name="customer_postcode" />
-                <field name="granular_status" />
-                <field name="shipper_name" />
-                <field name="cod_amount" />
-                <field name="cod_fee" />
-                <field name="status" readonly="True" />
-                <field name="invoice_id" readonly="True" />
+
+                <field name="name" readonly="invoice_id"/>
+                <field name="report_id" readonly="invoice_id"/>
+                <field name="delivery_date" readonly="invoice_id"/>
+                <field name="tracking_id" readonly="invoice_id"/>
+                <field name="receive_state" readonly="invoice_id"/>
+                <field name="customer_name" readonly="invoice_id"/>
+                <field name="customer_contact" readonly="invoice_id"/>
+                <field name="customer_address" readonly="invoice_id"/>
+                <field name="customer_postcode" readonly="invoice_id"/>
+                <field name="granular_status" readonly="invoice_id"/>
+                <field name="shipper_name" readonly="invoice_id"/>
+                <field name="cod_amount" readonly="invoice_id"/>
+                <field name="cod_fee" readonly="invoice_id"/>
+                <field name="status" readonly="True"/>
+                <field name="invoice_id" readonly="True"/>
             </tree>
         </field>
     </record>
@@ -49,7 +51,7 @@
         <field name="arch" type="xml">
             <search>
                 <field name="name" />
-                <field name="report_id" />
+                <!-- <field name="report_id" /> -->
                 <field name="delivery_date" />
                 <field name="tracking_id" />
                 <field name="receive_state" />
@@ -74,8 +76,23 @@
                 <header>
 
                     <field name="invoice_generated" invisible='True' />
+                    <field name="is_invalid" invisible='True' />
                     <!-- Add a button to call the action_generate_invoices method -->
-                    <button name="action_generate_invoices" type="object" string="Generate Invoices" class="btn-primary" invisible='invoice_generated' />
+                        <button 
+                            name="action_generate_invoices" 
+                            type="object" 
+                            string="Generate Invoices" 
+                            invisible='invoice_generated or is_invalid'
+                            class='btn btn-primary'
+                        />
+                        <button 
+                            name="action_generate_invoices" 
+                            type="object" 
+                            string="Generate Invoices" 
+                            class="disabled"
+                            invisible='not is_invalid'
+                        />
+                    
 
                 </header>
                 <sheet>

@@ -13,6 +13,7 @@ class CODReport(models.Model):
     cod_ids = fields.One2many('cod', inverse_name='report_id', string='Cod list')
     invoice_generated = fields.Boolean(default=False)
     file_name = fields.Char(string="File Name")  # Field to store the file name
+    is_invalid = fields.Boolean(compute='_compute_invalid')
 
     @api.depends('file_name')
     def _compute_name(self):
@@ -51,6 +52,16 @@ class CODReport(models.Model):
                 }
             }
 
+    @api.depends('cod_ids.status')
+    def _compute_invalid(self):
+        for rec in self:
+            cods_invalid = rec.cod_ids.search([('report_id', '=', rec.id), ('status', '=', 'Invalid')])
+            print(cods_invalid,' ---------------------------------------------------- ')
+
+            if cods_invalid:
+                rec.is_invalid = True
+            else:
+                rec.is_invalid = False
     def generate_cod(self):
 
         # Ensure a file has been uploaded
@@ -140,8 +151,11 @@ class CODReport(models.Model):
 
         # Read and parse the Excel file row by row
         product_id = 47  # Use your own product ID
-        sequence_obj = self.env['ir.sequence']
         cods = self.env['cod'].search([('report_id', '=', self.id)])
+        cods_invalid = self.env['cod'].search([('report_id', '=', self.id), ('status', '=', 'Invalid')])
+        # stop generation of invoices if at least one cod is invalid
+        if cods_invalid:
+            return True
         for cod in cods:  # Start from the second row, assuming the first is the header
             if not cod.invoice_id:
                 # Extract each cell's value from the row
@@ -163,11 +177,14 @@ class CODReport(models.Model):
                 # Search for or create the customer
                 partner_id = self.env['res.partner'].search([('name', '=', customer_name), ('phone', '=', customer_contact)], limit=1)
                 if not partner_id:
+                    morocco_country_id = self.env['res.country'].search([('name', '=', 'Morocco')], limit=1)
                     partner_id = self.env['res.partner'].create({
                         'name': customer_name,
                         'phone': customer_contact,
                         'street': customer_address,
+                        'street2': 'Téléphone:'+customer_contact,
                         'zip': customer_postcode,
+                        'country_id': morocco_country_id.id,
                     })
                 # Create the draft invoice
                 invoice = self.env['account.move'].create({
@@ -226,7 +243,7 @@ class COD(models.Model):
     shipper_name = fields.Char("Shipper Name")
     cod_amount = fields.Float("COD Amount")
     cod_fee = fields.Char("COD Fee (Estimate)")
-    status = fields.Selection([('Valid', 'Valid'), ('Invalid', 'Invalid')], compute='_compute_status')
+    status = fields.Selection([('Valid', 'Valid'), ('Invalid', 'Invalid')], compute='_compute_status', store=True)
     invoice_id = fields.Many2one('account.move', string='Invoice')
 
     @api.depends('cod_amount', 'customer_name', 'customer_contact', 'customer_address', 'delivery_date')
