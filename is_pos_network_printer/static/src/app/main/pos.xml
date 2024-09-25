@@ -356,16 +356,6 @@
         </xpath>
         
 
-        <xpath expr="//div[hasclass('pos-receipt-taxes')]" position="replace" >
-            <br/>
-            <div t-if="props.data.tax_details.length > 0" class="custom-pos-receipt-taxes">
-                <t t-foreach="props.data.tax_details" t-as="tax" t-key="tax.tax.id">
-                    <span>TVA à <t t-esc="'('+tax.tax.amount+'%)'"/>  :  <t t-esc="props.formatCurrency(tax.amount)"></t> </span>
-                </t>
-            </div>
-            
-        </xpath>
-
         <xpath expr="//div[hasclass('receipt-change')]" position="replace" >
             <div class="receipt-change mt-2">
                 CHANGE
@@ -390,15 +380,5 @@
         </xpath>
     </t>
 
-    <t t-name="RestaurantReceiptHeader" t-inherit="point_of_sale.ReceiptHeader" t-inherit-mode="extension">
-        <xpath expr="//div[hasclass('cashier')]" position="after">
-            <t t-if="props.data.table">
-                Table <t t-esc="props.data.table" />  |  Guests: <t t-esc="props.data.customer_count" />   |
-            </t>
-            <!-- <t t-if="props.data.table and props.data.customer_count">
-                <div></div>
-            </t> -->
-        </xpath>
-    </t>
 
 </templates>
