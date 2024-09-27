@@ -38,9 +38,14 @@
                             'views/pos_config_views.xml',
                           ],
   "assets"               :  {
-                              'point_of_sale._assets_pos': [
+                              # 'point_of_sale._assets_pos': [
+                              #   'is_pos_network_printer/static/src/**/*',
+                              #   # 'is_pos_network_printer/static/src/app/**/*',
+                              # ],
+                              'point_of_sale.assets_pos': [
+                                ('include', 'point_of_sale._assets_pos'),
+                                'point_of_sale/static/src/app/main.js',
                                 'is_pos_network_printer/static/src/**/*',
-                                # 'is_pos_network_printer/static/src/app/**/*',
                               ],
                             },
   "images"               :  ['static/description/Banner.png'],
