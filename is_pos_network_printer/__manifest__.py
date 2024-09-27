@@ -39,7 +39,6 @@
                           ],
   "assets"               :  {
                               'point_of_sale._assets_pos': [
-                                ('include', 'point_of_sale._assets_pos'),
                                 'is_pos_network_printer/static/src/**/*',
                                 # 'is_pos_network_printer/static/src/app/**/*',
                               ],
