@@ -2,46 +2,44 @@ import json
 import base64
 import requests
 
-from odoo import fields, models, api
+from odoo import fields, models
 
 
 class ProductTemplate(models.Model):
-
-    _name = 'product.template'
-    _inherit = 'product.template'
+    _name = "product.template"
+    _inherit = "product.template"
 
     COVER_SELECTION = [
-        ('paper_cover', 'Papier'),
-        ('hard_cover', 'Rigide'),
+        ("paper_cover", "Papier"),
+        ("hard_cover", "Rigide"),
     ]
 
     profit_percent = fields.Float("Pourcentage", digits=(5, 2))
     is_book = fields.Boolean("Livre", default=False)
     isbn = fields.Char(
-        'ISBN', copy=False, index='btree_not_null',
-        help="International Standard Book Number"
+        "ISBN",
+        copy=False,
+        index="btree_not_null",
+        help="International Standard Book Number",
     )
     google_books_volume_id = fields.Char("Google Books ID", copy=False, required=False)
     author_ids = fields.Many2many(
-        'res.partner',
+        "librarian.author",
         string="Auteurs",
-        domain="[('is_author', '=', True)]",
-        relation='book_author_rel',  # The name of the relation table (optional)
-        column1='book_id',  # Column name representing this model (optional)
-        column2='author_id',  # Column name representing the related model (optional)
+        relation="book_author",  # The name of the relation table (optional)
+        column1="book_id",  # Column name representing this model (optional)
+        column2="author_ids",  # Column name representing the related model (optional)
     )
     editor_id = fields.Many2one(
-        'res.partner',
+        "librarian.editor",
         string="Éditeur",
-        domain="[('is_editor', '=', True)]",
-        ondelete='restrict',  # corresponds to Django's PROTECT
+        ondelete="restrict",  # corresponds to Django's PROTECT
         # ondelete='cascade',  # corresponds to Django's CASCADE
         required=False,
-        help="Editor of the book",
     )
     page_count = fields.Integer("Nombre de pages", required=False)
-    release_year = fields.Char( "Année de parution", required=False)
-    size = fields.Char( "Taille", required=False)
+    release_year = fields.Char("Année de parution", required=False)
+    size = fields.Char("Taille", required=False)
     cover = fields.Selection(
         COVER_SELECTION,
         string="Couverture",
@@ -58,11 +56,10 @@ class ProductTemplate(models.Model):
 
     def update_data_from_google_books(self):
         """
-            This method searches Google Books API for the cover picture and other
-            information about the book using its ISBN and updates the book accordingly.
+        This method searches Google Books API for the cover picture and other
+        information about the book using its ISBN and updates the book accordingly.
         """
         for book in self:
-
             isbn = book.barcode.split("_")[0]
             if not isbn:
                 continue
@@ -74,7 +71,7 @@ class ProductTemplate(models.Model):
                 continue
 
             results = json.loads(response.content)
-            if 'items' not in results:
+            if "items" not in results:
                 continue
             book_data = results["items"][0]
             book_api_id = book_data["id"]
@@ -83,7 +80,7 @@ class ProductTemplate(models.Model):
 
             authors_names = book_data.get("authors", [])
             publisher_name = book_data.get("publisher", "")
-            release_year = book_data.get("publishedDate", "").split('-')[0]
+            release_year = book_data.get("publishedDate", "").split("-")[0]
             page_count = book_data.get("pageCount")
 
             # Get book cover
@@ -93,7 +90,7 @@ class ProductTemplate(models.Model):
             )
             if image_link:
                 image_response = requests.get(image_link)
-                cover_picture = base64.b64encode(image_response.content).decode('utf-8')
+                cover_picture = base64.b64encode(image_response.content).decode("utf-8")
                 book.image_1920 = book.image_1920 or cover_picture
 
             # Handle Authors
@@ -101,17 +98,16 @@ class ProductTemplate(models.Model):
                 author_ids = []
                 for author_name in authors_names:
                     # Check if author already exists
-                    author = self.env['res.partner'].search(
-                        [('name', '=', author_name), ('is_author', '=', True)],
-                        limit=1
+                    author = self.env["librarian.author"].search(
+                        [("name", "=", author_name)], limit=1
                     )
                     if not author:
                         # If author doesn't exist, create one
-                        author = self.env['res.partner'].create({
-                            'name': author_name,
-                            'is_company': False,
-                            'is_author': True,
-                        })
+                        author = self.env["librarian.author"].create(
+                            {
+                                "name": author_name,
+                            }
+                        )
                     author_ids.append(author.id)
                 # Update the authors for the book
                 book.author_ids = [(6, 0, author_ids)]
@@ -119,17 +115,16 @@ class ProductTemplate(models.Model):
             # Handle Publisher
             if publisher_name and not book.editor_id:
                 # Check if the publisher already exists
-                publisher = self.env['res.partner'].search(
-                    [('name', '=', publisher_name), ('is_editor', '=', True)],
-                    limit=1
+                publisher = self.env["librarian.editor"].search(
+                    [("name", "=", publisher_name), ("is_editor", "=", True)], limit=1
                 )
                 if not publisher:
                     # If publisher doesn't exist, create one
-                    publisher = self.env['res.partner'].create({
-                        'name': publisher_name,
-                        'is_company': True,
-                        'is_editor': True,
-                    })
+                    publisher = self.env["librarian.editor"].create(
+                        {
+                            "name": publisher_name,
+                        }
+                    )
                 # Update the publisher for the book
                 book.editor_id = publisher.id
 
@@ -139,11 +134,12 @@ class ProductTemplate(models.Model):
 
 
 class BookProductProduct(models.Model):
-
-    _name = 'product.product'
-    _inherit = 'product.product'
+    _name = "product.product"
+    _inherit = "product.product"
 
     isbn = fields.Char(
-        'ISBN', copy=False, index='btree_not_null',
-        help="International Standard Book Number"
+        "ISBN",
+        copy=False,
+        index="btree_not_null",
+        help="International Standard Book Number",
     )
