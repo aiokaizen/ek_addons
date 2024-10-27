@@ -7,7 +7,7 @@ from odoo import fields, models
 
 class ProductTemplate(models.Model):
     _name = "product.template"
-    _inherit = "product.template"
+    _inherit = ["product.template", "librarian.xmlid.mixin"]
 
     COVER_SELECTION = [
         ("paper_cover", "Papier"),
@@ -135,7 +135,7 @@ class ProductTemplate(models.Model):
 
 class BookProductProduct(models.Model):
     _name = "product.product"
-    _inherit = "product.product"
+    _inherit = ["product.product", "librarian.xmlid.mixin"]
 
     isbn = fields.Char(
         "ISBN",
