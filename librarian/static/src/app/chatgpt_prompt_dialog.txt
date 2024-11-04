@@ -1,3 +1,0 @@
-addons/web_editor/static/src/js/wysiwyg/widgets/chatgpt_prompt_dialog.xml
-
-Inherit from the file above to override OdooBot to System or CaisseMasterBot

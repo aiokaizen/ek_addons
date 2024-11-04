@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-librarian.access_librarian_purchase_order_line,access_librarian_purchase_order_line,librarian.model_purchase_order_line,base.group_user,1,1,1,1
-librarian.access_librarian_author,access_librarian_author,librarian.model_librarian_author,base.group_system,1,1,1,1
-librarian.access_librarian_editor,access_librarian_editor,librarian.model_librarian_editor,base.group_system,1,1,1,1
-librarian.access_librarian_author,access_librarian_author,librarian.model_librarian_author,base.group_user,1,1,1,1
-librarian.access_librarian_editor,access_librarian_editor,librarian.model_librarian_editor,base.group_user,1,1,1,1
-
